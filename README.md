@@ -4,5 +4,5 @@ https://github.com/isometimes/rpi4-osdev
 
 ![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/Framebuffer%20Location.png)
 
-# PiX - Raspberry Pi GPU Concept
+# PiX - Raspberry Pi GPU Concept Render
 ![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/RPiCard.jpg)
