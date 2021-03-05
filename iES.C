@@ -35,6 +35,12 @@ void platform_setup(void)
 
     Platform.MONITOR_FRAMEBUFFER = 0x00000000FE2FE000; //Temporary, will be rewritten...
     Platform.MONITOR_PITCH_SPACE = 0x0000000000000000;
+
+    Platform.MONITOR_NUM_DISPLAYS = 0;
+    for (int i = 0; i < 5; ++i) { Platform.MONITOR_DISPLAY_ID[i] = 0; }
+    
+    Platform.MONITOR_FRAMEBUFFER2 = 0x00000000FE2FE000; //Temporary, will be rewritten...
+    Platform.MONITOR_PITCH_SPACE2 = 0x0000000000000000;
 }
 
 void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size)
@@ -202,3 +208,99 @@ b=i;Platform.Mailbox[i++] = 0;          //Value
         Platform.MONITOR_PITCH_SPACE = Platform.Mailbox[b];
     }
 }
+
+void mbox_get_mon_info(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    ADDRESS b = 0;
+    ADDRESS c = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00040013; //MBOX_TAG_GET_NUM_DISPLAYS
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+a=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00040016; //MBOX_TAG_GET_DISPLAY_ID
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+b=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048013; //MBOX_TAG_SET_DISPLAY_NUM
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+    Platform.Mailbox[i++] = 1;          //Value //Change to 1 if it doesn't work
+
+    Platform.Mailbox[i++] = 0x00040016; //MBOX_TAG_GET_DISPLAY_ID
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+c=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        Platform.MONITOR_NUM_DISPLAYS = Platform.Mailbox[a];
+        Platform.MONITOR_DISPLAY_ID[0] = Platform.Mailbox[b];
+        Platform.MONITOR_DISPLAY_ID[1] = Platform.Mailbox[c];
+    }
+}
+
+void mbox_get_framebuffer2(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    ADDRESS b = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00048003; //MBOX_TAG_SETPHYHW
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 1080;       //Value
+
+    Platform.Mailbox[i++] = 0x00048004; //MBOX_TAG_SETVIRTHW
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 1080;       //Value
+
+    Platform.Mailbox[i++] = 0x00048009; //MBOX_TAG_SETVIRTOFF
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048005; //MBOX_TAG_SETDEPTH
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 0;          //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048006; //MBOX_TAG_SETXPLODR
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+    Platform.Mailbox[i++] = 1;          //Value
+
+    Platform.Mailbox[i++] = 0x00040001; //MBOX_TAG_GETFB
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+a=i;Platform.Mailbox[i++] = 4096;       //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00040008; //MBOX_TAG_GETPITCH
+    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+b=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        Platform.MONITOR_FRAMEBUFFER2 = Platform.Mailbox[a] & 0x3FFFFFFF; //Translate from VC to ARM address
+        Platform.MONITOR_PITCH_SPACE2 = Platform.Mailbox[b];
+    }
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

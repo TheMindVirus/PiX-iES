@@ -51,6 +51,12 @@ typedef struct _PLATFORM
 
     ADDRESS   MONITOR_FRAMEBUFFER;
     VALUE     MONITOR_PITCH_SPACE;
+
+    VALUE     MONITOR_NUM_DISPLAYS;
+    VALUE     MONITOR_DISPLAY_ID[5];
+	
+    ADDRESS   MONITOR_FRAMEBUFFER2;
+    VALUE     MONITOR_PITCH_SPACE2;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -110,5 +116,7 @@ VALUE mbox_setup(BYTE channel);
 #define mbox_read()   (mmio_read(Platform.MBOX_READ))
 #define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
 void mbox_get_framebuffer(void);
+void mbox_get_mon_info(void);
+void mbox_get_framebuffer2(void);
 
-#endif//IES_H
+#endif//IES_H                                                                                                            
