@@ -6,5 +6,5 @@ https://github.com/isometimes/rpi4-osdev
 
 ![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/second-monitor.png)
 
-# PiX - Raspberry Pi GPU Concept Render
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/RPiCard.jpg)
+# Ripple - Raspberry Pi Smartphone Concept Render
+![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/Ripple-Phone.png)
