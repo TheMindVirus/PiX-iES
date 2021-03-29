@@ -6,4 +6,4 @@ https://wiki.osdev.org/Raspberry_Pi_Bare_Bones
 
 # Raspberry Pi Logo - Dot Matrix Filter
 ![alt text](https://github.com/TheMindVirus/PiX-iES/blob/pi1-arm32/PiLogoDotMatrix.jpg) \
-(edited with Photomosh: https://photomosh.com/)
+Edited with Photomosh: https://photomosh.com/
