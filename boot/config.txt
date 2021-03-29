@@ -1,0 +1,13 @@
+# For more options and information see
+# https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
+# Some settings may impact device functionality. See link above for details
+
+[all]
+enable_uart=1
+uart_2ndstage=1
+hdmi_force_hotplug=1
+disable_overscan=1
+kernel=pix.ies
+start_x=1
+
+core_freq_min=500
