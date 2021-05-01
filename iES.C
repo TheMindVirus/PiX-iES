@@ -35,6 +35,20 @@ void platform_setup(void)
 
     Platform.MONITOR_FRAMEBUFFER = 0x00000000FE2FE000; //Temporary, will be rewritten...
     Platform.MONITOR_PITCH_SPACE = 0x0000000000000000;
+
+    Platform.MONITOR_NUM_DISPLAYS = 0;
+    for (ADDRESS i = 0; i < 5; ++i) { Platform.MONITOR_DISPLAY_ID[i] = 0; }
+    
+    Platform.MONITOR_FRAMEBUFFER2 = 0x00000000FE2FE000; //Temporary, will be rewritten...
+    Platform.MONITOR_PITCH_SPACE2 = 0x0000000000000000;
+
+    for (ADDRESS i = 0; i < MAX_SIZE; ++i)
+    {
+        Platform.Mailbox[i] = 0;
+        Platform.EDID[i] = 0;
+    }
+
+    Platform.EDIDsize = 0;
 }
 
 void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size)
@@ -57,20 +71,18 @@ void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size)
 
 void uart_setup(VALUE baud)
 {
-    mmio_write(Platform.AUX_ENABLES, 1);
-    mmio_write(Platform.AUX_MU_IER_REG, 0);
-    mmio_write(Platform.AUX_MU_CNTL_REG, 0);
-    mmio_write(Platform.AUX_MU_LCR_REG, 3);
-    mmio_write(Platform.AUX_MU_MCR_REG, 0);
-    mmio_write(Platform.AUX_MU_IER_REG, 0);
-    mmio_write(Platform.AUX_MU_IIR_REG, 0xC6); //Enable Interrupts
-    mmio_write(Platform.AUX_MU_BAUD_REG, ((Platform.UART_CLOCK / (baud * 8)) - 1)); //8x Oversampling
-    
     gpio_pull(14, GPIO_PULL_NONE);
     gpio_alt(14, GPIO_ALT5);
     gpio_pull(15, GPIO_PULL_NONE);
     gpio_alt(15, GPIO_ALT5);
+
+    mmio_write(Platform.AUX_ENABLES, 1);
+    mmio_write(Platform.AUX_MU_CNTL_REG, 0);
+    mmio_write(Platform.AUX_MU_LCR_REG, 3); //8-bit Mode (should be 1 but reserved bit needs setting)
+    mmio_write(Platform.AUX_MU_IIR_REG, 0xC6); //Clear FIFO
+    mmio_write(Platform.AUX_MU_BAUD_REG, ((Platform.UART_CLOCK / (baud * 8)) - 1)); //8x Oversampling
     mmio_write(Platform.AUX_MU_CNTL_REG, 3);
+    for(int i = 0; i < MAX_SIZE; ++i) { uart_write_byte('\0'); }
 }
 
 LITERAL uart_read(ADDRESS length)
@@ -139,8 +151,8 @@ VALUE mbox_setup(BYTE channel)
     {
         while((mbox_peek() & MBOX_EMPTY) != 0);
         checked = mbox_read();
-        uart_print(checked);
-        uart_write("\n");
+        //uart_print(checked);
+        //uart_write("\n");
         if (mail == checked) { return MBOX_SUCCESS; }
     }
     return MBOX_FAILURE;
@@ -154,43 +166,43 @@ void mbox_get_framebuffer(void)
     Platform.Mailbox[i++] = 0;          //Mailbox Request
 
     Platform.Mailbox[i++] = 0x00048003; //MBOX_TAG_SETPHYHW
-    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
     Platform.Mailbox[i++] = 1920;       //Value
     Platform.Mailbox[i++] = 1080;       //Value
 
     Platform.Mailbox[i++] = 0x00048004; //MBOX_TAG_SETVIRTHW
-    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
     Platform.Mailbox[i++] = 1920;       //Value
     Platform.Mailbox[i++] = 1080;       //Value
 
     Platform.Mailbox[i++] = 0x00048009; //MBOX_TAG_SETVIRTOFF
-    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
     Platform.Mailbox[i++] = 0;          //Value
     Platform.Mailbox[i++] = 0;          //Value
 
     Platform.Mailbox[i++] = 0x00048005; //MBOX_TAG_SETDEPTH
-    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
     Platform.Mailbox[i++] = 0;          //Value
     Platform.Mailbox[i++] = 0;          //Value
 
     Platform.Mailbox[i++] = 0x00048006; //MBOX_TAG_SETXPLODR
-    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
     Platform.Mailbox[i++] = 1;          //Value
 
     Platform.Mailbox[i++] = 0x00040001; //MBOX_TAG_GETFB
-    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
 a=i;Platform.Mailbox[i++] = 4096;       //Value
     Platform.Mailbox[i++] = 0;          //Value
 
     Platform.Mailbox[i++] = 0x00040008; //MBOX_TAG_GETPITCH
-    Platform.Mailbox[i++] = 4;          //Data Length (bytes)
-    Platform.Mailbox[i++] = 1 * 4;      //Data Length
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
 b=i;Platform.Mailbox[i++] = 0;          //Value
 
     Platform.Mailbox[i++] = 0;          //End Mark
@@ -201,4 +213,294 @@ b=i;Platform.Mailbox[i++] = 0;          //Value
         Platform.MONITOR_FRAMEBUFFER = Platform.Mailbox[a] & 0x3FFFFFFF; //Translate from VC to ARM address
         Platform.MONITOR_PITCH_SPACE = Platform.Mailbox[b];
     }
+}
+
+void mbox_get_mon_info(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    ADDRESS b = 0;
+    ADDRESS c = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00040013; //MBOX_TAG_GET_NUM_DISPLAYS
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00040016; //MBOX_TAG_GET_DISPLAY_ID
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+b=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048013; //MBOX_TAG_SET_DISPLAY_NUM
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+    Platform.Mailbox[i++] = 1;          //Value //Change to 1 if it doesn't work
+
+    Platform.Mailbox[i++] = 0x00040016; //MBOX_TAG_GET_DISPLAY_ID
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+c=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        Platform.MONITOR_NUM_DISPLAYS  = Platform.Mailbox[a];
+        Platform.MONITOR_DISPLAY_ID[0] = Platform.Mailbox[b];
+        Platform.MONITOR_DISPLAY_ID[1] = Platform.Mailbox[c];
+    }
+}
+
+void mbox_get_framebuffer2(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    ADDRESS b = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00048003; //MBOX_TAG_SETPHYHW
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 1080;       //Value
+
+    Platform.Mailbox[i++] = 0x00048004; //MBOX_TAG_SETVIRTHW
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 1080;       //Value
+
+    Platform.Mailbox[i++] = 0x00048009; //MBOX_TAG_SETVIRTOFF
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
+    Platform.Mailbox[i++] = 1920;       //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048005; //MBOX_TAG_SETDEPTH
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
+    Platform.Mailbox[i++] = 0;          //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00048006; //MBOX_TAG_SETXPLODR
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+    Platform.Mailbox[i++] = 1;          //Value
+
+    Platform.Mailbox[i++] = 0x00040001; //MBOX_TAG_GETFB
+    Platform.Mailbox[i++] = 8;          //Buffer Length
+    Platform.Mailbox[i++] = 8;          //Data Length
+a=i;Platform.Mailbox[i++] = 4096;       //Value
+    Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0x00040008; //MBOX_TAG_GETPITCH
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+b=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        Platform.MONITOR_FRAMEBUFFER2 = Platform.Mailbox[a] & 0x3FFFFFFF; //Translate from VC to ARM address
+        Platform.MONITOR_PITCH_SPACE2 = Platform.Mailbox[b];
+    }
+}
+
+void print_memory(void)
+{
+    for (ADDRESS i = 0; i < 9; ++i)
+    {
+        uart_write("[MBOX]: MBOX[");
+        uart_print((VALUE)i);
+        uart_write("] | Address: ");
+        uart_print(Platform.MBOX_BASE + (i * 4));
+        uart_write(" | Value: ");
+        uart_print((VALUE)(*(POINTER)(Platform.MBOX_BASE + (i * 4))));
+        uart_write("\n");
+    }
+    uart_write("\n");
+}
+
+void print_packet(VALUE size)
+{
+    for (ADDRESS i = 0; i < size; ++i)
+    {
+        uart_write("[MBOX]: Platform.Mailbox[");
+        uart_print((VALUE)i);
+        uart_write("] = ");
+        uart_print((VALUE)Platform.Mailbox[i]);
+        uart_write("\n");
+    }
+    uart_write("\n");
+}
+
+void zero_packet(VALUE size) { for (ADDRESS i = 0; i < size; ++i) { Platform.Mailbox[i] = 0; } }
+
+VALUE mem_alloc(VALUE size, VALUE align, VALUE flags)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x0003000C; //MBOX_TAG_ALLOCATE_MEMORY
+    Platform.Mailbox[i++] = 12;         //Buffer Length
+    Platform.Mailbox[i++] = 12;         //Data Length
+a=i;Platform.Mailbox[i++] = size;       //Value
+    Platform.Mailbox[i++] = align;      //Value
+    Platform.Mailbox[i++] = flags;      //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE mem_free(VALUE handle)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x0003000F; //MBOX_TAG_RELEASE_MEMORY
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = handle;     //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE mem_lock(VALUE handle)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x0003000D; //MBOX_TAG_LOCK_MEMORY
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = handle;     //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE mem_unlock(VALUE handle)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x0003000E; //MBOX_TAG_UNLOCK_MEMORY
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = handle;     //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE qpu_setup(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00030012; //MBOX_TAG_SET_ENABLE_QPU
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = 1;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE qpu_release(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00030012; //MBOX_TAG_SET_ENABLE_QPU
+    Platform.Mailbox[i++] = 4;          //Buffer Length
+    Platform.Mailbox[i++] = 4;          //Data Length
+a=i;Platform.Mailbox[i++] = 0;          //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE qpu_code(VALUE code, VALUE r0, VALUE r1, VALUE r2, VALUE r3, VALUE r4, VALUE r5)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00030010; //MBOX_TAG_EXECUTE_CODE
+    Platform.Mailbox[i++] = 28;         //Buffer Length
+    Platform.Mailbox[i++] = 28;         //Data Length
+a=i;Platform.Mailbox[i++] = code;       //Value
+    Platform.Mailbox[i++] = r0;         //Value
+    Platform.Mailbox[i++] = r1;         //Value
+    Platform.Mailbox[i++] = r2;         //Value
+    Platform.Mailbox[i++] = r3;         //Value
+    Platform.Mailbox[i++] = r4;         //Value
+    Platform.Mailbox[i++] = r5;         //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+VALUE qpu_run(VALUE num_qpus, VALUE control, VALUE no_flush, VALUE timeout)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00030011; //MBOX_TAG_EXECUTE_QPU
+    Platform.Mailbox[i++] = 16;         //Buffer Length
+    Platform.Mailbox[i++] = 16;         //Data Length
+a=i;Platform.Mailbox[i++] = num_qpus;   //Value
+    Platform.Mailbox[i++] = control;    //Value
+    Platform.Mailbox[i++] = no_flush;   //Value
+    Platform.Mailbox[i++] = timeout;    //Value
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8)) { return Platform.Mailbox[a]; }
+    return 0;
+}
+
+void qpu_test(void)
+{
+    uart_write("[TEST]: QPU");
+    qpu_setup();
+    //qpu_code();
+    //qpu_run();
+    qpu_release();
 }

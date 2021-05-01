@@ -1,7 +1,7 @@
 @ECHO ON
 
 REM No Comment.
-SET PATH=%PATH%;%CD%\XCOMPILER-WIN32\bin
+SET PATH=%PATH%;%CD%\XCOMPILER-WIN32-TEST\bin
 SET FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
 
 aarch64-none-elf-gcc %FLAGS% -c BOOT.S -o BOOT.O

@@ -51,6 +51,15 @@ typedef struct _PLATFORM
 
     ADDRESS   MONITOR_FRAMEBUFFER;
     VALUE     MONITOR_PITCH_SPACE;
+
+    VALUE     MONITOR_NUM_DISPLAYS;
+    VALUE     MONITOR_DISPLAY_ID[5];
+	
+    ADDRESS   MONITOR_FRAMEBUFFER2;
+    VALUE     MONITOR_PITCH_SPACE2;
+
+    VALUE     EDID[MAX_SIZE * 10];
+    ADDRESS   EDIDsize;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -95,7 +104,7 @@ void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size);
 #define gpio_alt(pin, alt) (gpio_setup(pin, alt, Platform.GPFSEL0, 3))
 
 void uart_setup(VALUE baud);
-#define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x20) > 0)
+#define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x40) > 0)
 #define uart_peek()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x01) > 0)
 #define uart_read_byte()   (mmio_read(Platform.AUX_MU_IO_REG) & 0xFF)
 LITERAL uart_read(ADDRESS length);
@@ -110,5 +119,22 @@ VALUE mbox_setup(BYTE channel);
 #define mbox_read()   (mmio_read(Platform.MBOX_READ))
 #define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
 void mbox_get_framebuffer(void);
+void mbox_get_mon_info(void);
+void mbox_get_framebuffer2(void);
 
-#endif//IES_H
+void print_memory(void);
+void print_packet(VALUE size);
+void zero_packet(VALUE size);
+
+VALUE mem_alloc(VALUE size, VALUE align, VALUE flags);
+VALUE mem_free(VALUE handle);
+VALUE mem_lock(VALUE handle);
+VALUE mem_unlock(VALUE handle);
+
+VALUE qpu_setup(void);
+VALUE qpu_release(void);
+VALUE qpu_code(VALUE code, VALUE r0, VALUE r1, VALUE r2, VALUE r3, VALUE r4, VALUE r5);
+VALUE qpu_run(VALUE num_qpus, VALUE control, VALUE no_flush, VALUE timeout);
+void qpu_test(void);
+
+#endif//IES_H                                                                                                            
