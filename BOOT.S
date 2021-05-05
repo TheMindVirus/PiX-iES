@@ -1,4 +1,4 @@
-.section ".text.boot"
+.section .text
 .global _start
 
 _start:
@@ -11,7 +11,7 @@ _start:
     b       1b
 2:  //Valid Core - Continue
 
-    //Move Stack to After the End of _start
+    //Move Stack to the end after all labels
     ldr     x1, =_start
     mov     sp, x1
 
@@ -19,9 +19,14 @@ _start:
     ldr     x1, =__bss_start     //Start address
     ldr     w2, =__bss_size      //Section Size
 3:  cbz     w2, 4f               //Quit Loop If Zero
-    str     xzr, [x1], #8
+    str     xzr, [x1], #0
+    add     x1, x1, #16
     sub     w2, w2, #1
     cbnz    w2, 3b               //Loop If Non-Zero
+
+    //Reset Used Registers
+    sub     x1, x1, x1
+    sub     w2, w2, w2
 
     //Branch to main() in C
 4:  bl      main
