@@ -8,6 +8,7 @@
 
 typedef unsigned long long   ADDRESS;
 typedef unsigned int         VALUE;
+typedef signed int           SIGNED;
 typedef volatile VALUE       ELEMENT;
 typedef ELEMENT REFER        POINTER;
 typedef unsigned char        BYTE;
@@ -51,6 +52,15 @@ typedef struct _PLATFORM
 
     ADDRESS   MONITOR_FRAMEBUFFER;
     VALUE     MONITOR_PITCH_SPACE;
+
+    VALUE     MONITOR_NUM_DISPLAYS;
+    VALUE     MONITOR_DISPLAY_ID[5];
+	
+    ADDRESS   MONITOR_FRAMEBUFFER2;
+    VALUE     MONITOR_PITCH_SPACE2;
+
+    VALUE     EDID[MAX_SIZE * 10];
+    ADDRESS   EDIDsize;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -84,31 +94,51 @@ enum MBOX_FLAGS
     MBOX_FAILURE = 0x80000001,
 };
 
-void platform_setup(void);
-#define mmio_read(address)   (REFER(POINTER)address)
-#define mmio_write(address, value)   (REFER(POINTER)address = value)
+extern "C"
+{
+    void platform_setup(void);
+    #define mmio_read(address)   (REFER(POINTER)address)
+    #define mmio_write(address, value)   (REFER(POINTER)address = value)
 
-void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size);
-#define gpio_set(pin) (gpio_setup(pin, 1, Platform.GPSET0, 1))
-#define gpio_clear(pin) (gpio_setup(pin, 1, Platform.GPCLR0, 1))
-#define gpio_pull(pin, pull) (gpio_setup(pin, pull, Platform.GPPUPPDN0, 2))
-#define gpio_alt(pin, alt) (gpio_setup(pin, alt, Platform.GPFSEL0, 3))
+    void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size);
+    #define gpio_set(pin) (gpio_setup(pin, 1, Platform.GPSET0, 1))
+    #define gpio_clear(pin) (gpio_setup(pin, 1, Platform.GPCLR0, 1))
+    #define gpio_pull(pin, pull) (gpio_setup(pin, pull, Platform.GPPUPPDN0, 2))
+    #define gpio_alt(pin, alt) (gpio_setup(pin, alt, Platform.GPFSEL0, 3))
 
-void uart_setup(VALUE baud);
-#define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x20) > 0)
-#define uart_peek()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x01) > 0)
-#define uart_read_byte()   (mmio_read(Platform.AUX_MU_IO_REG) & 0xFF)
-LITERAL uart_read(ADDRESS length);
-void uart_write_byte(BYTE byte);
-void uart_write_buffer(BUFFER buffer);
-#define uart_write(message)   (uart_write_buffer((BUFFER)message))
-void uart_loop(void);
-void uart_print(VALUE value);
+    void uart_setup(VALUE baud);
+    #define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x40) > 0)
+    #define uart_peek()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x01) > 0)
+    #define uart_read_byte()   (mmio_read(Platform.AUX_MU_IO_REG) & 0xFF)
+    LITERAL uart_read(ADDRESS length);
+    void uart_write_byte(BYTE byte);
+    void uart_write_buffer(BUFFER buffer);
+    #define uart_write(message)   (uart_write_buffer((BUFFER)message))
+    void uart_loop(void);
+    void uart_print(VALUE value);
 
-VALUE mbox_setup(BYTE channel);
-#define mbox_peek()   (mmio_read(Platform.MBOX_STATUS))
-#define mbox_read()   (mmio_read(Platform.MBOX_READ))
-#define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
-void mbox_get_framebuffer(void);
+    VALUE mbox_setup(BYTE channel);
+    #define mbox_peek()   (mmio_read(Platform.MBOX_STATUS))
+    #define mbox_read()   (mmio_read(Platform.MBOX_READ))
+    #define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
+    void mbox_get_framebuffer(void);
+    void mbox_get_mon_info(void);
+    void mbox_get_framebuffer2(void);
 
-#endif//IES_H
+    void print_memory(void);
+    void print_packet(VALUE size);
+    void zero_packet(VALUE size);
+
+    VALUE mem_alloc(VALUE size, VALUE align, VALUE flags);
+    VALUE mem_free(VALUE handle);
+    VALUE mem_lock(VALUE handle);
+    VALUE mem_unlock(VALUE handle);
+
+    VALUE qpu_setup(void);
+    VALUE qpu_release(void);
+    VALUE qpu_code(VALUE code, VALUE r0, VALUE r1, VALUE r2, VALUE r3, VALUE r4, VALUE r5);
+    VALUE qpu_run(VALUE num_qpus, VALUE control, VALUE no_flush, VALUE timeout);
+    void qpu_test(void);
+}
+
+#endif//IES_H                                                                                                            

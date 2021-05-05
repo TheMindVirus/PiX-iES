@@ -2,18 +2,29 @@
 # https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
 # Some settings may impact device functionality. See link above for details
 
-[Pi4]
 arm_64bit=1
 enable_uart=1
 uart_2ndstage=1
 enable_gic=1
 disable_commandline_tags=1
-hdmi_force_hotplug:0=1
-hdmi_force_hotplug:1=1
-dtoverlay=vc4-kms-v3d-pi4
-max_framebuffers=2
+#dtoverlay=vc4-kms-v3d
+#dtoverlay=vc4-fkms-v3d
+dtoverlay=pi3-miniuart-bt
 disable_overscan=1
 kernel=PiX.iES
-start_x=1
+kernel_address=0x80000
+gpu_mem=256
+start_x=0
 
 core_freq_min=500
+arm_freq=500
+
+#hdmi_force_hotplug:0=1
+#hdmi_force_hotplug:1=1
+
+#hdmi_group:0=2
+#hdmi_mode:0=82
+#hdmi_group:1=2
+#hdmi_mode:1=82
+
+#max_framebuffers=2
