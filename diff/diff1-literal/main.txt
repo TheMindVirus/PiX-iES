@@ -1,0 +1,78 @@
+00000000000825ec <main>:
+   825ec:       a9be7bfd        stp     x29, x30, [sp, #-32]!
+   825f0:       910003fd        mov     x29, sp
+   825f4:       97fff69b        bl      80060 <platform_setup>
+   825f8:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   825fc:       91220000        add     x0, x0, #0x880
+   82600:       f9401c00        ldr     x0, [x0, #56]
+   82604:       52800043        mov     w3, #0x2                        // #2
+   82608:       aa0003e2        mov     x2, x0
+   8260c:       52800021        mov     w1, #0x1                        // #1
+   82610:       d28002a0        mov     x0, #0x15                       // #21
+   82614:       97fff76c        bl      803c4 <gpio_setup>
+   82618:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   8261c:       91220000        add     x0, x0, #0x880
+   82620:       f9401000        ldr     x0, [x0, #32]
+   82624:       52800063        mov     w3, #0x3                        // #3
+   82628:       aa0003e2        mov     x2, x0
+   8262c:       52800021        mov     w1, #0x1                        // #1
+   82630:       d28002a0        mov     x0, #0x15                       // #21
+   82634:       97fff764        bl      803c4 <gpio_setup>
+   82638:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   8263c:       91220000        add     x0, x0, #0x880
+   82640:       f9401400        ldr     x0, [x0, #40]
+   82644:       52800023        mov     w3, #0x1                        // #1
+   82648:       aa0003e2        mov     x2, x0
+   8264c:       52800021        mov     w1, #0x1                        // #1
+   82650:       d28002a0        mov     x0, #0x15                       // #21
+   82654:       97fff75c        bl      803c4 <gpio_setup>
+   82658:       52984000        mov     w0, #0xc200                     // #49664
+   8265c:       72a00020        movk    w0, #0x1, lsl #16
+   82660:       97fff7a8        bl      80500 <uart_setup>
+   82664:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   82668:       9121e000        add     x0, x0, #0x878
+   8266c:       f9400000        ldr     x0, [x0]
+   82670:       97fff82b        bl      8071c <uart_write_buffer>
+   82674:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   82678:       91210000        add     x0, x0, #0x840
+   8267c:       97fff828        bl      8071c <uart_write_buffer>
+   82680:       52800020        mov     w0, #0x1                        // #1
+   82684:       97fff884        bl      80894 <uart_print>
+   82688:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   8268c:       91214000        add     x0, x0, #0x850
+   82690:       97fff823        bl      8071c <uart_write_buffer>
+   82694:       52825740        mov     w0, #0x12ba                     // #4794
+   82698:       72a00060        movk    w0, #0x3, lsl #16
+   8269c:       97fff87e        bl      80894 <uart_print>
+   826a0:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   826a4:       91218000        add     x0, x0, #0x860
+   826a8:       97fff81d        bl      8071c <uart_write_buffer>
+   826ac:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   826b0:       9121a000        add     x0, x0, #0x868
+   826b4:       f9000be0        str     x0, [sp, #16]
+   826b8:       b9001fff        str     wzr, [sp, #28]
+   826bc:       b9401fe0        ldr     w0, [sp, #28]
+   826c0:       7100241f        cmp     w0, #0x9
+   826c4:       5400014c        b.gt    826ec <main+0x100>
+   826c8:       b9801fe0        ldrsw   x0, [sp, #28]
+   826cc:       f9400be1        ldr     x1, [sp, #16]
+   826d0:       8b000020        add     x0, x1, x0
+   826d4:       39400000        ldrb    w0, [x0]
+   826d8:       97fff7fb        bl      806c4 <uart_write_byte>
+   826dc:       b9401fe0        ldr     w0, [sp, #28]
+   826e0:       11000400        add     w0, w0, #0x1
+   826e4:       b9001fe0        str     w0, [sp, #28]
+   826e8:       17fffff5        b       826bc <main+0xd0>
+   826ec:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   826f0:       91218000        add     x0, x0, #0x860
+   826f4:       97fff80a        bl      8071c <uart_write_buffer>
+   826f8:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   826fc:       9121e000        add     x0, x0, #0x878
+   82700:       f9400000        ldr     x0, [x0]
+   82704:       97fff806        bl      8071c <uart_write_buffer>
+   82708:       90000000        adrp    x0, 82000 <qpu_setup+0x98>
+   8270c:       91218000        add     x0, x0, #0x860
+   82710:       97fff803        bl      8071c <uart_write_buffer>
+   82714:       d503201f        nop
+   82718:       a8c27bfd        ldp     x29, x30, [sp], #32
+   8271c:       d65f03c0        ret
