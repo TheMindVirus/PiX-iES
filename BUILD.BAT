@@ -1,14 +1,13 @@
-@ECHO ON
+@echo on
+rem [pix.ies]
+set PATH=%PATH%;%CD%\xcompiler\bin
+set COMPILER_FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+set LINKER_FLAGS= -T link.ld -nostdlib -nostartfiles
 
-REM No Comment.
-SET PATH=%PATH%;%CD%\XCOMPILER-WIN32\bin
-SET FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
-
-aarch64-none-elf-gcc %FLAGS% -c BOOT.S -o BOOT.O
-aarch64-none-elf-gcc %FLAGS% -c PiX.C -o PiX.O
-aarch64-none-elf-gcc %FLAGS% -c iES.C -o iES.O
-aarch64-none-elf-ld -nostdlib -nostartfiles BOOT.O iES.O PiX.O -T LINK.LD -o kernel8.elf
-aarch64-none-elf-objcopy -O binary kernel8.elf PiX.img
-copy PiX.img PiX.iES
-
-PAUSE
+aarch64-none-elf-g++ %COMPILER_FLAGS% -c boot.S -o boot.o
+aarch64-none-elf-g++ %COMPILER_FLAGS% -c pix.cxx -o pix.o
+aarch64-none-elf-g++ %COMPILER_FLAGS% -c ies.cxx -o ies.o
+aarch64-none-elf-ld  %LINKER_FLAGS% boot.o ies.o pix.o -o kernel8.elf
+aarch64-none-elf-objcopy -O binary kernel8.elf pix.ies
+copy /Y .\pix.ies .\boot\pix.ies
+pause
