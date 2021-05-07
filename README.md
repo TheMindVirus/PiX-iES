@@ -29,6 +29,7 @@ It has the following code for a vector table in Assembly Language and an interru
 //-boot.S--------------------------------------------------------------------------
 
 .section .text
+.global _reset
 .global _vector
 .global _start
 //etc...
