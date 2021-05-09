@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PowerNV family boards (powernv8, powernv9) &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Prep machine (40p)" href="prep.html" />
+    <link rel="prev" title="PowerMac family boards (g3beige, mac99)" href="powermac.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="powernv-family-boards-powernv8-powernv9">
+<h1>PowerNV family boards (<code class="docutils literal notranslate"><span class="pre">powernv8</span></code>, <code class="docutils literal notranslate"><span class="pre">powernv9</span></code>)<a class="headerlink" href="#powernv-family-boards-powernv8-powernv9" title="Permalink to this headline">¶</a></h1>
+<p>PowerNV (as Non-Virtualized) is the “baremetal” platform using the
+OPAL firmware. It runs Linux on IBM and OpenPOWER systems and it can
+be used as an hypervisor OS, running KVM guests, or simply as a host
+OS.</p>
+<p>The PowerNV QEMU machine tries to emulate a PowerNV system at the
+level of the skiboot firmware, which loads the OS and provides some
+runtime services. Power Systems have a lower firmware (HostBoot) that
+does low level system initialization, like DRAM training. This is
+beyond the scope of what QEMU addresses today.</p>
+<div class="section" id="supported-devices">
+<h2>Supported devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Multi processor support for POWER8, POWER8NVL and POWER9.</p></li>
+<li><p>XSCOM, serial communication sideband bus to configure chiplets</p></li>
+<li><p>Simple LPC Controller</p></li>
+<li><p>Processor Service Interface (PSI) Controller</p></li>
+<li><p>Interrupt Controller, XICS (POWER8) and XIVE (POWER9)</p></li>
+<li><p>POWER8 PHB3 PCIe Host bridge and POWER9 PHB4 PCIe Host bridge</p></li>
+<li><p>Simple OCC is an on-chip microcontroller used for power management
+tasks</p></li>
+<li><p>iBT device to handle BMC communication, with the internal BMC
+simulator provided by QEMU or an external BMC such as an Aspeed
+QEMU machine.</p></li>
+<li><p>PNOR containing the different firmware partitions.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="missing-devices">
+<h2>Missing devices<a class="headerlink" href="#missing-devices" title="Permalink to this headline">¶</a></h2>
+<p>A lot is missing, among which :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>POWER10 processor</p></li>
+<li><p>XIVE2 (POWER10) interrupt controller</p></li>
+<li><p>I2C controllers (yet to be merged)</p></li>
+<li><p>NPU/NPU2/NPU3 controllers</p></li>
+<li><p>EEH support for PCIe Host bridge controllers</p></li>
+<li><p>NX controller</p></li>
+<li><p>VAS controller</p></li>
+<li><p>chipTOD (Time Of Day)</p></li>
+<li><p>Self Boot Engine (SBE).</p></li>
+<li><p>FSI bus</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="firmware">
+<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this headline">¶</a></h2>
+<p>The OPAL firmware (OpenPower Abstraction Layer) for OpenPower systems
+includes the runtime services <cite>skiboot</cite> and the bootloader kernel and
+initramfs <cite>skiroot</cite>. Source code can be found on GitHub:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/open-power">https://github.com/open-power</a>.</p>
+</div></blockquote>
+<p>Prebuilt images of <cite>skiboot</cite> and <cite>skiboot</cite> are made available on the <a class="reference external" href="https://openpower.xyz/job/openpower/job/openpower-op-build/">OpenPOWER</a> site. To boot a POWER9 machine, use the <a class="reference external" href="https://openpower.xyz/job/openpower/job/openpower-op-build/label=slave,target=witherspoon/lastSuccessfulBuild/">witherspoon</a> images. For POWER8, use
+the <a class="reference external" href="https://openpower.xyz/job/openpower/job/openpower-op-build/label=slave,target=palmetto/lastSuccessfulBuild/">palmetto</a> images.</p>
+<p>QEMU includes a prebuilt image of <cite>skiboot</cite> which is updated when a
+more recent version is required by the models.</p>
+</div>
+<div class="section" id="boot-options">
+<h2>Boot options<a class="headerlink" href="#boot-options" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple setup with one e1000e NIC :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ qemu-system-ppc64 -m 2G -machine powernv9 -smp <span class="m">2</span>,cores<span class="o">=</span><span class="m">2</span>,threads<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+-accel tcg,thread<span class="o">=</span>single <span class="se">\</span>
+-device e1000e,netdev<span class="o">=</span>net0,mac<span class="o">=</span>C0:FF:EE:00:00:02,bus<span class="o">=</span>pcie.0,addr<span class="o">=</span>0x0 <span class="se">\</span>
+-netdev user,id<span class="o">=</span>net0,hostfwd<span class="o">=</span>::20022-:22,hostname<span class="o">=</span>pnv <span class="se">\</span>
+-kernel ./zImage.epapr  <span class="se">\</span>
+-initrd ./rootfs.cpio.xz <span class="se">\</span>
+-nographic
+</pre></div>
+</div>
+<p>and a SATA disk :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-device ich9-ahci,id<span class="o">=</span>sata0,bus<span class="o">=</span>pcie.1,addr<span class="o">=</span>0x0 <span class="se">\</span>
+-drive <span class="nv">file</span><span class="o">=</span>./ubuntu-ppc64le.qcow2,if<span class="o">=</span>none,id<span class="o">=</span>drive0,format<span class="o">=</span>qcow2,cache<span class="o">=</span>none <span class="se">\</span>
+-device ide-hd,bus<span class="o">=</span>sata0.0,unit<span class="o">=</span><span class="m">0</span>,drive<span class="o">=</span>drive0,id<span class="o">=</span>ide,bootindex<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+</pre></div>
+</div>
+<div class="section" id="complex-pcie-configuration">
+<h3>Complex PCIe configuration<a class="headerlink" href="#complex-pcie-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Six PHBs are defined per chip (POWER9) but no default PCI layout is
+provided (to be compatible with libvirt). One PCI device can be added
+on any of the available PCIe slots using command line options such as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-device e1000e,netdev<span class="o">=</span>net0,mac<span class="o">=</span>C0:FF:EE:00:00:02,bus<span class="o">=</span>pcie.0,addr<span class="o">=</span>0x0
+-netdev bridge,id<span class="o">=</span>net0,helper<span class="o">=</span>/usr/libexec/qemu-bridge-helper,br<span class="o">=</span>virbr0,id<span class="o">=</span>hostnet0
+
+-device megasas,id<span class="o">=</span>scsi0,bus<span class="o">=</span>pcie.0,addr<span class="o">=</span>0x0
+-drive <span class="nv">file</span><span class="o">=</span>./ubuntu-ppc64le.qcow2,if<span class="o">=</span>none,id<span class="o">=</span>drive-scsi0-0-0-0,format<span class="o">=</span>qcow2,cache<span class="o">=</span>none
+-device scsi-hd,bus<span class="o">=</span>scsi0.0,channel<span class="o">=</span><span class="m">0</span>,scsi-id<span class="o">=</span><span class="m">0</span>,lun<span class="o">=</span><span class="m">0</span>,drive<span class="o">=</span>drive-scsi0-0-0-0,id<span class="o">=</span>scsi0-0-0-0,bootindex<span class="o">=</span><span class="m">2</span>
+</pre></div>
+</div>
+<p>Here is a full example with two different storage controllers on
+different PHBs, each with a disk, the second PHB is empty :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ qemu-system-ppc64 -m 2G -machine powernv9 -smp <span class="m">2</span>,cores<span class="o">=</span><span class="m">2</span>,threads<span class="o">=</span><span class="m">1</span> -accel tcg,thread<span class="o">=</span>single <span class="se">\</span>
+-kernel ./zImage.epapr -initrd ./rootfs.cpio.xz -bios ./skiboot.lid <span class="se">\</span>
+<span class="se">\</span>
+-device megasas,id<span class="o">=</span>scsi0,bus<span class="o">=</span>pcie.0,addr<span class="o">=</span>0x0 <span class="se">\</span>
+-drive <span class="nv">file</span><span class="o">=</span>./rhel7-ppc64le.qcow2,if<span class="o">=</span>none,id<span class="o">=</span>drive-scsi0-0-0-0,format<span class="o">=</span>qcow2,cache<span class="o">=</span>none <span class="se">\</span>
+-device scsi-hd,bus<span class="o">=</span>scsi0.0,channel<span class="o">=</span><span class="m">0</span>,scsi-id<span class="o">=</span><span class="m">0</span>,lun<span class="o">=</span><span class="m">0</span>,drive<span class="o">=</span>drive-scsi0-0-0-0,id<span class="o">=</span>scsi0-0-0-0,bootindex<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+<span class="se">\</span>
+-device pcie-pci-bridge,id<span class="o">=</span>bridge1,bus<span class="o">=</span>pcie.1,addr<span class="o">=</span>0x0 <span class="se">\</span>
+<span class="se">\</span>
+-device ich9-ahci,id<span class="o">=</span>sata0,bus<span class="o">=</span>bridge1,addr<span class="o">=</span>0x1 <span class="se">\</span>
+-drive <span class="nv">file</span><span class="o">=</span>./ubuntu-ppc64le.qcow2,if<span class="o">=</span>none,id<span class="o">=</span>drive0,format<span class="o">=</span>qcow2,cache<span class="o">=</span>none <span class="se">\</span>
+-device ide-hd,bus<span class="o">=</span>sata0.0,unit<span class="o">=</span><span class="m">0</span>,drive<span class="o">=</span>drive0,id<span class="o">=</span>ide,bootindex<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+-device e1000e,netdev<span class="o">=</span>net0,mac<span class="o">=</span>C0:FF:EE:00:00:02,bus<span class="o">=</span>bridge1,addr<span class="o">=</span>0x2 <span class="se">\</span>
+-netdev bridge,helper<span class="o">=</span>/usr/libexec/qemu-bridge-helper,br<span class="o">=</span>virbr0,id<span class="o">=</span>net0 <span class="se">\</span>
+-device nec-usb-xhci,bus<span class="o">=</span>bridge1,addr<span class="o">=</span>0x7 <span class="se">\</span>
+<span class="se">\</span>
+-serial mon:stdio -nographic
+</pre></div>
+</div>
+<p>You can also use VIRTIO devices :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-drive <span class="nv">file</span><span class="o">=</span>./fedora-ppc64le.qcow2,if<span class="o">=</span>none,snapshot<span class="o">=</span>on,id<span class="o">=</span>drive0 <span class="se">\</span>
+-device virtio-blk-pci,drive<span class="o">=</span>drive0,id<span class="o">=</span>blk0,bus<span class="o">=</span>pcie.0 <span class="se">\</span>
+<span class="se">\</span>
+-netdev tap,helper<span class="o">=</span>/usr/lib/qemu/qemu-bridge-helper,br<span class="o">=</span>virbr0,id<span class="o">=</span>netdev0 <span class="se">\</span>
+-device virtio-net-pci,netdev<span class="o">=</span>netdev0,id<span class="o">=</span>net0,bus<span class="o">=</span>pcie.1 <span class="se">\</span>
+<span class="se">\</span>
+-fsdev local,id<span class="o">=</span>fsdev0,path<span class="o">=</span><span class="nv">$HOME</span>,security_model<span class="o">=</span>passthrough <span class="se">\</span>
+-device virtio-9p-pci,fsdev<span class="o">=</span>fsdev0,mount_tag<span class="o">=</span>host,bus<span class="o">=</span>pcie.2
+</pre></div>
+</div>
+</div>
+<div class="section" id="multi-sockets">
+<h3>Multi sockets<a class="headerlink" href="#multi-sockets" title="Permalink to this headline">¶</a></h3>
+<p>The number of sockets is deduced from the number of CPUs and the
+number of cores. <code class="docutils literal notranslate"><span class="pre">-smp</span> <span class="pre">2,cores=1</span></code> will define a machine with 2
+sockets of 1 core, whereas <code class="docutils literal notranslate"><span class="pre">-smp</span> <span class="pre">2,cores=2</span></code> will define a machine
+with 1 socket of 2 cores. <code class="docutils literal notranslate"><span class="pre">-smp</span> <span class="pre">8,cores=2</span></code>, 4 sockets of 2 cores.</p>
+</div>
+<div class="section" id="bmc-configuration">
+<h3>BMC configuration<a class="headerlink" href="#bmc-configuration" title="Permalink to this headline">¶</a></h3>
+<p>OpenPOWER systems negotiate the shutdown and reboot with their
+BMC. The QEMU PowerNV machine embeds an IPMI BMC simulator using the
+iBT interface and should offer the same power features.</p>
+<p>If you want to define your own BMC, use <code class="docutils literal notranslate"><span class="pre">-nodefaults</span></code> and specify
+one on the command line :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-device ipmi-bmc-sim,id<span class="o">=</span>bmc0 -device isa-ipmi-bt,bmc<span class="o">=</span>bmc0,irq<span class="o">=</span><span class="m">10</span>
+</pre></div>
+</div>
+<p>The files <a class="reference external" href="http://www.kaod.org/qemu/powernv/palmetto-SDR.bin">palmetto-SDR.bin</a>
+and <a class="reference external" href="http://www.kaod.org/qemu/powernv/palmetto-FRU.bin">palmetto-FRU.bin</a>
+define a Sensor Data Record repository and a Field Replaceable Unit
+inventory for a palmetto BMC. They can be used to extend the QEMU BMC
+simulator.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-device ipmi-bmc-sim,sdrfile<span class="o">=</span>./palmetto-SDR.bin,fruareasize<span class="o">=</span><span class="m">256</span>,frudatafile<span class="o">=</span>./palmetto-FRU.bin,id<span class="o">=</span>bmc0 <span class="se">\</span>
+-device isa-ipmi-bt,bmc<span class="o">=</span>bmc0,irq<span class="o">=</span><span class="m">10</span>
+</pre></div>
+</div>
+<p>The PowerNV machine can also be run with an external IPMI BMC device
+connected to a remote QEMU machine acting as BMC, using these options
+:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-chardev socket,id<span class="o">=</span>ipmi0,host<span class="o">=</span>localhost,port<span class="o">=</span><span class="m">9002</span>,reconnect<span class="o">=</span><span class="m">10</span> <span class="se">\</span>
+-device ipmi-bmc-extern,id<span class="o">=</span>bmc0,chardev<span class="o">=</span>ipmi0 <span class="se">\</span>
+-device isa-ipmi-bt,bmc<span class="o">=</span>bmc0,irq<span class="o">=</span><span class="m">10</span> <span class="se">\</span>
+-nodefaults
+</pre></div>
+</div>
+</div>
+<div class="section" id="nvram">
+<h3>NVRAM<a class="headerlink" href="#nvram" title="Permalink to this headline">¶</a></h3>
+<p>Use a MTD drive to add a PNOR to the machine, and get a NVRAM :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-drive <span class="nv">file</span><span class="o">=</span>./witherspoon.pnor,format<span class="o">=</span>raw,if<span class="o">=</span>mtd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="caveats">
+<h2>CAVEATS<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>No support for multiple HW threads (SMT=1). Same as pseries.</p></li>
+<li><p>CPU can hang when doing intensive I/Os. Use <code class="docutils literal notranslate"><span class="pre">-append</span> <span class="pre">powersave=off</span></code> in that case.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/ppc/powernv.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

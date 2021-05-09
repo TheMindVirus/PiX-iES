@@ -1,14 +1,7 @@
-@ECHO ON
-
-REM No Comment.
-SET PATH=%PATH%;%CD%\XCOMPILER-WIN32\bin
-SET FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
-
-aarch64-none-elf-gcc %FLAGS% -c BOOT.S -o BOOT.O
-aarch64-none-elf-gcc %FLAGS% -c PiX.C -o PiX.O
-aarch64-none-elf-gcc %FLAGS% -c iES.C -o iES.O
-aarch64-none-elf-ld -nostdlib -nostartfiles BOOT.O iES.O PiX.O -T LINK.LD -o kernel8.elf
-aarch64-none-elf-objcopy -O binary kernel8.elf PiX.img
-copy PiX.img PiX.iES
-
-PAUSE
+@echo on
+set PATH=%PATH%;%CD%\xcompiler
+arm-none-eabi-gcc -mcpu=cortex-a7 -fpic -ffreestanding -c boot.S -o boot.o
+arm-none-eabi-gcc -mcpu=arm1176jzf-s -fpic -ffreestanding -std=gnu99 -c kernel.c -o kernel.o -O2 -Wall -Wextra
+arm-none-eabi-gcc -T linker.ld -o myos.elf -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+arm-none-eabi-objcopy myos.elf -O binary kernel7.img
+pause

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to QEMU’s documentation! &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="System Emulation" href="system/index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-qemu-s-documentation">
+<h1>Welcome to QEMU’s documentation!<a class="headerlink" href="#welcome-to-qemu-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system/index.html">System Emulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system/quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/index.html">User Mode Emulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/main.html">QEMU User space emulator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools/index.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools/qemu-img.html">QEMU disk image utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/qemu-storage-daemon.html">QEMU Storage Daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/qemu-nbd.html">QEMU Disk Network Block Device Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/qemu-pr-helper.html">QEMU persistent reservation helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/qemu-trace-stap.html">QEMU SystemTap trace tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/virtfs-proxy-helper.html">QEMU 9p virtfs proxy filesystem helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/virtiofsd.html">QEMU virtio-fs shared file system daemon</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interop/index.html">System Emulation Management and Interoperability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interop/bitmaps.html">Dirty Bitmaps and Incremental Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/dbus.html">D-Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/dbus-vmstate.html">D-Bus VMState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/live-block-operations.html">Live Block Device Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/pr-helper.html">Persistent reservation helper protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/qemu-ga.html">QEMU Guest Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/qemu-ga-ref.html">QEMU Guest Agent Protocol Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/qemu-qmp-ref.html">QEMU QMP Reference Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/qemu-storage-daemon-qmp-ref.html">QEMU Storage Daemon QMP Reference Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/vhost-user.html">Vhost-user Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/vhost-user-gpu.html">Vhost-user-gpu Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interop/vhost-vdpa.html">Vhost-vdpa Protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="specs/index.html">System Emulation Guest Hardware Specifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-xive.html">POWER9 XIVE interrupt controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-spapr-xive.html">XIVE for sPAPR (pseries machines)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-spapr-numa.html">NUMA mechanics for sPAPR (pseries machines)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-spapr-numa.html#how-the-pseries-linux-guest-calculates-numa-distances">How the pseries Linux guest calculates NUMA distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-spapr-numa.html#pseries-numa-mechanics">pseries NUMA mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/ppc-spapr-numa.html#legacy-5-1-and-older-pseries-numa-mechanics">Legacy (5.1 and older) pseries NUMA mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/acpi_hw_reduced_hotplug.html">QEMU and ACPI BIOS Generic Event Device interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/tpm.html">QEMU TPM Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specs/acpi_hest_ghes.html">APEI tables generating and CPER record</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="devel/index.html">Developer Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="devel/code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/conflict-resolution.html">Conflict Resolution Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/build-system.html">The QEMU build system architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/style.html">QEMU Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/kconfig.html">QEMU and Kconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/testing.html">Testing in QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/fuzzing.html">Fuzzing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/control-flow-integrity.html">Control-Flow Integrity (CFI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/loads-stores.html">Load and Store APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/memory.html">The memory API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/migration.html">Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/atomics.html">Atomic operations in QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/stable-process.html">QEMU and the stable process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/qtest.html">QTest Device Emulation Testing Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/decodetree.html">Decodetree Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/secure-coding-practices.html">Secure Coding Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/tcg.html">Translator Internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/tcg-icount.html">TCG Instruction Counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/tracing.html">Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/multi-thread-tcg.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/multi-thread-tcg.html#vcpu-scheduling">vCPU Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/multi-thread-tcg.html#shared-data-structures">Shared Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/multi-thread-tcg.html#memory-consistency">Memory Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/tcg-plugins.html">QEMU TCG Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/bitops.html">Bitwise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/reset.html">Reset in QEMU: the Resettable interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/s390-dasd-ipl.html">Booting from real channel-attached devices on s390x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/clocks.html">Modelling a clock tree in QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/qom.html">The QEMU Object Model (QOM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/block-coroutine-wrapper.html">block-coroutine-wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devel/multi-process.html">Multi-process QEMU</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/index.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system/index.html">System Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

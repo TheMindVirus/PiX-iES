@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guest Loader &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VNC security" href="vnc-security.html" />
+    <link rel="prev" title="Generic Loader" href="generic-loader.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="guest-loader">
+<h1>Guest Loader<a class="headerlink" href="#guest-loader" title="Permalink to this headline">¶</a></h1>
+<p>The guest loader is similar to the <cite>generic-loader</cite> although it is
+aimed at a particular use case of loading hypervisor guests. This is
+useful for debugging hypervisors without having to jump through the
+hoops of firmware and boot-loaders.</p>
+<p>The guest loader does two things:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>load blobs (kernels and initial ram disks) into memory</p></li>
+<li><p>sets platform FDT data so hypervisors can find and boot them</p></li>
+</ul>
+</div></blockquote>
+<p>This is what is typically done by a boot-loader like grub using it’s
+multi-boot capability. A typical example would look like:</p>
+<pre class="literal-block">qemu-system-x86_64 -kernel ~/xen.git/xen/xen   -append &quot;dom0_mem=1G,max:1G loglvl=all guest_loglvl=all&quot;   -device guest-loader,addr=0x42000000,kernel=Image,bootargs=&quot;root=/dev/sda2 ro console=hvc0 earlyprintk=xen&quot;   -device guest-loader,addr=0x47000000,initrd=rootfs.cpio</pre>
+<p>In the above example the Xen hypervisor is loaded by the -kernel
+parameter and passed it’s boot arguments via -append. The Dom0 guest
+is loaded into the areas of memory. Each blob will get
+<cite>/chosen/module&#64;&lt;addr&gt;</cite> entry in the FDT to indicate it’s location and
+size. Additional information can be passed with by using additional
+arguments.</p>
+<p>Currently the only supported machines which use FDT data to boot are
+the ARM and RiscV <cite>virt</cite> machines.</p>
+<div class="section" id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h2>
+<p>The full syntax of the guest-loader is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">device</span> <span class="n">guest</span><span class="o">-</span><span class="n">loader</span><span class="p">,</span><span class="n">addr</span><span class="o">=&lt;</span><span class="n">addr</span><span class="o">&gt;</span><span class="p">[,</span><span class="n">kernel</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">,[</span><span class="n">bootargs</span><span class="o">=&lt;</span><span class="n">args</span><span class="o">&gt;</span><span class="p">]][,</span><span class="n">initrd</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">addr=&lt;addr&gt;</span></code></dt><dd><p>This is mandatory and indicates the start address of the blob.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">kernel|initrd=&lt;file&gt;</span></code></dt><dd><p>Indicates the filename of the kernel or initrd blob. Both blobs will
+have the “multiboot,module” compatibility string as well as
+“multiboot,kernel” or “multiboot,ramdisk” as appropriate.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">bootargs=&lt;args&gt;</span></code></dt><dd><p>This is an optional field for kernel blobs which will pass command
+like via the <cite>/chosen/module&#64;&lt;addr&gt;/bootargs</cite> node.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/guest-loader.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

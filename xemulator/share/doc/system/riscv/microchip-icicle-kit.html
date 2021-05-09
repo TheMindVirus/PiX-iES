@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microchip PolarFire SoC Icicle Kit (microchip-icicle-kit) &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SiFive HiFive Unleashed (sifive_u)" href="sifive_u.html" />
+    <link rel="prev" title="RISC-V System emulator" href="../target-riscv.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="microchip-polarfire-soc-icicle-kit-microchip-icicle-kit">
+<h1>Microchip PolarFire SoC Icicle Kit (<code class="docutils literal notranslate"><span class="pre">microchip-icicle-kit</span></code>)<a class="headerlink" href="#microchip-polarfire-soc-icicle-kit-microchip-icicle-kit" title="Permalink to this headline">¶</a></h1>
+<p>Microchip PolarFire SoC Icicle Kit integrates a PolarFire SoC, with one
+SiFive’s E51 plus four U54 cores and many on-chip peripherals and an FPGA.</p>
+<p>For more details about Microchip PolarFire SoC, please see:
+<a class="reference external" href="https://www.microsemi.com/product-directory/soc-fpgas/5498-polarfire-soc-fpga">https://www.microsemi.com/product-directory/soc-fpgas/5498-polarfire-soc-fpga</a></p>
+<p>The Icicle Kit board information can be found here:
+<a class="reference external" href="https://www.microsemi.com/existing-parts/parts/152514">https://www.microsemi.com/existing-parts/parts/152514</a></p>
+<div class="section" id="supported-devices">
+<h2>Supported devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">microchip-icicle-kit</span></code> machine supports the following devices:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>1 E51 core</p></li>
+<li><p>4 U54 cores</p></li>
+<li><p>Core Level Interruptor (CLINT)</p></li>
+<li><p>Platform-Level Interrupt Controller (PLIC)</p></li>
+<li><p>L2 Loosely Integrated Memory (L2-LIM)</p></li>
+<li><p>DDR memory controller</p></li>
+<li><p>5 MMUARTs</p></li>
+<li><p>1 DMA controller</p></li>
+<li><p>2 GEM Ethernet controllers</p></li>
+<li><p>1 SDHC storage controller</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="boot-options">
+<h2>Boot options<a class="headerlink" href="#boot-options" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">microchip-icicle-kit</span></code> machine can start using the standard -bios
+functionality for loading its BIOS image, aka Hart Software Services (<a class="reference external" href="https://github.com/polarfire-soc/hart-software-services">HSS</a>).
+HSS loads the second stage bootloader U-Boot from an SD card. It does not
+support direct kernel loading via the -kernel option. One has to load kernel
+from U-Boot.</p>
+<p>The memory is set to 1537 MiB by default which is the minimum required high
+memory size by HSS. A sanity check on ram size is performed in the machine
+init routine to prompt user to increase the RAM size to &gt; 1537 MiB when less
+than 1537 MiB ram is detected.</p>
+</div>
+<div class="section" id="boot-the-machine">
+<h2>Boot the machine<a class="headerlink" href="#boot-the-machine" title="Permalink to this headline">¶</a></h2>
+<p>HSS 2020.12 release is tested at the time of writing. To build an HSS image
+that can be booted by the <code class="docutils literal notranslate"><span class="pre">microchip-icicle-kit</span></code> machine, type the following
+in the HSS source tree:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">CROSS_COMPILE</span><span class="o">=</span>riscv64-linux-
+$ cp boards/mpfs-icicle-kit-es/def_config .config
+$ make <span class="nv">BOARD</span><span class="o">=</span>mpfs-icicle-kit-es
+</pre></div>
+</div>
+<p>Download the official SD card image released by Microchip and prepare it for
+QEMU usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ wget ftp://ftpsoc.microsemi.com/outgoing/core-image-minimal-dev-icicle-kit-es-sd-20201009141623.rootfs.wic.gz
+$ gunzip core-image-minimal-dev-icicle-kit-es-sd-20201009141623.rootfs.wic.gz
+$ qemu-img resize core-image-minimal-dev-icicle-kit-es-sd-20201009141623.rootfs.wic 4G
+</pre></div>
+</div>
+<p>Then we can boot the machine by:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ qemu-system-riscv64 -M microchip-icicle-kit -smp <span class="m">5</span> <span class="se">\</span>
+    -bios path/to/hss.bin -sd path/to/sdcard.img <span class="se">\</span>
+    -nic user,model<span class="o">=</span>cadence_gem <span class="se">\</span>
+    -nic tap,ifname<span class="o">=</span>tap,model<span class="o">=</span>cadence_gem,script<span class="o">=</span>no <span class="se">\</span>
+    -display none -serial stdio <span class="se">\</span>
+    -chardev socket,id<span class="o">=</span>serial1,path<span class="o">=</span>serial1.sock,server<span class="o">=</span>on,wait<span class="o">=</span>on <span class="se">\</span>
+    -serial chardev:serial1
+</pre></div>
+</div>
+<p>With above command line, current terminal session will be used for the first
+serial port. Open another terminal window, and use <cite>minicom</cite> to connect the
+second serial port.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ minicom -D unix<span class="se">\#</span>serial1.sock
+</pre></div>
+</div>
+<p>HSS output is on the first serial port (stdio) and U-Boot outputs on the
+second serial port. U-Boot will automatically load the Linux kernel from
+the SD card image.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/riscv/microchip-icicle-kit.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

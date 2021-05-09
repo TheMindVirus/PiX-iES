@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RISC-V System emulator &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Microchip PolarFire SoC Icicle Kit (microchip-icicle-kit)" href="riscv/microchip-icicle-kit.html" />
+    <link rel="prev" title="pSeries family boards (pseries)" href="ppc/pseries.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="risc-v-system-emulator">
+<span id="id1"></span><h1>RISC-V System emulator<a class="headerlink" href="#risc-v-system-emulator" title="Permalink to this headline">¶</a></h1>
+<p>QEMU can emulate both 32-bit and 64-bit RISC-V CPUs. Use the
+<code class="docutils literal notranslate"><span class="pre">qemu-system-riscv64</span></code> executable to simulate a 64-bit RISC-V machine,
+<code class="docutils literal notranslate"><span class="pre">qemu-system-riscv32</span></code> executable to simulate a 32-bit RISC-V machine.</p>
+<p>QEMU has generally good support for RISC-V guests. It has support for
+several different machines. The reason we support so many is that
+RISC-V hardware is much more widely varying than x86 hardware. RISC-V
+CPUs are generally built into “system-on-chip” (SoC) designs created by
+many different companies with different devices, and these SoCs are
+then built into machines which can vary still further even if they use
+the same SoC.</p>
+<p>For most boards the CPU type is fixed (matching what the hardware has),
+so typically you don’t need to specify the CPU type by hand, except for
+special cases like the <code class="docutils literal notranslate"><span class="pre">virt</span></code> board.</p>
+<div class="section" id="choosing-a-board-model">
+<h2>Choosing a board model<a class="headerlink" href="#choosing-a-board-model" title="Permalink to this headline">¶</a></h2>
+<p>For QEMU’s RISC-V system emulation, you must specify which board
+model you want to use with the <code class="docutils literal notranslate"><span class="pre">-M</span></code> or <code class="docutils literal notranslate"><span class="pre">--machine</span></code> option;
+there is no default.</p>
+<p>Because RISC-V systems differ so much and in fundamental ways, typically
+operating system or firmware images intended to run on one machine
+will not run at all on any other. This is often surprising for new
+users who are used to the x86 world where every system looks like a
+standard PC. (Once the kernel has booted, most user space software
+cares much less about the detail of the hardware.)</p>
+<p>If you already have a system image or a kernel that works on hardware
+and you want to boot with QEMU, check whether QEMU lists that machine
+in its <code class="docutils literal notranslate"><span class="pre">-machine</span> <span class="pre">help</span></code> output. If it is listed, then you can probably
+use that board model. If it is not listed, then unfortunately your image
+will almost certainly not boot on QEMU. (You might be able to
+extract the file system and use that with a different kernel which
+boots on a system that QEMU does emulate.)</p>
+<p>If you don’t care about reproducing the idiosyncrasies of a particular
+bit of hardware, such as small amount of RAM, no PCI or other hard
+disk, etc., and just want to run Linux, the best option is to use the
+<code class="docutils literal notranslate"><span class="pre">virt</span></code> board. This is a platform which doesn’t correspond to any
+real hardware and is designed for use in virtual machines. You’ll
+need to compile Linux with a suitable configuration for running on
+the <code class="docutils literal notranslate"><span class="pre">virt</span></code> board. <code class="docutils literal notranslate"><span class="pre">virt</span></code> supports PCI, virtio, recent CPUs and
+large amounts of RAM. It also supports 64-bit CPUs.</p>
+</div>
+<div class="section" id="board-specific-documentation">
+<h2>Board-specific documentation<a class="headerlink" href="#board-specific-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Unfortunately many of the RISC-V boards QEMU supports are currently
+undocumented; you can get a complete list by running
+<code class="docutils literal notranslate"><span class="pre">qemu-system-riscv64</span> <span class="pre">--machine</span> <span class="pre">help</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">qemu-system-riscv32</span> <span class="pre">--machine</span> <span class="pre">help</span></code>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="riscv/microchip-icicle-kit.html">Microchip PolarFire SoC Icicle Kit (<code class="docutils literal notranslate"><span class="pre">microchip-icicle-kit</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="riscv/sifive_u.html">SiFive HiFive Unleashed (<code class="docutils literal notranslate"><span class="pre">sifive_u</span></code>)</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="risc-v-cpu-features">
+<h2>RISC-V CPU features<a class="headerlink" href="#risc-v-cpu-features" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/target-riscv.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

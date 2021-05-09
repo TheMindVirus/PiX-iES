@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supported build platforms &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Removed features" href="removed-features.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="supported-build-platforms">
+<span id="id1"></span><h1>Supported build platforms<a class="headerlink" href="#supported-build-platforms" title="Permalink to this headline">¶</a></h1>
+<p>QEMU aims to support building and executing on multiple host OS
+platforms. This appendix outlines which platforms are the major build
+targets. These platforms are used as the basis for deciding upon the
+minimum required versions of 3rd party software QEMU depends on. The
+supported platforms are the targets for automated testing performed by
+the project when patches are submitted for review, and tested before and
+after merge.</p>
+<p>If a platform is not listed here, it does not imply that QEMU won’t
+work. If an unlisted platform has comparable software versions to a
+listed platform, there is every expectation that it will work. Bug
+reports are welcome for problems encountered on unlisted platforms
+unless they are clearly older vintage than what is described here.</p>
+<p>Note that when considering software versions shipped in distros as
+support targets, QEMU considers only the version number, and assumes the
+features in that distro match the upstream release with the same
+version. In other words, if a distro backports extra features to the
+software in their distro, QEMU upstream code will not add explicit
+support for those backports, unless the feature is auto-detectable in a
+manner that works for the upstream releases too.</p>
+<p>The <a class="reference external" href="https://repology.org/">Repology</a> site is a useful resource to identify
+currently shipped versions of software in various operating systems,
+though it does not cover all distros listed below.</p>
+<div class="section" id="linux-os-macos-freebsd-netbsd-openbsd">
+<h2>Linux OS, macOS, FreeBSD, NetBSD, OpenBSD<a class="headerlink" href="#linux-os-macos-freebsd-netbsd-openbsd" title="Permalink to this headline">¶</a></h2>
+<p>The project aims to support the most recent major version at all times. Support
+for the previous major version will be dropped 2 years after the new major
+version is released or when the vendor itself drops support, whichever comes
+first. In this context, third-party efforts to extend the lifetime of a distro
+are not considered, even when they are endorsed by the vendor (eg. Debian LTS).</p>
+<p>For the purposes of identifying supported software versions available on Linux,
+the project will look at CentOS, Debian, Fedora, openSUSE, RHEL, SLES and
+Ubuntu LTS. Other distros will be assumed to ship similar software versions.</p>
+<p>For FreeBSD and OpenBSD, decisions will be made based on the contents of the
+respective ports repository, while NetBSD will use the pkgsrc repository.</p>
+<p>For macOS, <a class="reference external" href="https://brew.sh/">HomeBrew</a> will be used, although <a class="reference external" href="https://www.macports.org/">MacPorts</a> is expected to carry
+similar versions.</p>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>The project supports building with current versions of the MinGW toolchain,
+hosted on Linux (Debian/Fedora).</p>
+<p>The version of the Windows API that’s currently targeted is Vista / Server
+2008.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/build-platforms.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="removed-features.html">Removed features</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

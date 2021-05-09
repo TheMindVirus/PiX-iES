@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-process QEMU &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deprecated features" href="deprecated.html" />
+    <link rel="prev" title="Security" href="security.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="multi-process-qemu">
+<h1>Multi-process QEMU<a class="headerlink" href="#multi-process-qemu" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to configure and use multi-process qemu.
+For the design document refer to docs/devel/qemu-multiprocess.</p>
+<div class="section" id="configuration">
+<h2>1) Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>multi-process is enabled by default for targets that enable KVM</p>
+</div>
+<div class="section" id="usage">
+<h2>2) Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Multi-process QEMU requires an orchestrator to launch.</p>
+<p>Following is a description of command-line used to launch mpqemu.</p>
+<ul>
+<li><p>Orchestrator:</p>
+<ul class="simple">
+<li><p>The Orchestrator creates a unix socketpair</p></li>
+<li><p>It launches the remote process and passes one of the
+sockets to it via command-line.</p></li>
+<li><p>It then launches QEMU and specifies the other socket as an option
+to the Proxy device object</p></li>
+</ul>
+</li>
+<li><p>Remote Process:</p>
+<ul>
+<li><p>QEMU can enter remote process mode by using the “remote” machine
+option.</p></li>
+<li><p>The orchestrator creates a “remote-object” with details about
+the device and the file descriptor for the device</p></li>
+<li><p>The remaining options are no different from how one launches QEMU with
+devices.</p></li>
+<li><p>Example command-line for the remote process is as follows:</p>
+<blockquote>
+<div><p>/usr/bin/qemu-system-x86_64                                        -machine x-remote                                                  -device lsi53c895a,id=lsi0                                         -drive id=drive_image2,file=/build/ol7-nvme-test-1.qcow2           -device scsi-hd,id=drive2,drive=drive_image2,bus=lsi0.0,scsi-id=0  -object x-remote-object,id=robj1,devid=lsi1,fd=4,</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>QEMU:</p>
+<ul>
+<li><p>Since parts of the RAM are shared between QEMU &amp; remote process, a
+memory-backend-memfd is required to facilitate this, as follows:</p>
+<p>-object memory-backend-memfd,id=mem,size=2G</p>
+</li>
+<li><p>A “x-pci-proxy-dev” device is created for each of the PCI devices emulated
+in the remote process. A “socket” sub-option specifies the other end of
+unix channel created by orchestrator. The “id” sub-option must be specified
+and should be the same as the “id” specified for the remote PCI device</p></li>
+<li><p>Example commandline for QEMU is as follows:</p>
+<blockquote>
+<div><p>-device x-pci-proxy-dev,id=lsi0,socket=3</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/multi-process.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

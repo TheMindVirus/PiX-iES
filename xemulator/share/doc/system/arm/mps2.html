@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arm MPS2 and MPS3 boards (mps2-an385, mps2-an386, mps2-an500, mps2-an505, mps2-an511, mps2-an521, mps3-an524, mps3-an547) &#8212; QEMU  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Arm Musca boards (musca-a, musca-b1)" href="musca.html" />
+    <link rel="prev" title="Arm Integrator/CP (integratorcp)" href="integratorcp.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="arm-mps2-and-mps3-boards-mps2-an385-mps2-an386-mps2-an500-mps2-an505-mps2-an511-mps2-an521-mps3-an524-mps3-an547">
+<h1>Arm MPS2 and MPS3 boards (<code class="docutils literal notranslate"><span class="pre">mps2-an385</span></code>, <code class="docutils literal notranslate"><span class="pre">mps2-an386</span></code>, <code class="docutils literal notranslate"><span class="pre">mps2-an500</span></code>, <code class="docutils literal notranslate"><span class="pre">mps2-an505</span></code>, <code class="docutils literal notranslate"><span class="pre">mps2-an511</span></code>, <code class="docutils literal notranslate"><span class="pre">mps2-an521</span></code>, <code class="docutils literal notranslate"><span class="pre">mps3-an524</span></code>, <code class="docutils literal notranslate"><span class="pre">mps3-an547</span></code>)<a class="headerlink" href="#arm-mps2-and-mps3-boards-mps2-an385-mps2-an386-mps2-an500-mps2-an505-mps2-an511-mps2-an521-mps3-an524-mps3-an547" title="Permalink to this headline">¶</a></h1>
+<p>These board models all use Arm M-profile CPUs.</p>
+<p>The Arm MPS2, MPS2+ and MPS3 dev boards are FPGA based (the 2+ has a
+bigger FPGA but is otherwise the same as the 2; the 3 has a bigger
+FPGA again, can handle 4GB of RAM and has a USB controller and QSPI flash).</p>
+<p>Since the CPU itself and most of the devices are in the FPGA, the
+details of the board as seen by the guest depend significantly on the
+FPGA image.</p>
+<p>QEMU models the following FPGA images:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an385</span></code></dt><dd><p>Cortex-M3 as documented in Arm Application Note AN385</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an386</span></code></dt><dd><p>Cortex-M4 as documented in Arm Application Note AN386</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an500</span></code></dt><dd><p>Cortex-M7 as documented in Arm Application Note AN500</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an505</span></code></dt><dd><p>Cortex-M33 as documented in Arm Application Note AN505</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an511</span></code></dt><dd><p>Cortex-M3 ‘DesignStart’ as documented in Arm Application Note AN511</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps2-an521</span></code></dt><dd><p>Dual Cortex-M33 as documented in Arm Application Note AN521</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps3-an524</span></code></dt><dd><p>Dual Cortex-M33 on an MPS3, as documented in Arm Application Note AN524</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mps3-an547</span></code></dt><dd><p>Cortex-M55 on an MPS3, as documented in Arm Application Note AN547</p>
+</dd>
+</dl>
+<p>Differences between QEMU and real hardware:</p>
+<ul class="simple">
+<li><p>AN385/AN386 remapping of low 16K of memory to either ZBT SSRAM1 or to
+block RAM is unimplemented (QEMU always maps this to ZBT SSRAM1, as
+if zbt_boot_ctrl is always zero)</p></li>
+<li><p>AN524 remapping of low memory to either BRAM or to QSPI flash is
+unimplemented (QEMU always maps this to BRAM, ignoring the
+SCC CFG_REG0 memory-remap bit)</p></li>
+<li><p>QEMU provides a LAN9118 ethernet rather than LAN9220; the only guest
+visible difference is that the LAN9118 doesn’t support checksum
+offloading</p></li>
+<li><p>QEMU does not model the QSPI flash in MPS3 boards as real QSPI
+flash, but only as simple ROM, so attempting to rewrite the flash
+from the guest will fail</p></li>
+<li><p>QEMU does not model the USB controller in MPS3 boards</p></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">QEMU</a></h1>
+
+
+
+
+
+
+
+
+<div id="editpage">
+  <ul>
+    <li><a href="https://gitlab.com/qemu-project/qemu/-/blob/master/docs/system/arm/mps2.rst">Page source</a></li>
+  </ul>
+</div><h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">System Emulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../invocation.html">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keys.html">Keys in the graphical frontends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux-chardev.html">Keys in the character backend multiplexer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">QEMU Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../images.html">Disk Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net.html">Network emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-net-failover.html">QEMU virtio-net standby (net_failover)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nvme.html">NVMe Emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ivshmem.html">Inter-VM Shared Memory device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linuxboot.html">Direct Linux Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generic-loader.html">Generic Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guest-loader.html">Guest Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vnc-security.html">VNC security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tls.html">TLS setup for network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gdb.html">GDB usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../managed-startup.html">Managed start up options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpu-hotplug.html">Virtual CPU hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtio-pmem.html">virtio pmem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pr-manager.html">Persistent reservation managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../targets.html">QEMU System Emulator Targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multi-process.html">Multi-process QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deprecated.html">Deprecated features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-platforms.html">Supported build platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">User Mode Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../interop/index.html">System Emulation Management and Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../specs/index.html">System Emulation Guest Hardware Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devel/index.html">Developer Information</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, The QEMU Project Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
