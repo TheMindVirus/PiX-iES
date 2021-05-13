@@ -5,4 +5,4 @@ https://github.com/isometimes/rpi4-osdev
 Almost working build of hello_fft from raspberrypi/firmware and raspberrypi/tools in baremetal \
 (Some gibberish is being compiled into where the first branch should be)
 
-![almost](https://github.com/TheMindVirus/PiX-iES/blob/qpu-fft-dev/diff.png)
+![almost](https://github.com/TheMindVirus/PiX-iES/blob/qpu-fft-dev/almost.png)
