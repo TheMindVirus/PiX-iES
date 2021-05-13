@@ -1,5 +1,9 @@
-#ifndef IES_H
-#define IES_H
+#ifndef _IES_H_
+#define _IES_H_
+
+#include <stdlib.h>
+#include <math.h>
+//#include "hello_fft/gpu_fft.h"
 
 #define STATIC   static
 #define REFER         *
@@ -8,6 +12,7 @@
 
 typedef unsigned long long   ADDRESS;
 typedef unsigned int         VALUE;
+typedef signed int           SIGNED;
 typedef volatile VALUE       ELEMENT;
 typedef ELEMENT REFER        POINTER;
 typedef unsigned char        BYTE;
@@ -51,6 +56,15 @@ typedef struct _PLATFORM
 
     ADDRESS   MONITOR_FRAMEBUFFER;
     VALUE     MONITOR_PITCH_SPACE;
+
+    VALUE     MONITOR_NUM_DISPLAYS;
+    VALUE     MONITOR_DISPLAY_ID[5];
+	
+    ADDRESS   MONITOR_FRAMEBUFFER2;
+    VALUE     MONITOR_PITCH_SPACE2;
+
+    VALUE     EDID[MAX_SIZE * 10];
+    ADDRESS   EDIDsize;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -104,11 +118,39 @@ void uart_write_buffer(BUFFER buffer);
 #define uart_write(message)   (uart_write_buffer((BUFFER)message))
 void uart_loop(void);
 void uart_print(VALUE value);
+void uart_eval(VALUE value);
 
 VALUE mbox_setup(BYTE channel);
 #define mbox_peek()   (mmio_read(Platform.MBOX_STATUS))
 #define mbox_read()   (mmio_read(Platform.MBOX_READ))
 #define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
 void mbox_get_framebuffer(void);
+void mbox_get_mon_info(void);
+void mbox_get_framebuffer2(void);
 
-#endif//IES_H
+void print_memory(void);
+void print_packet(VALUE size);
+void zero_packet(VALUE size);
+
+VALUE memory_alloc(VALUE size, VALUE align, VALUE flags);
+VALUE memory_free(VALUE handle);
+VALUE memory_lock(VALUE handle);
+VALUE memory_unlock(VALUE handle);
+
+VALUE qpu_setup(VALUE enable);
+VALUE qpu_code(VALUE code, VALUE r0, VALUE r1, VALUE r2, VALUE r3, VALUE r4, VALUE r5);
+VALUE qpu_run(VALUE num_qpus, VALUE control, VALUE no_flush, VALUE timeout);
+void qpu_test(void);
+
+#define mapmem(ADDRESS, SIZE) ADDRESS
+#define unmapmem(ADDRESS, SIZE)
+
+#define mem_alloc(FD, SIZE, ALIGN, FLAGS) memory_alloc(SIZE, ALIGN, FLAGS);
+#define mem_free(FD, HANDLE) memory_free(HANDLE);
+#define mem_lock(FD, HANDLE) memory_lock(HANDLE);
+#define mem_unlock(FD, HANDLE) memory_unlock(HANDLE);
+
+#define qpu_enable(FD, ENABLE) qpu_setup(ENABLE)
+#define execute_qpu(FD, NUMQPUS, CONTROL, NOFLUSH, TIMEOUT) qpu_run(NUMQPUS, CONTROL, NOFLUSH, TIMEOUT)
+
+#endif//_IES_H_                                                                                                            
