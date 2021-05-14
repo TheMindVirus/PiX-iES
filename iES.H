@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-//#include "hello_fft/gpu_fft.h"
+#include "hello_fft/gpu_fft.h"
 
 #define STATIC   static
 #define REFER         *
@@ -65,6 +65,24 @@ typedef struct _PLATFORM
 
     VALUE     EDID[MAX_SIZE * 10];
     ADDRESS   EDIDsize;
+
+    ADDRESS   V3D_BASE;
+    ADDRESS   V3D_IDENT0;
+    ADDRESS   V3D_4DEV;
+
+    ADDRESS   V3D_POWER;
+    ADDRESS   V3D_ASB_M;
+    ADDRESS   V3D_ASB_S;
+    ADDRESS   V3D_MAGIC;
+
+    ADDRESS   V3D_L2CACTL;
+    ADDRESS   V3D_SLCACTL;
+    ADDRESS   V3D_SRQPC;
+    ADDRESS   V3D_SRQUA;
+    ADDRESS   V3D_SRQCS;
+    ADDRESS   V3D_DBCFG;
+    ADDRESS   V3D_DBQITE;
+    ADDRESS   V3D_DBQITC;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -132,7 +150,7 @@ void print_memory(void);
 void print_packet(VALUE size);
 void zero_packet(VALUE size);
 
-VALUE memory_alloc(VALUE size, VALUE align, VALUE flags);
+VALUE memory_allocate(VALUE size, VALUE align, VALUE flags);
 VALUE memory_free(VALUE handle);
 VALUE memory_lock(VALUE handle);
 VALUE memory_unlock(VALUE handle);
@@ -142,15 +160,19 @@ VALUE qpu_code(VALUE code, VALUE r0, VALUE r1, VALUE r2, VALUE r3, VALUE r4, VAL
 VALUE qpu_run(VALUE num_qpus, VALUE control, VALUE no_flush, VALUE timeout);
 void qpu_test(void);
 
+void v3d_setup(VALUE enable);
+
 #define mapmem(ADDRESS, SIZE) ADDRESS
 #define unmapmem(ADDRESS, SIZE)
 
-#define mem_alloc(FD, SIZE, ALIGN, FLAGS) memory_alloc(SIZE, ALIGN, FLAGS);
-#define mem_free(FD, HANDLE) memory_free(HANDLE);
-#define mem_lock(FD, HANDLE) memory_lock(HANDLE);
-#define mem_unlock(FD, HANDLE) memory_unlock(HANDLE);
+#define mem_alloc(FD, SIZE, ALIGN, FLAGS) memory_allocate(SIZE, ALIGN, FLAGS)
+#define mem_free(FD, HANDLE) memory_free(HANDLE)
+#define mem_lock(FD, HANDLE) memory_lock(HANDLE)
+#define mem_unlock(FD, HANDLE) memory_unlock(HANDLE)
 
 #define qpu_enable(FD, ENABLE) qpu_setup(ENABLE)
 #define execute_qpu(FD, NUMQPUS, CONTROL, NOFLUSH, TIMEOUT) qpu_run(NUMQPUS, CONTROL, NOFLUSH, TIMEOUT)
 
-#endif//_IES_H_                                                                                                            
+#define VC_TRANSLATE(ADDRESS) ((ADDRESS) & 0x3FFFFFFF)
+
+#endif//_IES_H_

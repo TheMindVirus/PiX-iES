@@ -59,6 +59,24 @@ void platform_setup(void)
     }
 
     Platform.EDIDsize = 0;
+
+    Platform.V3D_BASE = Platform.PERI_BASE + 0x0000000000C04000;
+    Platform.V3D_IDENT0 = Platform.V3D_BASE;
+    Platform.V3D_4DEV  = 0x04443356; //ASCII
+
+    Platform.V3D_POWER = Platform.PERI_BASE + 0x000000000010010C;
+    Platform.V3D_ASB_M = Platform.PERI_BASE + 0x0000000000C1100C;
+    Platform.V3D_ASB_S = Platform.PERI_BASE + 0x0000000000C11008;
+    Platform.V3D_MAGIC = 0x5A000000; //ASCII
+
+    Platform.V3D_L2CACTL = Platform.V3D_BASE + 0x0000000000000020;
+    Platform.V3D_SLCACTL = Platform.V3D_BASE + 0x0000000000000024;
+    Platform.V3D_SRQPC   = Platform.V3D_BASE + 0x0000000000000430;
+    Platform.V3D_SRQUA   = Platform.V3D_BASE + 0x0000000000000434;
+    Platform.V3D_SRQCS   = Platform.V3D_BASE + 0x000000000000043C;
+    Platform.V3D_DBCFG   = Platform.V3D_BASE + 0x0000000000000E00;
+    Platform.V3D_DBQITE  = Platform.V3D_BASE + 0x0000000000000E2C;
+    Platform.V3D_DBQITC  = Platform.V3D_BASE + 0x0000000000000E30;
 }
 
 void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size)
@@ -175,17 +193,18 @@ VALUE mbox_setup(BYTE channel)
     VALUE checked = 0;
     VALUE mail = ((((ADDRESS)Platform.Mailbox) &~ 0xF) | (channel & 0xF)); //0xF reserved for 4-bit channel
    
-    int t = 0;
-    while ((mbox_peek() & MBOX_FULL) != 0) { uart_write("[HANG]: 1\n"); ++t; if (t > 100) { break; } }
+    VALUE t = 0;
+    VALUE tMax = 100;
+    while ((mbox_peek() & MBOX_FULL) != 0) { uart_write("[HANG]: 1\n"); ++t; if (t > tMax) { break; } }
     mbox_write(mail);
     while (1)
     {
-        while((mbox_peek() & MBOX_EMPTY) != 0) { uart_write("[HANG]: 2\n"); ++t; if (t > 100) { break; } }
+        while ((mbox_peek() & MBOX_EMPTY) != 0) { uart_write("[HANG]: 2\n"); ++t; if (t > tMax) { break; } }
         checked = mbox_read();
         //uart_print(checked);
         //uart_write("\n");
         if (mail == checked) { return MBOX_SUCCESS; }
-        uart_write("[HANG]: 3\n"); ++t; if (t > 100) { break; }
+        uart_write("[HANG]: 3\n"); ++t; if (t > tMax) { break; }
     }
     return MBOX_FAILURE;
 }
@@ -242,7 +261,7 @@ b=i;Platform.Mailbox[i++] = 0;          //Value
 
     if (MBOX_SUCCESS == mbox_setup(8))
     {
-        Platform.MONITOR_FRAMEBUFFER = Platform.Mailbox[a] & 0x3FFFFFFF; //Translate from VC to ARM address
+        Platform.MONITOR_FRAMEBUFFER = VC_TRANSLATE(Platform.Mailbox[a]);
         Platform.MONITOR_PITCH_SPACE = Platform.Mailbox[b];
     }
 }
@@ -338,7 +357,7 @@ b=i;Platform.Mailbox[i++] = 0;          //Value
 
     if (MBOX_SUCCESS == mbox_setup(8))
     {
-        Platform.MONITOR_FRAMEBUFFER2 = Platform.Mailbox[a] & 0x3FFFFFFF; //Translate from VC to ARM address
+        Platform.MONITOR_FRAMEBUFFER2 = VC_TRANSLATE(Platform.Mailbox[a]);
         Platform.MONITOR_PITCH_SPACE2 = Platform.Mailbox[b];
     }
 }
@@ -363,7 +382,7 @@ void print_packet(VALUE size)
     for (ADDRESS i = 0; i < size; ++i)
     {
         uart_write("[MBOX]: Platform.Mailbox[");
-        uart_print((VALUE)i);
+        uart_eval((VALUE)i);
         uart_write("] = ");
         uart_print((VALUE)Platform.Mailbox[i]);
         uart_write("\n");
@@ -373,7 +392,7 @@ void print_packet(VALUE size)
 
 void zero_packet(VALUE size) { for (ADDRESS i = 0; i < size; ++i) { Platform.Mailbox[i] = 0; } }
 
-VALUE memory_alloc(VALUE size, VALUE align, VALUE flags)
+VALUE memory_allocate(VALUE size, VALUE align, VALUE flags)
 {
     ADDRESS i = 1;
     ADDRESS a = 0;
@@ -549,18 +568,8 @@ void qpu_test(void)
     uart_write("[TEST]: BEGIN_QPU\n");
 
     //MAKE SURE V3D IS POWERED ON!!!
-    uart_write("[TEST]: BEGIN_V3D_PWR\n");
-    if (mmio_read(0xFEC04000) == 0x04443356) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
-    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
-
-    mmio_write(0xFE10010C,  mmio_read(0xFE10010C) | 0x5A000040);
-    mmio_write(0xFEC11008, (mmio_read(0xFEC11008) | 0x5A000000) & 0xFFFFFFFE);
-    mmio_write(0xFEC1100C, (mmio_read(0xFEC1100C) | 0x5A000000) & 0xFFFFFFFE);
-
-    if (mmio_read(0xFEC04000) == 0x04443356) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
-    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
-    uart_write("[TEST]: END_V3D_PWR\n");
-
+    v3d_setup(1);
+    
     result = qpu_setup();
     uart_write("[TEST]: qpu_setup() = ");
     uart_print((VALUE)result);
@@ -586,3 +595,27 @@ void qpu_test(void)
     //code[0] = QPU_OP_NOP; code[1] = QPU_OP_END;
     //POINTER RAM = qpu_load(code, 2); //different from qpu_code???
     //qpu_run(1, RAM, 1, 10000);
+
+void v3d_setup(VALUE enable)
+{
+    uart_write("[V3D]: BEGIN_V3D_PWR\n");
+    if (mmio_read(Platform.V3D_IDENT0) == Platform.V3D_4DEV) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
+    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
+
+    if (enable)
+    {
+        mmio_write(Platform.V3D_POWER,  mmio_read(Platform.V3D_POWER) | Platform.V3D_MAGIC  | 0x40);
+        mmio_write(Platform.V3D_ASB_M, (mmio_read(Platform.V3D_ASB_M) | Platform.V3D_MAGIC) & 0xFFFFFFFE);
+        mmio_write(Platform.V3D_ASB_S, (mmio_read(Platform.V3D_ASB_S) | Platform.V3D_MAGIC) & 0xFFFFFFFE);
+    }
+    else
+    {
+        mmio_write(Platform.V3D_POWER,  mmio_read(Platform.V3D_POWER) | Platform.V3D_MAGIC);
+        mmio_write(Platform.V3D_ASB_M, (mmio_read(Platform.V3D_ASB_M) | Platform.V3D_MAGIC) | 0x1);
+        mmio_write(Platform.V3D_ASB_S, (mmio_read(Platform.V3D_ASB_S) | Platform.V3D_MAGIC) | 0x1);
+    }
+
+    if (mmio_read(Platform.V3D_IDENT0) == Platform.V3D_4DEV) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
+    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
+    uart_write("[V3D]: END_V3D_PWR\n");
+}

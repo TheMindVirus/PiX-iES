@@ -154,8 +154,6 @@ _start:
 	mov	w0, #0x0A
 	bl	_uart_write_byte
 
-	bl	main			//Branch to main() in C/C++
-
 	bl	_halt			//main() returned - Halt
 
 _gpio_setup:

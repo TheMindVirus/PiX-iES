@@ -65,8 +65,10 @@ int gpu_fft_prepare(
             unif_bytes +        // uniforms
             mail_bytes;         // mailbox message
 
+    uart_write("[QPU]: Allocating...\n");
     ret = gpu_fft_alloc(mb, size, &ptr);
     if (ret) return ret;
+    uart_write("[QPU]: Allocated\n");
 
     // Header
     info = (struct GPU_FFT *) ptr.arm.vptr;
@@ -108,12 +110,13 @@ int gpu_fft_prepare(
         base->vc_unifs[q] = gpu_fft_ptr_inc(&ptr, sizeof(int)*(5+jobs*2));
     }
 
-    if ((jobs<<log2_N) <= GPU_FFT_BUSY_WAIT_LIMIT) {
+    //if ((jobs<<log2_N) <= GPU_FFT_BUSY_WAIT_LIMIT) {
+    if (1) {
         // Direct register poking with busy wait
-        base->vc_msg = 0;
+        base->vc_msg = 0; //[PREFERRED]: see gpu_fft_base_exec_direct()
     }
     else {
-        // Mailbox message
+        // Mailbox message //[ALTERNATIVE]: see gpu_fft_base_exec()
         for (q=0; q<GPU_FFT_QPUS; q++) {
             *uptr++ = base->vc_unifs[q];
             *uptr++ = base->vc_code;

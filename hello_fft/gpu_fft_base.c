@@ -31,18 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "gpu_fft.h"
 //#include "mailbox.h"
 
-#define BUS_TO_PHYS(x) ((x)&~0xC0000000)
-
-// V3D spec: http://www.broadcom.com/docs/support/videocore/VideoCoreIV-AG100-R.pdf
-#define V3D_L2CACTL (0xC00020>>2)
-#define V3D_SLCACTL (0xC00024>>2)
-#define V3D_SRQPC   (0xC00430>>2)
-#define V3D_SRQUA   (0xC00434>>2)
-#define V3D_SRQCS   (0xC0043c>>2)
-#define V3D_DBCFG   (0xC00e00>>2)
-#define V3D_DBQITE  (0xC00e2c>>2)
-#define V3D_DBQITC  (0xC00e30>>2)
-
 // Setting this define to zero on Pi 1 allows GPU_FFT and Open GL
 // to co-exist and also improves performance of longer transforms:
 #define GPU_FFT_USE_VC4_L2_CACHE 1 // Pi 1 only: cached=1; direct=0
@@ -54,60 +42,54 @@ struct GPU_FFT_HOST {
     unsigned mem_flg, mem_map, peri_addr, peri_size;
 };
 
-int gpu_fft_get_host_info(struct GPU_FFT_HOST *info) {
-    /*void *handle;
-    unsigned (*bcm_host_get_sdram_address)     (void);
-    unsigned (*bcm_host_get_peripheral_address)(void);
-    unsigned (*bcm_host_get_peripheral_size)   (void);*/
-
+int gpu_fft_get_host_info(struct GPU_FFT_HOST *info)
+{
     // Pi 1 defaults
-    info->peri_addr = 0x20000000;
-    info->peri_size = 0x01000000;
     info->mem_flg = GPU_FFT_USE_VC4_L2_CACHE? 0xC : 0x4;
     info->mem_map = GPU_FFT_USE_VC4_L2_CACHE? 0x0 : 0x20000000; // Pi 1 only
-/*
-    handle = dlopen("libbcm_host.so", RTLD_LAZY);
-    if (!handle) return -1;
-
-    *(void **) (&bcm_host_get_sdram_address)      = dlsym(handle, "bcm_host_get_sdram_address");
-    *(void **) (&bcm_host_get_peripheral_address) = dlsym(handle, "bcm_host_get_peripheral_address");
-    *(void **) (&bcm_host_get_peripheral_size)    = dlsym(handle, "bcm_host_get_peripheral_size");
-
-    if (bcm_host_get_sdram_address && bcm_host_get_sdram_address()!=0x40000000) { // Pi 2?
-        info->mem_flg = 0x4; // ARM cannot see VC4 L2 on Pi 2
-        info->mem_map = 0x0;
-    }
-
-    if (bcm_host_get_peripheral_address) info->peri_addr = bcm_host_get_peripheral_address();
-    if (bcm_host_get_peripheral_size)    info->peri_size = bcm_host_get_peripheral_size();
-
-    dlclose(handle);*/
     return 0;
 }
 
-unsigned gpu_fft_base_exec_direct (
-    struct GPU_FFT_BASE *base,
-    int num_qpus) {
+unsigned gpu_fft_base_exec_direct(struct GPU_FFT_BASE *base, int num_qpus)
+{
+uart_write("[QPU]: STAGE[0]: SANITY_CHECK\n");
+    uart_write("[QPU]: STAGE[0]: V3D_IDENT0 = ");
+    uart_print((VALUE)mmio_read(Platform.V3D_IDENT0));
+    uart_write("\n");
 
-    base->peri[V3D_DBCFG] = 0; // Disallow IRQ
-    base->peri[V3D_DBQITE] = 0; // Disable IRQ
-    base->peri[V3D_DBQITC] = -1; // Resets IRQ flags
+uart_write("[QPU]: STAGE[1]: DISABLE_IRQ\n");
+    mmio_write(Platform.V3D_DBCFG, 0); // Disallow IRQ
+    mmio_write(Platform.V3D_DBQITE, 0); // Disable IRQ
+    mmio_write(Platform.V3D_DBQITC, 0xFFFFFFFF); // Resets IRQ flags
 
-    base->peri[V3D_L2CACTL] =  1<<2; // Clear L2 cache
-    base->peri[V3D_SLCACTL] = -1; // Clear other caches
+uart_write("[QPU]: STAGE[2]: CLEAR_L2_CACHE\n");
+    mmio_write(Platform.V3D_L2CACTL, 0x4); // Clear L2 cache
+    mmio_write(Platform.V3D_SLCACTL, 0xFFFFFFFF); // Clear other caches
 
-    base->peri[V3D_SRQCS] = (1<<7) | (1<<8) | (1<<16); // Reset error bit and counts
+uart_write("[QPU]: STAGE[3]: RESET_ERROR_BITS\n");
+    mmio_write(Platform.V3D_SRQCS, 0b1000000011000000); // Reset error bit and counts
 
+uart_write("[QPU]: STAGE[4]: LAUNCH_SHADERS\n");
     for (int q = 0; q < num_qpus; ++q) { // Launch shader(s)
-        base->peri[V3D_SRQUA] = base->vc_unifs[q];
-        base->peri[V3D_SRQPC] = base->vc_code;
+        mmio_write(Platform.V3D_SRQUA, base->vc_unifs[q]);
+        mmio_write(Platform.V3D_SRQPC, base->vc_code);
     }
 
+uart_write("[QPU]: STAGE[5]: POLL_SCOREBOARD\n");
     // Busy wait polling
-    for (;;) {
-        if (((base->peri[V3D_SRQCS]>>16) & 0xff) == (unsigned int)num_qpus) break; // All done?
+    VALUE t = 0;
+    VALUE tMax = 100;
+    while(1)
+    {
+        //Scoreboard Format: 0xXXYY - XX: Total Jobs, YY: Failed Jobs
+        if (((mmio_read(Platform.V3D_SRQCS) >> 8) & 0xFF) == (VALUE)num_qpus) { break; } // All done?
+        uart_write("[QPU]: STAGE[5]: V3D_SRQCS = ");
+        uart_print((VALUE)mmio_read(Platform.V3D_SRQCS));
+        uart_write("\n");
+        ++t; if (t > tMax) { break; }
     }
 
+uart_write("[QPU]: STAGE[6]: COMPLETE\n");
     return 0;
 }
 
@@ -118,10 +100,12 @@ unsigned gpu_fft_base_exec(
     if (base->vc_msg) {
         // Use mailbox
         // Returns: 0x0 for success; 0x80000000 for timeout
+        uart_write("[QPU]: MBOX_MODE_SELECTED\n");
         return execute_qpu(base->mb, num_qpus, base->vc_msg, GPU_FFT_NO_FLUSH, GPU_FFT_TIMEOUT);
     }
     else {
         // Direct register poking
+        uart_write("[QPU]: DIRECT_MODE_SELECTED\n");
         return gpu_fft_base_exec_direct(base, num_qpus);
     }
 }
@@ -138,10 +122,23 @@ int gpu_fft_alloc (
 
     if (gpu_fft_get_host_info(&host)) return -5;
 
-    if (qpu_enable(mb, 1)) return -1;
+    //if (qpu_enable(mb, 1)) return -1;
+
+    zero_packet(100);
 
     // Shared memory
     handle = mem_alloc(mb, size, 4096, host.mem_flg);
+
+    print_packet(Platform.Mailbox[0] / 4);
+
+    uart_write("\n[MBOX]: Size: ");
+    uart_print((VALUE)size);
+    uart_write("\n[MBOX]: Align: ");
+    uart_print((VALUE)4096);
+    uart_write("\n[MBOX]: Flags: ");
+    uart_print((VALUE)host.mem_flg);
+    uart_write("\n");
+
     if (!handle) {
         qpu_enable(mb, 0);
         return -3;
@@ -155,7 +152,7 @@ int gpu_fft_alloc (
     }
 
     ptr->vc = mem_lock(mb, handle);
-    ptr->arm.vptr = (unsigned *) (long) mapmem(BUS_TO_PHYS(ptr->vc+host.mem_map), size);
+    ptr->arm.vptr = (unsigned *) (long) mapmem(VC_TRANSLATE(ptr->vc+host.mem_map), size);
 
     base = (struct GPU_FFT_BASE *) ptr->arm.vptr;
     base->peri      = peri;
@@ -163,7 +160,28 @@ int gpu_fft_alloc (
     base->mb        = mb;
     base->handle    = handle;
     base->size      = size;
+/*
+    //Enable V3D Direct Mode Here???
+    //MAKE SURE V3D IS POWERED ON!!!
+    uart_write("[TEST]: BEGIN_V3D_PWR\n");
+    if (mmio_read(0xFEC04000) == 0x04443356) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
+    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
 
+    mmio_write(0xFE10010C,  mmio_read(0xFE10010C) | 0x5A000000);
+    mmio_write(0xFEC11008, (mmio_read(0xFEC11008) | 0x5A000000) | 0x1);
+    mmio_write(0xFEC1100C, (mmio_read(0xFEC1100C) | 0x5A000000) | 0x1);
+
+    if (mmio_read(0xFEC04000) == 0x04443356) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
+    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
+
+    mmio_write(0xFE10010C,  mmio_read(0xFE10010C) | 0x5A000040);
+    mmio_write(0xFEC11008, (mmio_read(0xFEC11008) | 0x5A000000) & 0xFFFFFFFE);
+    mmio_write(0xFEC1100C, (mmio_read(0xFEC1100C) | 0x5A000000) & 0xFFFFFFFE);
+
+    if (mmio_read(0xFEC04000) == 0x04443356) { uart_write("[4D3V]: V3D_PWR_ON\n"); }
+    else { uart_write("[WARN]: V3D_PWR_OFF\n"); }
+    uart_write("[TEST]: END_V3D_PWR\n");
+*/
     return 0;
 }
 

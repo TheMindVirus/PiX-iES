@@ -6,6 +6,15 @@ void main()
     //uart_setup(115200);
     uart_write(PIX_WELCOME_MESSAGE);
 
+    zero_packet(100);
+    mbox_get_framebuffer();
+    print_packet(0x90 / 4); //DO NOT DELETE - ALTERNATIVE TO SLEEP!
+    uart_write("MONITOR_FRAMEBUFFER: ");
+    uart_print((VALUE)Platform.MONITOR_FRAMEBUFFER);
+    uart_write("\nMONITOR_PITCH_SPACE: ");
+    uart_print((VALUE)Platform.MONITOR_PITCH_SPACE);
+    uart_write("\n\n");
+
     const char* test1 = "53";
     int dtest1 = atoi(test1);
     uart_write("[INFO]: TEST1: ");
@@ -24,9 +33,35 @@ void main()
     uart_write("[INFO]: TEST3: ARM");
     uart_eval((VALUE)test3);
     uart_write("\n");
+
+    //MAKE SURE V3D IS POWERED ON!!!
+    v3d_setup(1);
 /*
+    zero_packet(100);
+    mbox_get_framebuffer();
+    print_packet(Platform.Mailbox[0] / 4);
+    uart_write("MONITOR_FRAMEBUFFER: ");
+    uart_print((VALUE)Platform.MONITOR_FRAMEBUFFER);
+    uart_write("\nMONITOR_PITCH_SPACE: ");
+    uart_print((VALUE)Platform.MONITOR_PITCH_SPACE);
+    uart_write("\n\n");
+
+    zero_packet(100);
+    VALUE enabled = qpu_setup(1);
+    print_packet(Platform.Mailbox[0] / 4);
+    if (enabled == 1) { uart_write("[ENAB]: QPU_STATE_1\n"); }
+    else { uart_write("[ENAB]: QPU_STATE_0\n"); }
+
+    zero_packet(100);
+    VALUE handle = memory_allocate(257464, 4096, 0xC);
+    print_packet(Platform.Mailbox[0] / 4);
+    uart_write("[MEMO]: Handle = ");
+    uart_print((VALUE)handle);
+    uart_write("\n");
+*/
     int argc = 3;
-    const char* argv[] = {"8", "7", "10"};
+    const char* argv[] = {"10", "10", "10"};
+    uart_write("[TEST]: BEGIN_QPU\n");
 
     int mb = 0;
     int result = 0;
@@ -36,7 +71,7 @@ void main()
     int jobs = 0;
     int N = 0;
 
-    unsigned t[2];
+    //unsigned t[2];
     double tsq[2];
 
     struct GPU_FFT_COMPLEX* base;
@@ -74,8 +109,9 @@ void main()
             freq = (j + 1) & (N / 2 - 1);
             base[freq].re += base[(N - freq) & (N - 1)].re = 0.5;
         }
-
+        uart_write("[TEST]: GOT_HERE_1\n");
         gpu_fft_execute(fft); // call one or many times
+        uart_write("[TEST]: GOT_HERE_2\n");
 
         tsq[0] = tsq[1] = 0;
         for (int j = 0; j < jobs; ++j)
@@ -92,18 +128,25 @@ void main()
 
         //printf("rel_rms_err = %0.2g, usecs = %d, k = %d\n",
         //    sqrt(tsq[1] / tsq[0]), (t[1] - t[0]) / jobs, k);
-        uart_write("[INFO]: REL_RMS_ERR: ");
-        uart_print((int)sqrt(tsq[1] / tsq[0]));
+
+        //2dp Double Printer - ///!!![WARN]: Does not handle negative numbers!
+        double rel_rms_err = sqrt(tsq[1] / tsq[0]);
+        uart_write("[INFO]: REL_RMS_ERR = ");
+        uart_eval((VALUE)rel_rms_err);
+        uart_write(".");
+        uart_eval(((VALUE)(rel_rms_err * 10.0)) % 10);
+        uart_eval(((VALUE)(rel_rms_err * 100.0)) % 10);
         uart_write("\n");
 
-        uart_write("[INFO]: K: ");
-        uart_print(k);
+        uart_write("[INFO]: K = ");
+        uart_eval((VALUE)k);
         uart_write("\n");
     }
 
     gpu_fft_release(fft); // Videocore memory lost if not freed !
+    uart_write("\n");
+    uart_write("[TEST]: END_QPU");
 
-*/
-    uart_write("\n[TEST]: COMPLETE\n");
+    uart_write("[TEST]: COMPLETE!\n");
     return;
 }

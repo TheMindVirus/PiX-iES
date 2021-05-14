@@ -1,8 +1,7 @@
 # PiX-iES
-rpi4-osdev working example of Raspberry Pi 4 Framebuffer being controlled by ARM64 core (first boot of PiX GPU)
+rpi4-osdev working example of Raspberry Pi 4 Framebuffer being controlled by ARM64 core (first boot of PiX QPU)
 https://github.com/isometimes/rpi4-osdev
 
-Almost working build of hello_fft from raspberrypi/firmware and raspberrypi/tools in baremetal \
-(Some gibberish is being compiled into where the first branch should be)
+IT WORKS!!! Baremetal example of 8 Quad Processor Units performing FFT (hello_fft userland demo)
 
-![almost](https://github.com/TheMindVirus/PiX-iES/blob/qpu-fft-dev/almost.png)
+![qpuworking](https://github.com/TheMindVirus/PiX-iES/blob/hello-qpu/QPUworking.png)
