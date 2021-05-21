@@ -8,4 +8,9 @@ https://github.com/isometimes/rpi4-osdev
     mmio_write(0x2000A008, 0x5A000000); //ASB_V3D_S_CTRL
 ```
 
+More Information on V3D Usage: \
+https://elinux.org/BCM2835_registers
+https://docs.broadcom.com/doc/12358545
+https://github.com/themindvirus/pix-ies/tree/hello-qpu
+
 ![v3dpower](https://github.com/TheMindVirus/PiX-iES/blob/pi0-v3d/V3Dpower.png)
