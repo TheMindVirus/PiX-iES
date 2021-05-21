@@ -9,8 +9,8 @@ https://github.com/isometimes/rpi4-osdev
 ```
 
 More Information on V3D Usage: \
-https://elinux.org/BCM2835_registers
-https://docs.broadcom.com/doc/12358545
+https://elinux.org/BCM2835_registers \
+https://docs.broadcom.com/doc/12358545 \
 https://github.com/themindvirus/pix-ies/tree/hello-qpu
 
 ![v3dpower](https://github.com/TheMindVirus/PiX-iES/blob/pi0-v3d/V3Dpower.png)
