@@ -1,14 +1,15 @@
-@ECHO ON
+@echo on
 
-REM No Comment.
-SET PATH=%PATH%;%CD%\XCOMPILER-WIN32\bin
-SET FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+rem No Comment.
+set PATH=%PATH%;%CD%\compiler\bin
+set FLAGS=-mcpu=arm1176jzf-s -std=gnu99 -fpic -ffreestanding -O2 -Wall -Wextra
+set LINKS=-T link.ld -O2 -ffreestanding -nostartfiles -lgcc -L %CD%\compiler\lib\gcc\arm-none-eabi\10.2.1\
 
-aarch64-none-elf-gcc %FLAGS% -c BOOT.S -o BOOT.O
-aarch64-none-elf-gcc %FLAGS% -c PiX.C -o PiX.O
-aarch64-none-elf-gcc %FLAGS% -c iES.C -o iES.O
-aarch64-none-elf-ld -nostdlib -nostartfiles BOOT.O iES.O PiX.O -T LINK.LD -o kernel8.elf
-aarch64-none-elf-objcopy -O binary kernel8.elf PiX.img
-copy PiX.img PiX.iES
+arm-none-eabi-gcc %FLAGS% -c boot.S -o boot.o
+arm-none-eabi-gcc %FLAGS% -c pix.c -o pix.o
+arm-none-eabi-gcc %FLAGS% -c ies.c -o ies.o
+arm-none-eabi-gcc %LINKS% boot.o ies.o pix.o -o pix.elf
+arm-none-eabi-objcopy -O binary pix.elf pix.img
+copy pix.img pix.ies
 
-PAUSE
+pause

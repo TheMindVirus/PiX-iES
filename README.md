@@ -1,8 +1,11 @@
 # PiX-iES
-rpi4-osdev working example of Raspberry Pi 4 Framebuffer being controlled by ARM64 core (first boot of PiX GPU)
+rpi4-osdev working example of Raspberry Pi Zero Framebuffer being controlled by ARM core (first boot of PiX GPU)
 https://github.com/isometimes/rpi4-osdev
 
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/Framebuffer%20Location.png)
+```
+    mmio_write(0x2010010C, 0x5A00107F); //PM_GRAFX
+    mmio_write(0x2000A00C, 0x5A000000); //ASB_V3D_M_CTRL
+    mmio_write(0x2000A008, 0x5A000000); //ASB_V3D_S_CTRL
+```
 
-# PiX - Raspberry Pi GPU Concept Render
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/RPiCard.jpg)
+![v3dpower](https://github.com/TheMindVirus/PiX-iES/blob/pi0-v3d/V3Dpower.png)
