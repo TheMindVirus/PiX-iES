@@ -15,22 +15,21 @@ typedef BYTE REFER           QUEUE;
 typedef BYTE REFER           BUFFER;
 typedef const char REFER     LITERAL;
 typedef VALUE PACK(4)        MAILBOX;
+typedef unsigned char        GO8BIT;
+typedef bool                 BOOLEAN;
+typedef unsigned long long   TIME;
 
 typedef struct _PLATFORM
 {
-    VALUE     STATE_GPIO;
     ADDRESS   PERI_BASE;
 
-    VALUE     GPIO_PINS;
     ADDRESS   GPIO_BASE;
-    ADDRESS   GPFSEL0;
-    ADDRESS   GPSET0;
-    ADDRESS   GPCLR0;
-    ADDRESS   GPPUPPDN0;
+    ADDRESS   GPIO_GPFSEL0;
+    ADDRESS   GPIO_GPSET0;
+    ADDRESS   GPIO_GPCLR0;
+    ADDRESS   GPIO_GPLEV0;
+    ADDRESS   GPIO_PUP_PDN_CNTRL_REG0;
 
-    VALUE     UART_CLOCK;
-    ADDRESS   UART_COUNTER;
-    BYTE      UART_QUEUE[MAX_SIZE];
     ADDRESS   AUX_BASE;
     ADDRESS   AUX_IRQ;
     ADDRESS   AUX_ENABLES;
@@ -43,6 +42,12 @@ typedef struct _PLATFORM
     ADDRESS   AUX_MU_CNTL_REG;
     ADDRESS   AUX_MU_BAUD_REG;
 
+    GO8BIT    UART_TX;
+    GO8BIT    UART_RX;
+    VALUE     UART_CLOCK;
+    ADDRESS   UART_COUNTER;
+    BYTE      UART_QUEUE[MAX_SIZE];
+
     MAILBOX   Mailbox[MAX_SIZE]   PACK(16); //0xF reserved for 4-bit channel
     ADDRESS   MBOX_BASE;
     ADDRESS   MBOX_READ;
@@ -51,6 +56,38 @@ typedef struct _PLATFORM
 
     ADDRESS   MONITOR_FRAMEBUFFER;
     VALUE     MONITOR_PITCH_SPACE;
+
+    VALUE     MONITOR_NUM_DISPLAYS;
+    VALUE     MONITOR_DISPLAY_ID[5];
+	
+    ADDRESS   MONITOR_FRAMEBUFFER2;
+    VALUE     MONITOR_PITCH_SPACE2;
+
+    GO8BIT HEADPHONES_LEFT;
+    GO8BIT HEADPHONES_RIGHT;
+
+    GO8BIT DBUG_CARD_X1;
+    GO8BIT DBUG_CARD_A1;
+    GO8BIT DBUG_CARD_B1;
+    GO8BIT DBUG_CARD_C1;
+    GO8BIT DBUG_CARD_D1;
+    GO8BIT DBUG_CARD_E1;
+    GO8BIT DBUG_CARD_F1;
+    GO8BIT DBUG_CARD_G1;
+
+    GO8BIT DBUG_CARD_X2;
+    GO8BIT DBUG_CARD_A2;
+    GO8BIT DBUG_CARD_B2;
+    GO8BIT DBUG_CARD_C2;
+    GO8BIT DBUG_CARD_D2;
+    GO8BIT DBUG_CARD_E2;
+    GO8BIT DBUG_CARD_F2;
+    GO8BIT DBUG_CARD_G2;
+
+    ADDRESS TIMER_BASE;
+    ADDRESS TIMER_COUNTER_LOW;
+    ADDRESS TIMER_COUNTER_HIGH;
+    TIME TIMER_CHECKPOINT_LAST;
     
 }   PLATFORM, REFER PPLATFORM;
 extern PLATFORM Platform;
@@ -85,17 +122,16 @@ enum MBOX_FLAGS
 };
 
 void platform_setup(void);
-#define mmio_read(address)   (REFER(POINTER)address)
-#define mmio_write(address, value)   (REFER(POINTER)address = value)
+#define mmio_read(address)   (REFER(POINTER)(address))
+#define mmio_write(address, value)   (REFER(POINTER)(address) = value)
 
-void gpio_setup(ADDRESS pin, VALUE value, ADDRESS base, VALUE size);
-#define gpio_set(pin) (gpio_setup(pin, 1, Platform.GPSET0, 1))
-#define gpio_clear(pin) (gpio_setup(pin, 1, Platform.GPCLR0, 1))
-#define gpio_pull(pin, pull) (gpio_setup(pin, pull, Platform.GPPUPPDN0, 2))
-#define gpio_alt(pin, alt) (gpio_setup(pin, alt, Platform.GPFSEL0, 3))
+void gpio_setup(ADDRESS pin, ADDRESS alt, ADDRESS pull);
+#define gpio_read(pin) (((mmio_read(Platform.GPIO_GPLEV0 + (0x4 * (pin / 32))) >> (pin % 32)) & 1) == 1)
+#define gpio_write(pin) (mmio_write(Platform.GPIO_GPSET0 + (0x4 * (pin / 32)), (1 << (pin % 32))))
+#define gpio_reset(pin) (mmio_write(Platform.GPIO_GPCLR0 + (0x4 * (pin / 32)), (1 << (pin % 32))))
 
 void uart_setup(VALUE baud);
-#define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x20) > 0)
+#define uart_idle()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x40) > 0)
 #define uart_peek()   ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x01) > 0)
 #define uart_read_byte()   (mmio_read(Platform.AUX_MU_IO_REG) & 0xFF)
 LITERAL uart_read(ADDRESS length);
@@ -103,12 +139,26 @@ void uart_write_byte(BYTE byte);
 void uart_write_buffer(BUFFER buffer);
 #define uart_write(message)   (uart_write_buffer((BUFFER)message))
 void uart_loop(void);
-void uart_print(VALUE value);
+void uart_print(ADDRESS value);
 
 VALUE mbox_setup(BYTE channel);
 #define mbox_peek()   (mmio_read(Platform.MBOX_STATUS))
 #define mbox_read()   (mmio_read(Platform.MBOX_READ))
 #define mbox_write(addrech)   (mmio_write(Platform.MBOX_WRITE, addrech))
 void mbox_get_framebuffer(void);
+void mbox_get_mon_info(void);
+void mbox_get_framebuffer2(void);
+
+void print_memory(void);
+void print_packet(VALUE n);
+void zero_packet(VALUE n);
+
+GO8BIT QCODE2DIGIT(GO8BIT Q, BOOLEAN DOT);
+void post_code(GO8BIT qcode);
+
+TIME time_read(void);
+void time_write(TIME checkpoint);
+BOOLEAN time_check(TIME offset);
+void time_wait(TIME ticks);
 
 #endif//IES_H

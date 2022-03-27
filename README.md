@@ -1,8 +1,6 @@
 # PiX-iES
-rpi4-osdev working example of Raspberry Pi 4 Framebuffer being controlled by ARM64 core (first boot of PiX GPU)
-https://github.com/isometimes/rpi4-osdev
+### Bare-metal cluster POST with the Strawberry Liquorice DBUG Card, GPIO, Polled Timer, Audio and Video
+### https://github.com/themindvirus/liquorice
+![alt text](https://github.com/TheMindVirus/PiX-iES/blob/pi4-post/IMG_5363.jpg)
 
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/Framebuffer%20Location.png)
 
-# PiX - Raspberry Pi GPU Concept Render
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/RPiCard.jpg)
