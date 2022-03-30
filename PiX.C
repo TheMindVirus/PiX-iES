@@ -19,14 +19,14 @@ void main()
         gpio_reset(Platform.HEADPHONES_RIGHT);
         gpio_write(Platform.DBUG_CARD_X1);
         gpio_reset(Platform.DBUG_CARD_X2);
-        time_wait(ONE_SECOND);
+        time_wait(TIME_ONE_SECOND);
 
         uart_write("[AUDS]: RIGHT\n");
         gpio_reset(Platform.HEADPHONES_LEFT);
         gpio_write(Platform.HEADPHONES_RIGHT);
         gpio_reset(Platform.DBUG_CARD_X1);
         gpio_write(Platform.DBUG_CARD_X2);
-        time_wait(ONE_SECOND);
+        time_wait(TIME_ONE_SECOND);
     }
     gpio_reset(Platform.HEADPHONES_LEFT);
     gpio_reset(Platform.HEADPHONES_RIGHT);
@@ -102,48 +102,49 @@ void main()
     gpio_setup(Platform.DBUG_CARD_F2, GPIO_OUTPUT, GPIO_PULL_NONE);
     gpio_setup(Platform.DBUG_CARD_G2, GPIO_OUTPUT, GPIO_PULL_NONE);
 
-    gpio_write(Platform.DBUG_CARD_X1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_A1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_B1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_C1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_D1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_E1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_F1); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_G1); time_wait(ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_X1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_A1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_B1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_C1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_D1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_E1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_F1); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_G1); time_wait(TIME_ONE_TENTH);
 
-    gpio_write(Platform.DBUG_CARD_X2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_A2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_B2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_C2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_D2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_E2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_F2); time_wait(ONE_TENTH);
-    gpio_write(Platform.DBUG_CARD_G2); time_wait(ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_X2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_A2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_B2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_C2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_D2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_E2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_F2); time_wait(TIME_ONE_TENTH);
+    gpio_write(Platform.DBUG_CARD_G2); time_wait(TIME_ONE_TENTH);
 
-    gpio_reset(Platform.DBUG_CARD_X1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_A1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_B1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_C1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_D1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_E1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_F1); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_G1); time_wait(ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_X1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_A1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_B1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_C1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_D1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_E1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_F1); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_G1); time_wait(TIME_ONE_TENTH);
 
-    gpio_reset(Platform.DBUG_CARD_X2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_A2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_B2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_C2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_D2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_E2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_F2); time_wait(ONE_TENTH);
-    gpio_reset(Platform.DBUG_CARD_G2); time_wait(ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_X2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_A2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_B2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_C2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_D2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_E2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_F2); time_wait(TIME_ONE_TENTH);
+    gpio_reset(Platform.DBUG_CARD_G2); time_wait(TIME_ONE_TENTH);
 
     for (GO8BIT i = 0x0; i <= 0xF; ++i)
     {
         post_code((i << 4) + i);
-        time_wait(ONE_TENTH);
+        time_wait(TIME_ONE_TENTH);
     }
 
+    clock_setup(); //Overclock
     post_code(0xAD); //Ready To Boot
 
     while (true)
@@ -151,9 +152,9 @@ void main()
         uart_loop();
         gpio_write(Platform.DBUG_CARD_X1);
         gpio_reset(Platform.DBUG_CARD_X2);
-        time_wait(ONE_TENTH);
+        time_wait(TIME_ONE_TENTH);
         gpio_write(Platform.DBUG_CARD_X2);
         gpio_reset(Platform.DBUG_CARD_X1);
-        time_wait(ONE_TENTH);
+        time_wait(TIME_ONE_TENTH);
     }
 }

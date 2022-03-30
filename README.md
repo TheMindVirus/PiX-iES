@@ -1,14 +1,8 @@
 # PiX-iES
-### Bare-metal cluster POST with DBUG Card, GPIO, Polled Timer, Audio and Video
-### Strawberry Liquorice DBUG Card https://github.com/themindvirus/liquorice
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/pi4-post/IMG_5363.jpg)
+Non-working example of Raspberry Pi 4 Clocks being measured by ARM64 core (Pi4 overclocking)
 
-### New GPIO Engine
-https://github.com/TheMindVirus/PiX-iES/blob/16b5137d1ea8994f588ebe10388afbe495b3fc05/iES.H#L128 \
-https://github.com/TheMindVirus/PiX-iES/blob/16b5137d1ea8994f588ebe10388afbe495b3fc05/iES.C#L74
+### Measured Frequency
+![clocks](https://github.com/themindvirus/PiX-iES/blob/pi4-clocks/clocks.png)
 
-### POST DBUG Card Driver
-https://github.com/TheMindVirus/PiX-iES/blob/16b5137d1ea8994f588ebe10388afbe495b3fc05/iES.C#L390
-
-### Strawberry
-![strawberry](https://github.com/TheMindVirus/PiX-iES/blob/pi4-post/strawberry.svg)
+### Maximum Ratings
+![ratings](https://github.com/themindvirus/PiX-iES/blob/pi4-clocks/ratings.png)

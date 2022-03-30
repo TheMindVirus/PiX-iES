@@ -4,6 +4,8 @@ PLATFORM Platform;
 
 void platform_setup(void)
 {
+    Platform.HEXMAP = "0123456789ABCDEF";
+
     Platform.PERI_BASE = 0x00000000FE000000;
 
     Platform.GPIO_BASE               = Platform.PERI_BASE + 0x0000000000200000;
@@ -69,6 +71,33 @@ void platform_setup(void)
     Platform.TIMER_COUNTER_LOW     = Platform.TIMER_BASE + 0x0000000000000004;
     Platform.TIMER_COUNTER_HIGH    = Platform.TIMER_BASE + 0x0000000000000008;
     Platform.TIMER_CHECKPOINT_LAST = 0;
+
+    for (ADDRESS i = 0; i < CLOCK_LIMIT; ++i)
+    {
+        Platform.CLOCK[i].ID = i;
+        Platform.CLOCK[i].STATE = 0;
+        Platform.CLOCK[i].RATE = 0;
+        Platform.CLOCK[i].MEASURED = 0;
+        Platform.CLOCK[i].MAX = 0;
+        Platform.CLOCK[i].MIN = 0;
+    }
+    Platform.CLOCK_TURBO = 0;
+
+    Platform.CLOCK[CLOCK_ID_ROOT].MAX      =          0; //What's going on here?
+    Platform.CLOCK[CLOCK_ID_EMMC].MAX      =  250000000; //These have been pulled from
+    Platform.CLOCK[CLOCK_ID_UART].MAX      = 1000000000; //the mailbox directly
+    Platform.CLOCK[CLOCK_ID_ARM].MAX       = 1500000000; //but not at the same time
+    Platform.CLOCK[CLOCK_ID_CORE].MAX      =  500000000; //as the measured clock rates
+    Platform.CLOCK[CLOCK_ID_V3D].MAX       =  500000000;
+    Platform.CLOCK[CLOCK_ID_H264].MAX      =  500000000;
+    Platform.CLOCK[CLOCK_ID_ISP].MAX       =  500000000;
+    Platform.CLOCK[CLOCK_ID_SDRAM].MAX     =  400000000;
+    Platform.CLOCK[CLOCK_ID_PIXEL].MAX     = 2400000000;
+    Platform.CLOCK[CLOCK_ID_PWM].MAX       =  500000000;
+    Platform.CLOCK[CLOCK_ID_HEVC].MAX      =  500000000;
+    Platform.CLOCK[CLOCK_ID_EMMC2].MAX     =  500000000;
+    Platform.CLOCK[CLOCK_ID_M2MC].MAX      =  600000000;
+    Platform.CLOCK[CLOCK_ID_PIXEL_BVB].MAX =  300000000;
 }
 
 void gpio_setup(ADDRESS pin, ADDRESS alt, ADDRESS pull)
@@ -150,10 +179,28 @@ void uart_loop(void)
 void uart_print(ADDRESS value)
 {
     uart_write("0x");
-    BYTE map[] = "0123456789ABCDEF";
     for (ADDRESS i = sizeof(ADDRESS) * 8; i > 0; i -= 4)
     {
-        uart_write_byte(map[((value >> (i - 4)) & 0xF)]);
+        uart_write_byte(Platform.HEXMAP[((value >> (i - 4)) & 0xF)]);
+    }
+}
+
+void uart_eval(VALUE value)
+{
+    ADDRESS a = 1;
+    VALUE v = 0;
+    VALUE tmp = value;
+    while (tmp > 0)
+    {
+        tmp = (int)(tmp / 10);
+        v += 1;
+        a *= 10;
+    }
+    v = (v == 0) ? 1 : v;
+    for (VALUE i = 0; i < v; ++i)
+    {
+        a /= 10;
+        uart_write_byte(Platform.HEXMAP[(VALUE)(value / a) % 10]);
     }
 }
 
@@ -448,4 +495,204 @@ void time_wait(TIME ticks)
 {
     time_write(time_read());
     while (true) { if (time_check(ticks)) { break; } }
+}
+
+void clock_setup(void)
+{
+    checkpoint(0);
+
+    clock_update();
+    checkpoint(1);
+
+    uart_print_data("CLOCK_ROOT_MAX",      Platform.CLOCK[0x0].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_EMMC_MAX",      Platform.CLOCK[0x1].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_UART_MAX",      Platform.CLOCK[0x2].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_ARM_MAX",       Platform.CLOCK[0x3].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_CORE_MAX",      Platform.CLOCK[0x4].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_V3D_MAX",       Platform.CLOCK[0x5].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_H264_MAX",      Platform.CLOCK[0x6].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_ISP_MAX",       Platform.CLOCK[0x7].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_SDRAM_MAX",     Platform.CLOCK[0x8].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_PIXEL_MAX",     Platform.CLOCK[0x9].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_PWM_MAX",       Platform.CLOCK[0xA].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_HEVC_MAX",      Platform.CLOCK[0xB].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_EMMC2_MAX",     Platform.CLOCK[0xC].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_M2MC_MAX",      Platform.CLOCK[0xD].MAX, "Hz (32-bit)");
+    uart_print_data("CLOCK_PIXEL_BVB_MAX", Platform.CLOCK[0xE].MAX, "Hz (32-bit)");
+
+    uart_print_hex("CLOCK_TURBO", Platform.CLOCK_TURBO, 0);
+    checkpoint(2);
+
+    //clock_write(CLOCK_ID_ROOT,      CLOCK_STATE_ON_PRESENT,          0); //clock_write_turbo(0);
+    //clock_write(CLOCK_ID_EMMC,      CLOCK_STATE_ON_PRESENT,  249987312); //These have been pulled from
+    //clock_write(CLOCK_ID_UART,      CLOCK_STATE_ON_PRESENT,   48001464); //obtaining Platform.CLOCK[0xX].MEASURED
+    //clock_write(CLOCK_ID_ARM,       CLOCK_STATE_ON_PRESENT,  600117184); //If the Mailbox read and write succeeds,
+    //clock_write(CLOCK_ID_CORE,      CLOCK_STATE_ON_PRESENT,  500000992); //why not set it to maximum values instead?
+    //clock_write(CLOCK_ID_V3D,       CLOCK_STATE_ON_PRESENT,  250000496); //Well at least V3D exists
+    //clock_write(CLOCK_ID_H264,      CLOCK_STATE_ON_PRESENT,          0); //Video Encode is a bit dead
+    //clock_write(CLOCK_ID_ISP,       CLOCK_STATE_ON_PRESENT,          0); //same with Image encode
+    //clock_write(CLOCK_ID_SDRAM,     CLOCK_STATE_ON_PRESENT,          0); //and with SDRAM
+    //clock_write(CLOCK_ID_PIXEL,     CLOCK_STATE_ON_PRESENT,   75001464); //Pixel Clock should be 2.4GHz instead, or 2.0GHz to be safe
+    //clock_write(CLOCK_ID_PWM,       CLOCK_STATE_ON_PRESENT,          0); //PWM is also dead
+    //clock_write(CLOCK_ID_HEVC,      CLOCK_STATE_ON_PRESENT,  250000496); //but there is HEVC Video
+    //clock_write(CLOCK_ID_EMMC2,     CLOCK_STATE_ON_PRESENT,   99997560); //and EMMC2 memory
+    //clock_write(CLOCK_ID_M2MC,      CLOCK_STATE_ON_PRESENT,  119997072); //and something undocumented called M2MC (memory to memory controller?)
+    //clock_write(CLOCK_ID_PIXEL_BVB, CLOCK_STATE_ON_PRESENT,          0); //Pixel BVB is also dead
+    checkpoint(3);
+
+    clock_write(CLOCK_ID_PIXEL, CLOCK_STATE_ON_PRESENT, 2400000000); //2.4GHz Pixel Clock
+    time_wait(TIME_ONE_SECOND * 3); //!!!
+    clock_update();
+    checkpoint(4);
+
+    uart_print_data("CLOCK_ROOT_MEASURED",      Platform.CLOCK[0x0].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_EMMC_MEASURED",      Platform.CLOCK[0x1].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_UART_MEASURED",      Platform.CLOCK[0x2].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_ARM_MEASURED",       Platform.CLOCK[0x3].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_CORE_MEASURED",      Platform.CLOCK[0x4].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_V3D_MEASURED",       Platform.CLOCK[0x5].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_H264_MEASURED",      Platform.CLOCK[0x6].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_ISP_MEASURED",       Platform.CLOCK[0x7].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_SDRAM_MEASURED",     Platform.CLOCK[0x8].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_PIXEL_MEASURED",     Platform.CLOCK[0x9].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_PWM_MEASURED",       Platform.CLOCK[0xA].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_HEVC_MEASURED",      Platform.CLOCK[0xB].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_EMMC2_MEASURED",     Platform.CLOCK[0xC].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_M2MC_MEASURED",      Platform.CLOCK[0xD].MEASURED, "Hz (32-bit)");
+    uart_print_data("CLOCK_PIXEL_BVB_MEASURED", Platform.CLOCK[0xE].MEASURED, "Hz (32-bit)");
+    ignore();
+}
+
+void clock_read(VALUE id)
+{
+    ADDRESS i = 1;
+//    ADDRESS a = 0;
+//    ADDRESS b = 0;
+    ADDRESS c = 0;
+//    ADDRESS d = 0;
+//    ADDRESS e = 0;
+
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+/*
+    Platform.Mailbox[i++] = 0x00030001; //MBOX_TAG_GET_CLOCK_STATE
+    Platform.Mailbox[i++] = 4;          //Request Length (bytes)
+    Platform.Mailbox[i++] = 8;          //Response Length (bytes)
+    Platform.Mailbox[i++] = id;         //Clock ID
+a=i;Platform.Mailbox[i++] = 0;          //State (Bit 0: Off/On, Bit 1: Exists/Missing)
+
+    Platform.Mailbox[i++] = 0x00030002; //MBOX_TAG_GET_CLOCK_RATE
+    Platform.Mailbox[i++] = 4;          //Request Length (bytes)
+    Platform.Mailbox[i++] = 8;          //Response Length (bytes)
+    Platform.Mailbox[i++] = id;         //Clock ID
+b=i;Platform.Mailbox[i++] = 0;          //Rate (Hz capped to 4.3GHz for 32-bit Mailbox)
+*/
+    Platform.Mailbox[i++] = 0x00030047; //MBOX_TAG_GET_CLOCK_MEASURED
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = id;         //Clock ID
+c=i;Platform.Mailbox[i++] = 0;          //Rate (Hz capped to 4.3GHz for 32-bit Mailbox)
+/*
+    Platform.Mailbox[i++] = 0x00030004; //MBOX_TAG_GET_MAX_CLOCK_RATE
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = id;         //Clock ID
+d=i;Platform.Mailbox[i++] = 0;          //Rate (Hz capped to 4.3GHz for 32-bit Mailbox)
+
+    Platform.Mailbox[i++] = 0x00030007; //MBOX_TAG_GET_MIN_CLOCK_RATE
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = id;         //Clock ID
+e=i;Platform.Mailbox[i++] = 0;          //Rate (Hz capped to 4.3GHz for 32-bit Mailbox)
+*/
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        post_code(0xB1);
+        //Platform.CLOCK[id].STATE    = Platform.Mailbox[a];
+        //post_code(0xB2);
+        //Platform.CLOCK[id].RATE     = Platform.Mailbox[b];
+        //post_code(0xB3);
+        Platform.CLOCK[id].MEASURED = Platform.Mailbox[c];
+        //post_code(0xB4);
+        //Platform.CLOCK[id].MAX      = Platform.Mailbox[d];
+        //post_code(0xB5);
+        //Platform.CLOCK[id].MIN      = Platform.Mailbox[e];
+        post_code(0xB9);
+    }
+}
+
+void clock_write(VALUE id, VALUE state, VALUE rate) //!!! This might not work correctly
+{
+    ADDRESS i = 1;
+
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+/*
+    Platform.Mailbox[i++] = 0x00038001; //MBOX_TAG_SET_CLOCK_STATE
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = id;         //Clock ID
+    Platform.Mailbox[i++] = state;      //State (Bit 0: Off/On, Bit 1: Exists/Missing)
+*/
+    Platform.Mailbox[i++] = 0x00038002; //MBOX_TAG_SET_CLOCK_RATE
+    Platform.Mailbox[i++] = 3 * 4;      //Request Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Response Length (bytes)
+    Platform.Mailbox[i++] = id;         //Clock ID
+    Platform.Mailbox[i++] = rate;       //Rate (Hz capped to 4.3GHz for 32-bit Mailbox)
+    Platform.Mailbox[i++] = 0;          //Skip Setting Turbo? (Yes/No)
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS != mbox_setup(8))  //Call clock_read() manually to update the values
+    {
+        uart_write("[WARN]: !!! OVERCLOCK MAILBOX FAILURE !!!\n");
+    }
+}
+
+void clock_read_turbo(void)
+{
+    ADDRESS i = 1;
+    ADDRESS a = 0;
+
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00038009; //MBOX_TAG_GET_TURBO
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 0;          //Clock ID
+a=i;Platform.Mailbox[i++] = 0;          //Turbo Level
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    if (MBOX_SUCCESS == mbox_setup(8))
+    {
+        Platform.CLOCK_TURBO = Platform.Mailbox[a];
+    }
+}
+
+void clock_write_turbo(VALUE level)
+{
+    ADDRESS i = 1;
+
+    Platform.Mailbox[i++] = 0;          //Mailbox Request
+
+    Platform.Mailbox[i++] = 0x00030009; //MBOX_TAG_SET_TURBO
+    Platform.Mailbox[i++] = 8;          //Data Length (bytes)
+    Platform.Mailbox[i++] = 2 * 4;      //Data Length
+    Platform.Mailbox[i++] = 0;          //Clock ID
+    Platform.Mailbox[i++] = level;      //Turbo Level
+
+    Platform.Mailbox[i++] = 0;          //End Mark
+    Platform.Mailbox[0  ] = i * 4;      //Update Packet Size
+
+    mbox_setup(8);
+}
+
+void clock_update(void)
+{
+    for (VALUE id = 0; id < CLOCK_LIMIT; ++id) { clock_read(id); }
+    clock_read_turbo();
 }

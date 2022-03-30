@@ -1,10 +1,14 @@
 #ifndef IES_H
 #define IES_H
 
+#define CLOCK_LIMIT   0xF
+
 #define STATIC   static
+#define GLOBAL   extern
 #define REFER         *
 #define PACK(ALIGNMENT)   __attribute__((aligned(ALIGNMENT)))
 #define MAX_SIZE   1500
+#define STRUCTURE  typedef struct
 
 typedef unsigned long long   ADDRESS;
 typedef unsigned int         VALUE;
@@ -19,8 +23,10 @@ typedef unsigned char        GO8BIT;
 typedef bool                 BOOLEAN;
 typedef unsigned long long   TIME;
 
-typedef struct _PLATFORM
+STRUCTURE _PLATFORM
 {
+    LITERAL   HEXMAP;
+
     ADDRESS   PERI_BASE;
 
     ADDRESS   GPIO_BASE;
@@ -88,9 +94,21 @@ typedef struct _PLATFORM
     ADDRESS TIMER_COUNTER_LOW;
     ADDRESS TIMER_COUNTER_HIGH;
     TIME TIMER_CHECKPOINT_LAST;
+
+    STRUCTURE _CLOCKDATA
+    {
+        VALUE ID;
+        VALUE STATE;
+        VALUE RATE;
+        VALUE MEASURED;
+        VALUE MAX;
+        VALUE MIN;
+    }   CLOCKDATA, REFER PCLOCKDATA;
+    CLOCKDATA CLOCK[CLOCK_LIMIT];
+    VALUE CLOCK_TURBO;
     
 }   PLATFORM, REFER PPLATFORM;
-extern PLATFORM Platform;
+GLOBAL PLATFORM Platform;
 
 enum GPIO_ALT
 {
@@ -121,6 +139,39 @@ enum MBOX_FLAGS
     MBOX_FAILURE = 0x80000001,
 };
 
+enum TIME_PERIODS //WARNING: SYSTEM TIMER IS PRONE TO 64-BIT OVERFLOW AND PRECISION ERROR!
+{
+    TIME_ONE_SECOND = 0x100000, // 1048576 ticks
+    TIME_ONE_TENTH  = 0x1999A, // 104858 ticks
+};
+
+enum CLOCK_ID
+{
+    CLOCK_ID_ROOT      = 0x0,
+    CLOCK_ID_EMMC      = 0x1,
+    CLOCK_ID_UART      = 0x2,
+    CLOCK_ID_ARM       = 0x3,
+    CLOCK_ID_CORE      = 0x4,
+    CLOCK_ID_V3D       = 0x5,
+    CLOCK_ID_H264      = 0x6,
+    CLOCK_ID_ISP       = 0x7,
+    CLOCK_ID_SDRAM     = 0x8,
+    CLOCK_ID_PIXEL     = 0x9,
+    CLOCK_ID_PWM       = 0xA,
+    CLOCK_ID_HEVC      = 0xB,
+    CLOCK_ID_EMMC2     = 0xC,
+    CLOCK_ID_M2MC      = 0xD,
+    CLOCK_ID_PIXEL_BVB = 0xE,
+};
+
+enum CLOCK_STATE
+{
+    CLOCK_STATE_OFF_MISSING = 0b00,
+    CLOCK_STATE_ON_MISSING  = 0b01, ///???
+    CLOCK_STATE_OFF_PRESENT = 0b10,
+    CLOCK_STATE_ON_PRESENT  = 0b11,
+};
+
 void platform_setup(void);
 #define mmio_read(address)   (REFER(POINTER)(address))
 #define mmio_write(address, value)   (REFER(POINTER)(address) = value)
@@ -140,6 +191,11 @@ void uart_write_buffer(BUFFER buffer);
 #define uart_write(message)   (uart_write_buffer((BUFFER)message))
 void uart_loop(void);
 void uart_print(ADDRESS value);
+void uart_eval(VALUE value);
+#define uart_print_data(LABEL, DATA, UNITS) \
+    uart_write("["); uart_write(LABEL); uart_write("]:\t\t"); uart_eval(DATA); uart_write(UNITS); uart_write("\n");
+#define uart_print_hex(LABEL, HEX, ITERATION) \
+    uart_write("["); uart_write(LABEL); uart_write("]:\t\t"); uart_print(HEX); uart_write(" ("); uart_eval(ITERATION); uart_write(")\n");
 
 VALUE mbox_setup(BYTE channel);
 #define mbox_peek()   (mmio_read(Platform.MBOX_STATUS))
@@ -155,10 +211,20 @@ void zero_packet(VALUE n);
 
 GO8BIT QCODE2DIGIT(GO8BIT Q, BOOLEAN DOT);
 void post_code(GO8BIT qcode);
+#define checkpoint(N) \
+    post_code(0xC0 + N); uart_write("[CKPT]: "); uart_print(0xC0 + N); uart_write("\n");
+#define ignore() checkpoint(9) //[C9]
 
 TIME time_read(void);
 void time_write(TIME checkpoint);
 BOOLEAN time_check(TIME offset);
 void time_wait(TIME ticks);
+
+void clock_setup(void);
+void clock_read(VALUE id);
+void clock_write(VALUE id, VALUE state, VALUE rate);
+void clock_read_turbo(void);
+void clock_write_turbo(VALUE level);
+void clock_update(void);
 
 #endif//IES_H
