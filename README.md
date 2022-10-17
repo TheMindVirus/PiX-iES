@@ -1,6 +1,8 @@
 # PiX-iES Symmetric Multiprocessing
 Working example of 4x Raspberry Pi 4 BCM2711 ARM64 Cores \
-individually in series and symmetrically in parallel
+Individually in Series and Symmetrically in Parallel
+
+https://github.com/TheMindVirus/PiX-iES/blob/1d26f0ccc8340fd6b9e182c0653c3be441955678/BOOT.S#L141
 
 ![smp-dev](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/smp-dev.png)
 ![symmetricmultiprocessing](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/symmetricmultiprocessing.png)
