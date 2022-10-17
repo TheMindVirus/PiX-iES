@@ -1,8 +1,14 @@
-# PiX-iES
-rpi4-osdev working example of Raspberry Pi 4 Framebuffer being controlled by ARM64 core (first boot of PiX GPU)
-https://github.com/isometimes/rpi4-osdev
+# PiX-iES Symmetric Multiprocessing
+Working example of 4x Raspberry Pi 4 BCM2711 ARM64 Cores \
+individually in series and symmetrically in parallel
 
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/Framebuffer%20Location.png)
+![smp-dev](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/smp-dev.png)
+![symmetricmultiprocessing](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/symmetricmultiprocessing.png)
+![sev](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/sev.png)
+![bluescreen](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/bluescreen.png)
+![littlepixwantssomethingtoeat](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/littlepixwantssomethingtoeat.png)
+![littlepixwantsapsp](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/littlepixwantsapsp.png)
 
-# PiX - Raspberry Pi GPU Concept Render
-![alt text](https://github.com/TheMindVirus/PiX-iES/blob/main/SCREENSHOTS/RPiCard.jpg)
+![blender-rokon](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/blender-rokon.png)
+![psp-rokon](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/IMG_5990.jpg)
+![rokon](https://github.com/TheMindVirus/PiX-iES/blob/pi4-smp-wfe-sev/screenshots/rokon.png)

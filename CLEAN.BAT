@@ -1,6 +1,4 @@
-@ECHO ON
-
-REM No Comment.
-DEL kernel8.elf *.O *.img *.iES
-
-PAUSE
+@echo on
+rem [pix.ies]
+del boot.o pix.elf pix.ies
+pause

@@ -1,6 +1,6 @@
 SECTIONS
 {
-	. = 0x80000; /*KERNEL_START_ADDRESS*/
+	. = 0x0; /* BOOT_START_ADDRESS */
 	.text : { KEEP(*(.text.BOOT)) *(.text .text.* .gnu.linkonce.t*) }
 	.rodata : { *(.rodata .rodata.* .gnu.linkonce.r*) }
 	PROVIDE(_data = .);
