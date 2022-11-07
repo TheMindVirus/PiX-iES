@@ -8,12 +8,11 @@ https://github.com/hrydgard/ppsspp
 
 Introducing a new custom version of the elf2pbp utility! \
 It uses the pack-pbp and unpack-pbp tool scripts from the pspsdk \
-and simplifies the process of packaging a new homebrew PSP Game Bundle. \
+and simplifies the process of packaging a new homebrew PSP Game Bundle.
+
+The tool is similar to elf2uf2 for RP2040-based platforms, but the format and architecture is different.
 
 ![pspdev](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/pspdev.png)
-
-The tool is similar to elf2uf2 for RP2040-based platforms, \
-but the format and architecture is different.
 
 A UF2 bootloader for the Sony PSP3000, much like it's relative the Pico, would make it an ideal \
 IoT device as Stackless Python has been missing some bindings to physical hardware resources \
@@ -22,7 +21,7 @@ such as GU (rip-off of GL GPU), FPU, VFPU and several on-board video codec accel
 ![memoryview](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/memoryview.png)
 
 A lot of the steps in the Makefile are actually unnecessary \
-and has been extrapolated from the build process of PiX-iES which has fewer errors.
+and has been extrapolated from the build process of PiX-iES which has fewer errors. \
 While PiX-iES completely strips the harshly limiting ELF Header from the build, \
 the PSP3000 actually uses it to falsely allocate the wrong size of memory for the input file.
 
@@ -58,7 +57,7 @@ https://en.wikipedia.org/wiki/Executable_and_Linkable_Format
 https://github.com/hrydgard/ppsspp/blob/ceb4186d0ffc26091bb3fc25a1e71bce15b8902d/Core/HLE/sceKernelModule.cpp#L1265 
 
 Another reason why the PSP fails to boot certain ELF files is several airport-security-style checks \
-for the "magic pointer", which in this case points to "\x7fELF" but can be "~PSP" or "~SCE".
+for the "magic pointer", which in this case points to "\x7fELF" but can be "~PSP" or "~SCE". \
 PiX requires and should require no such checks for compulsory option modules for successful boot \
 but option cards would be accepted as a valid use-case in the context of a home Edge Server (edge-case).
 
