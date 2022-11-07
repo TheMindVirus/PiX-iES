@@ -67,7 +67,7 @@ The eventual goal would be to run content generated for the new Web 3.0 Standard
 especially Unity WebGL Player in a custom version of Mozilly Nightly with their API's, \
 but recent firmware updates have rendered Wi-Fi useless and Unity lacks PSP Build Support.
 
-Sample Game for Porting: https://youtu.be/yzesMQdo0nw
+Sample Game for Porting: https://youtu.be/yzesMQdo0nw \
 Source: https://github.com/TheMindVirus/unity-dev/tree/main/WebGLCueStack
 ![RKN](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/RKN.jpg)
 
