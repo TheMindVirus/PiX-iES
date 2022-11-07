@@ -2,8 +2,8 @@
 pspsdk non-working example of PSP3000 MIPS32 Toolchain being rejected by PPSSPP Emulator \
 for generating an invalid ELF Header
 
-https://github.com/pspdev/pspsdk
-https://github.com/pspdev/psptoolchain
+https://github.com/pspdev/pspsdk \
+https://github.com/pspdev/psptoolchain \
 https://github.com/hrydgard/ppsspp
 
 Introducing a new custom version of the elf2pbp utility! \
