@@ -1,0 +1,2 @@
+sceVideocodec.o: sceVideocodec.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

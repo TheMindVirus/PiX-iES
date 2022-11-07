@@ -1,0 +1,2 @@
+sceMpegbase_driver.o: sceMpegbase_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

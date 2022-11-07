@@ -1,0 +1,2 @@
+prxexports.o: prxexports.c ../../src/user/pspmoduleexport.h
+../../src/user/pspmoduleexport.h:

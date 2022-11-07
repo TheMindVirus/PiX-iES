@@ -1,0 +1,2 @@
+sceImpose_driver.o: sceImpose_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

@@ -1,0 +1,2 @@
+sceUmd.o: sceUmd.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

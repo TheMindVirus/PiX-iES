@@ -1,0 +1,2 @@
+sceIdStorage_driver.o: sceIdStorage_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

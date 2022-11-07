@@ -1,0 +1,2 @@
+IoFileMgrForUser.o: IoFileMgrForUser.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

@@ -1,0 +1,2 @@
+sceNet_lib.o: sceNet_lib.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

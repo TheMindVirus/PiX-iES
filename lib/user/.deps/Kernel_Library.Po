@@ -1,0 +1,2 @@
+Kernel_Library.o: Kernel_Library.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

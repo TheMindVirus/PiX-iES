@@ -1,0 +1,2 @@
+sceDisplay.o: sceDisplay.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

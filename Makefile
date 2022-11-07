@@ -1,20 +1,63 @@
-CFILES = $(wildcard *.C)
-OFILES = $(CFILES:.C=.O)
-GCCFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
-GCCPATH = ./XCOMPILER-LINUX86/bin
 
-all: clean kernel8.img
+PSPINC = 
+PSPINC += -I ./include/kernel
+PSPINC += -I ./include/user
+PSPINC += -I ./include/base
+PSPINC += -I ./include/modinfo
+PSPINC += -I ./include/display
+PSPINC += -I ./include/debug
+PSPINC += -I ./include/ctrl
+#PSPINC += -I ./include/#
 
-boot.O: boot.S
-	$(GCCPATH)/aarch64-none-elf-gcc $(GCCFLAGS) -c BOOT.S -o BOOT.O
+PSPLIB = 
+PSPLIB += -L ./lib/kernel -lpspkernel
+PSPLIB += -L ./lib/user -lpspuser
+PSPLIB += -L ./lib/base
+PSPLIB += -L ./lib/modinfo -lpspmodinfo
+PSPLIB += -L ./lib/display -lpspdisplay -lpspdisplay_driver
+PSPLIB += -L ./lib/debug -lpspdebug -lpspdebugkb -lpspgdb -lpspgdb_kernel -lpspgdb_user
+PSPLIB += -L ./lib/ctrl -lpspctrl
+#PSPLIB += -L ./lib/#
 
-%.O: %.C
-	$(GCCPATH)/aarch64-none-elf-gcc $(GCCFLAGS) -c $< -o $@
+#PSPINC += -I ./include/gu
+#PSPLIB += -L ./lib/gu -lpspgu
 
-kernel8.img: boot.O $(OFILES)
-	$(GCCPATH)/aarch64-none-elf-ld -nostdlib -nostartfiles BOOT.O $(OFILES) -T LINK.LD -o kernel8.elf
-	$(GCCPATH)/aarch64-none-elf-objcopy -O binary kernel8.elf PiX.img
-	/bin/cp PiX.img PiX.iES
+#PSPINC += -I ./include/fpu
+#PSPLIB += -L ./lib/fpu -lpspfpu
 
+#PSPINC += -I ./include/vfpu
+#PSPLIB += -L ./lib/vfpu -lpspvfpu
+
+#PSPINC += -I ./include/mp3
+#PSPLIB += -L ./lib/mp3 -lpspmp3
+
+#PSPINC += -I ./include/mpeg
+#PSPLIB += -L ./lib/mpeg -lpspjpeg -lpspmpeg -lpspmpegbase -lpspmpegbase_driver
+
+#PSPINC += -I ./include/video
+#PSPLIB += -L ./lib/video -lpspvideocodec
+
+PSPLNK = 
+PSPLNK = -T link.ld.main
+#PSPLNK += -T ./lib/base/linkfile.prx.in
+
+all:
+	#export PSPOUT="/mnt/c/users/alastair/documents/PPSSPP/memstick/PSP/GAME/RKN" && \
+	export PSPDEV="/usr/local/pspdev" && \
+	export PSPBIN="$$PSPDEV/bin" && \
+	export PSPLIB="$$PSPDEV/lib" && \
+	export PSPSDK="./elf2pbp" && \
+	export PSPGCC="$$PSPLIB/gcc/psp/11.2.0" && \
+	export PATH="$$PATH:$$PSPBIN:./elf2pbp" && \
+	psp-gcc -c main.c -o main.o $(PSPINC) && \
+	psp-ld main.o -o kernel.elf $(PSPLNK) $(PSPLIB) && \
+	#psp-strip -s kernel.elf && \
+	psp-objdump -x kernel.elf && \
+	psp-readelf -a kernel.elf && \
+	elf2pbp kernel.elf EBOOT.PBP && \
+	#cp ./EBOOT.PBP $$PSPOUT && \
+	echo "Done!"
 clean:
-	/bin/rm kernel8.elf *.O *.img *.iES > /dev/null 2> /dev/null || true
+	rm -f ./kernel.elf
+	rm -f ./EBOOT.PBP
+	rm -f ./main.o

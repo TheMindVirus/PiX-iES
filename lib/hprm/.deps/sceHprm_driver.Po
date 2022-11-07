@@ -1,0 +1,2 @@
+sceHprm_driver.o: sceHprm_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

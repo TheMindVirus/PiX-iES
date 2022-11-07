@@ -1,0 +1,2 @@
+SysclibForKernel.o: SysclibForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

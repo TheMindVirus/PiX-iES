@@ -1,0 +1,2 @@
+sceMp3.o: sceMp3.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

@@ -1,0 +1,2 @@
+sceGe_user.o: sceGe_user.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

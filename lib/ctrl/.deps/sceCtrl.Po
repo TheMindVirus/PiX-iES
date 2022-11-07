@@ -1,0 +1,2 @@
+sceCtrl.o: sceCtrl.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

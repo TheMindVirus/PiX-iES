@@ -1,0 +1,2 @@
+sceUsbBus_driver.o: sceUsbBus_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

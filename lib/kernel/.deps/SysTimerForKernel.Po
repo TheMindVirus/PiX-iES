@@ -1,0 +1,2 @@
+SysTimerForKernel.o: SysTimerForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

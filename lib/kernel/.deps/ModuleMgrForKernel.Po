@@ -1,0 +1,2 @@
+ModuleMgrForKernel.o: ModuleMgrForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

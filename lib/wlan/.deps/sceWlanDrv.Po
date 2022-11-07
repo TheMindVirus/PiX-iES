@@ -1,0 +1,2 @@
+sceWlanDrv.o: sceWlanDrv.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

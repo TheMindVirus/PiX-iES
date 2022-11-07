@@ -1,0 +1,2 @@
+LoadExecForKernel.o: LoadExecForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

@@ -1,0 +1,2 @@
+sceGe_driver.o: sceGe_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

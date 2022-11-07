@@ -1,0 +1,2 @@
+ThreadManForUser.o: ThreadManForUser.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

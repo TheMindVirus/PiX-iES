@@ -1,0 +1,3 @@
+ExceptionManagerForKernel.o: ExceptionManagerForKernel.S \
+ ../../src/base/pspimport.s
+../../src/base/pspimport.s:

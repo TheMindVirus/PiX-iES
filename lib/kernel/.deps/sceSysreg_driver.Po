@@ -1,0 +1,2 @@
+sceSysreg_driver.o: sceSysreg_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

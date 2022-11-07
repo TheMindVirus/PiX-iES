@@ -1,0 +1,2 @@
+SysMemUserForUser.o: SysMemUserForUser.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

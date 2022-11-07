@@ -1,0 +1,3 @@
+InterruptManagerForKernel.o: InterruptManagerForKernel.S \
+ ../../src/base/pspimport.s
+../../src/base/pspimport.s:

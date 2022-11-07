@@ -1,0 +1,2 @@
+LoadExecForUser.o: LoadExecForUser.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

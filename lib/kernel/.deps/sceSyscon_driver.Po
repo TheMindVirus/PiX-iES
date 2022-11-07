@@ -1,0 +1,2 @@
+sceSyscon_driver.o: sceSyscon_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

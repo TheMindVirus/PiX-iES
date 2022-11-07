@@ -1,0 +1,2 @@
+sceSircs.o: sceSircs.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

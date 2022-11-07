@@ -1,0 +1,2 @@
+exception_asm.o: exception_asm.S ../../src/base/as_reg_compat.h
+../../src/base/as_reg_compat.h:

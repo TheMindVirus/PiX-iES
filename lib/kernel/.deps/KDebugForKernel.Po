@@ -1,0 +1,2 @@
+KDebugForKernel.o: KDebugForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

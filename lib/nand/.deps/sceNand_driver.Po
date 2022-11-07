@@ -1,0 +1,2 @@
+sceNand_driver.o: sceNand_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

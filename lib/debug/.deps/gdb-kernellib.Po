@@ -1,0 +1,113 @@
+gdb-kernellib.o: gdb-kernellib.c ../../src/kernel/pspkernel.h \
+ ../../src/user/pspuser.h ../../src/base/psptypes.h \
+ /usr/local/pspdev/lib/gcc/psp/11.2.0/include/stdint.h \
+ /usr/local/pspdev/psp/include/stdint.h \
+ /usr/local/pspdev/psp/include/machine/_default_types.h \
+ /usr/local/pspdev/psp/include/sys/features.h \
+ /usr/local/pspdev/psp/include/_newlib_version.h \
+ /usr/local/pspdev/psp/include/sys/_intsup.h \
+ /usr/local/pspdev/psp/include/sys/_stdint.h \
+ ../../src/user/pspkerneltypes.h ../../src/user/pspiofilemgr.h \
+ ../../src/user/pspiofilemgr_fcntl.h ../../src/user/pspiofilemgr_stat.h \
+ ../../src/user/pspiofilemgr_dirent.h ../../src/user/psploadexec.h \
+ ../../src/user/pspmoduleinfo.h ../../src/user/pspmodulemgr.h \
+ ../../src/user/pspsysmem.h ../../src/user/pspthreadman.h pspdebug.h \
+ ../../src/user/psputils.h /usr/local/pspdev/psp/include/sys/time.h \
+ /usr/local/pspdev/psp/include/_ansi.h \
+ /usr/local/pspdev/psp/include/newlib.h \
+ /usr/local/pspdev/psp/include/sys/config.h \
+ /usr/local/pspdev/psp/include/machine/ieeefp.h \
+ /usr/local/pspdev/psp/include/sys/cdefs.h \
+ /usr/local/pspdev/lib/gcc/psp/11.2.0/include/stddef.h \
+ /usr/local/pspdev/psp/include/sys/_timeval.h \
+ /usr/local/pspdev/psp/include/sys/_types.h \
+ /usr/local/pspdev/psp/include/machine/_types.h \
+ /usr/local/pspdev/psp/include/sys/types.h \
+ /usr/local/pspdev/psp/include/machine/endian.h \
+ /usr/local/pspdev/psp/include/machine/_endian.h \
+ /usr/local/pspdev/psp/include/sys/select.h \
+ /usr/local/pspdev/psp/include/sys/_sigset.h \
+ /usr/local/pspdev/psp/include/sys/timespec.h \
+ /usr/local/pspdev/psp/include/sys/_timespec.h \
+ /usr/local/pspdev/psp/include/sys/_pthreadtypes.h \
+ /usr/local/pspdev/psp/include/bits/posix_opt.h \
+ /usr/local/pspdev/lib/gcc/psp/11.2.0/include-fixed/limits.h \
+ /usr/local/pspdev/psp/include/sys/sched.h \
+ /usr/local/pspdev/psp/include/machine/types.h \
+ /usr/local/pspdev/psp/include/time.h \
+ /usr/local/pspdev/psp/include/_ansi.h \
+ /usr/local/pspdev/psp/include/sys/reent.h \
+ /usr/local/pspdev/psp/include/sys/lock.h \
+ /usr/local/pspdev/psp/include/machine/time.h \
+ /usr/local/pspdev/psp/include/sys/_locale.h \
+ /usr/local/pspdev/psp/include/signal.h \
+ /usr/local/pspdev/psp/include/sys/signal.h \
+ /usr/local/pspdev/psp/include/machine/_time.h ../../src/user/pspkerror.h \
+ ../../src/user/pspstdio.h ../../src/user/pspintrman.h \
+ ../../src/kernel/pspiofilemgr_kernel.h ../../src/kernel/psploadcore.h \
+ ../../src/kernel/pspstdio_kernel.h ../../src/kernel/pspsysreg.h \
+ ../../src/kernel/pspkdebug.h ../../src/kernel/pspintrman_kernel.h \
+ ../../src/kernel/pspmodulemgr_kernel.h
+../../src/kernel/pspkernel.h:
+../../src/user/pspuser.h:
+../../src/base/psptypes.h:
+/usr/local/pspdev/lib/gcc/psp/11.2.0/include/stdint.h:
+/usr/local/pspdev/psp/include/stdint.h:
+/usr/local/pspdev/psp/include/machine/_default_types.h:
+/usr/local/pspdev/psp/include/sys/features.h:
+/usr/local/pspdev/psp/include/_newlib_version.h:
+/usr/local/pspdev/psp/include/sys/_intsup.h:
+/usr/local/pspdev/psp/include/sys/_stdint.h:
+../../src/user/pspkerneltypes.h:
+../../src/user/pspiofilemgr.h:
+../../src/user/pspiofilemgr_fcntl.h:
+../../src/user/pspiofilemgr_stat.h:
+../../src/user/pspiofilemgr_dirent.h:
+../../src/user/psploadexec.h:
+../../src/user/pspmoduleinfo.h:
+../../src/user/pspmodulemgr.h:
+../../src/user/pspsysmem.h:
+../../src/user/pspthreadman.h:
+pspdebug.h:
+../../src/user/psputils.h:
+/usr/local/pspdev/psp/include/sys/time.h:
+/usr/local/pspdev/psp/include/_ansi.h:
+/usr/local/pspdev/psp/include/newlib.h:
+/usr/local/pspdev/psp/include/sys/config.h:
+/usr/local/pspdev/psp/include/machine/ieeefp.h:
+/usr/local/pspdev/psp/include/sys/cdefs.h:
+/usr/local/pspdev/lib/gcc/psp/11.2.0/include/stddef.h:
+/usr/local/pspdev/psp/include/sys/_timeval.h:
+/usr/local/pspdev/psp/include/sys/_types.h:
+/usr/local/pspdev/psp/include/machine/_types.h:
+/usr/local/pspdev/psp/include/sys/types.h:
+/usr/local/pspdev/psp/include/machine/endian.h:
+/usr/local/pspdev/psp/include/machine/_endian.h:
+/usr/local/pspdev/psp/include/sys/select.h:
+/usr/local/pspdev/psp/include/sys/_sigset.h:
+/usr/local/pspdev/psp/include/sys/timespec.h:
+/usr/local/pspdev/psp/include/sys/_timespec.h:
+/usr/local/pspdev/psp/include/sys/_pthreadtypes.h:
+/usr/local/pspdev/psp/include/bits/posix_opt.h:
+/usr/local/pspdev/lib/gcc/psp/11.2.0/include-fixed/limits.h:
+/usr/local/pspdev/psp/include/sys/sched.h:
+/usr/local/pspdev/psp/include/machine/types.h:
+/usr/local/pspdev/psp/include/time.h:
+/usr/local/pspdev/psp/include/_ansi.h:
+/usr/local/pspdev/psp/include/sys/reent.h:
+/usr/local/pspdev/psp/include/sys/lock.h:
+/usr/local/pspdev/psp/include/machine/time.h:
+/usr/local/pspdev/psp/include/sys/_locale.h:
+/usr/local/pspdev/psp/include/signal.h:
+/usr/local/pspdev/psp/include/sys/signal.h:
+/usr/local/pspdev/psp/include/machine/_time.h:
+../../src/user/pspkerror.h:
+../../src/user/pspstdio.h:
+../../src/user/pspintrman.h:
+../../src/kernel/pspiofilemgr_kernel.h:
+../../src/kernel/psploadcore.h:
+../../src/kernel/pspstdio_kernel.h:
+../../src/kernel/pspsysreg.h:
+../../src/kernel/pspkdebug.h:
+../../src/kernel/pspintrman_kernel.h:
+../../src/kernel/pspmodulemgr_kernel.h:

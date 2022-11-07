@@ -1,0 +1,2 @@
+SysMemForKernel.o: SysMemForKernel.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

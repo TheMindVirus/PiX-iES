@@ -1,0 +1,12 @@
+ENTRY(main)
+SECTIONS
+{
+    . = 0x53; /* ELF Header Partition needs to remain */
+    /* . = 0x0; */ /* Kernel Start Address from PiX-iES */
+    .text : { *(.text) *(.text.*) } = 0
+    /* . = 0x8800000; */ /* Block Taken Error (0x08800000 -> 0x0C000000) */
+    /* _gp = ALIGN(16) + 0x0; */
+    /DISCARD/ : { *(.comment) *(.pdr) *(.note.GNU-stack) }
+    /DISCARD/ : { *(.MIPS.abiflags) *(.reginfo) *(.gnu.attributes) }
+    /DISCARD/ : { *(.rodata.sceModuleInfo) *(.strtab) }
+}

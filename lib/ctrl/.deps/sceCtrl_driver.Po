@@ -1,0 +1,2 @@
+sceCtrl_driver.o: sceCtrl_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

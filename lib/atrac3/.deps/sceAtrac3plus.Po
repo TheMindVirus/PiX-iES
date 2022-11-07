@@ -1,0 +1,2 @@
+sceAtrac3plus.o: sceAtrac3plus.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

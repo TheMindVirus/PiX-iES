@@ -1,0 +1,2 @@
+scePower_driver.o: scePower_driver.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:

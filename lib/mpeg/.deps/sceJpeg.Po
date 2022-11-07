@@ -1,0 +1,2 @@
+sceJpeg.o: sceJpeg.S ../../src/base/pspimport.s
+../../src/base/pspimport.s:
