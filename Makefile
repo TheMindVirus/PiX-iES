@@ -37,12 +37,24 @@ PSPLIB += -L ./lib/ctrl -lpspctrl
 #PSPINC += -I ./include/video
 #PSPLIB += -L ./lib/video -lpspvideocodec
 
+PSPLIB += -L ./lib/libcglue
+PSPLIB += -L ./lib/libpthreadglue
+PSPLIB += -L ./lib/ge -lpspge -lpspge_driver
+
 PSPLNK = 
-PSPLNK = -T link.ld.main
+PSPLNK = -T link.ld
 #PSPLNK += -T ./lib/base/linkfile.prx.in
 
+PSPDEF = 
+#PSPDEF += -D F_sceDisplay_0001 # SetMode
+#PSPDEF += -D F_sceDisplay_0006 # SetFbuf
+PSPDEF += -D F_sceDisplay_driver_0003 # SetMode
+PSPDEF += -D F_sceDisplay_driver_0012 # SetFbuf
+PSPDEF += -D F_sceGe_user_0002 # EdramGetAddr
+PSPDEF += -D F_SysclibForKernel_0024 # strlen
+
 all:
-	#export PSPOUT="/mnt/c/users/alastair/documents/PPSSPP/memstick/PSP/GAME/RKN" && \
+	export PSPOUT="/mnt/c/users/alastair/documents/PPSSPP/memstick/PSP/GAME/RKN" && \
 	export PSPDEV="/usr/local/pspdev" && \
 	export PSPBIN="$$PSPDEV/bin" && \
 	export PSPLIB="$$PSPDEV/lib" && \
@@ -50,12 +62,15 @@ all:
 	export PSPGCC="$$PSPLIB/gcc/psp/11.2.0" && \
 	export PATH="$$PATH:$$PSPBIN:./elf2pbp" && \
 	psp-gcc -c main.c -o main.o $(PSPINC) && \
-	psp-ld main.o -o kernel.elf $(PSPLNK) $(PSPLIB) && \
+	#psp-as include/base/pspimport.s -o pspimport.o && \
+	psp-gcc -c include/display/sceDisplay_driver.S -o sceDisplay_driver.o $(PSPINC) $(PSPDEF) && \
+	psp-gcc -c include/kernel/SysclibForKernel.S -o SysclibForKernel.o $(PSPINC) $(PSPDEF) && \
+	psp-ld -nmagic main.o sceDisplay_driver.o SysclibForKernel.o -o kernel.elf $(PSPLNK) $(PSPLIB) && \
 	#psp-strip -s kernel.elf && \
 	psp-objdump -x kernel.elf && \
 	psp-readelf -a kernel.elf && \
 	elf2pbp kernel.elf EBOOT.PBP && \
-	#cp ./EBOOT.PBP $$PSPOUT && \
+	cp ./EBOOT.PBP $$PSPOUT && \
 	echo "Done!"
 clean:
 	rm -f ./kernel.elf

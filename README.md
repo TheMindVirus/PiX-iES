@@ -1,6 +1,8 @@
-# pspdev-nw
-pspsdk non-working example of PSP3000 MIPS32 Toolchain being rejected by PPSSPP Emulator \
-for generating an invalid ELF Header
+# pspdev
+pspsdk working example of PSP3000 MIPS32 Toolchain being accepted by PPSSPP Emulator \
+while completely removing all syscalls in under 3KB
+
+https://github.com/pspdev/pspsdk/issues/107
 
 https://github.com/pspdev/pspsdk \
 https://github.com/pspdev/psptoolchain \
@@ -76,3 +78,18 @@ and graphics-compliant edge-case app and game packages for the PSP3000, MIPS32 a
 Also included are some python examples for Stackless Python 2.5 for PSP (with limited hardware support).
 
 ![sprites](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/sprites.png)
+
+# Updates
+
+The Project was successful and I have now compiled a bootable EBOOT.PBP in under 3KB \
+that writes to the framebuffer but is invisible without any included working syscalls...!
+
+![mips](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/mips.png)
+
+Many Thanks goes to everyone that has made this a reality and hopefully soon to be streamlined!
+Next step, Windows on PSP with MIPS64...that...might take some doing...
+
+![PSOD](https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots/PSOD.png)
+
+More screenshots available at: https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots
+<i>and a lot more reduction work to do...</i>
