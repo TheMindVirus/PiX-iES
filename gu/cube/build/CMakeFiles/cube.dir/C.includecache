@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alastair/sample/cube/callbacks.h
+
+/home/alastair/sample/cube/main.c
+pspkernel.h
+-
+pspdisplay.h
+-
+pspdebug.h
+-
+stdlib.h
+-
+stdio.h
+-
+math.h
+-
+string.h
+-
+pspgu.h
+-
+pspgum.h
+-
+callbacks.h
+/home/alastair/sample/cube/callbacks.h
+vram.h
+/home/alastair/sample/cube/vram.h
+
+/home/alastair/sample/cube/vram.h
+pspge.h
+-
+pspgu.h
+-
+

@@ -1,0 +1,1 @@
+https://github.com/pspdev/pspdev/releases/download/latest/pspdev-ubuntu-latest.tar.gz

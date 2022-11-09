@@ -1,0 +1,574 @@
+The target system is: Generic - 1 - mips
+The host system is: Linux - 5.10.102.1-microsoft-standard-WSL2 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /home/alastair/sample/pspdev/bin/psp-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/alastair/sample/cube/build/CMakeFiles/3.16.3/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /home/alastair/sample/pspdev/bin/psp-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/alastair/sample/cube/build/CMakeFiles/3.16.3/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_873c3/fast && /usr/bin/make -f CMakeFiles/cmTC_873c3.dir/build.make CMakeFiles/cmTC_873c3.dir/build
+make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_873c3.dir/testCCompiler.c.obj
+/home/alastair/sample/pspdev/bin/psp-gcc -DPSP -D__PSP__ -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -o CMakeFiles/cmTC_873c3.dir/testCCompiler.c.obj   -c /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_873c3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_873c3.dir/link.txt --verbose=1
+/home/alastair/sample/pspdev/bin/psp-gcc -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl,-zmax-page-size=128  CMakeFiles/cmTC_873c3.dir/testCCompiler.c.obj  -o cmTC_873c3   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib 
+make[1]: Leaving directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_427ef/fast && /usr/bin/make -f CMakeFiles/cmTC_427ef.dir/build.make CMakeFiles/cmTC_427ef.dir/build
+make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj
+/home/alastair/sample/pspdev/bin/psp-gcc -DPSP -D__PSP__  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -v -o CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj   -c /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/'
+ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/cc1 -quiet -v -I /home/alastair/sample/pspdev/psp/include -I /home/alastair/sample/pspdev/psp/sdk/include -iprefix /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/ -DPSP=1 -D__PSP__=1 -D_PSP=1 -D__psp__=1 -D PSP -D __PSP__ -D PSP /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c -G 0 -quiet -dumpdir CMakeFiles/cmTC_427ef.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mhard-float -msingle-float -O2 -version -o /tmp/ccNr8CDO.s
+GNU C17 (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/sys-include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include-fixed"
+ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/sys-include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/psp/include"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /home/alastair/sample/pspdev/psp/sdk/include
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include
+End of search list.
+GNU C17 (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 154afed43caae206d6aca2cf9e425fb0
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -EL -O2 -mabi=eabi -mhard-float -msingle-float -o CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj /tmp/ccNr8CDO.s
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.'
+Linking C executable cmTC_427ef
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_427ef.dir/link.txt --verbose=1
+/home/alastair/sample/pspdev/bin/psp-gcc -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl,-zmax-page-size=128 -v CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj  -o cmTC_427ef   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib 
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc
+COLLECT_LTO_WRAPPER=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_427ef' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_427ef.'
+ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2 -plugin /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so -plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccUcO2tc.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lpthreadglue -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lcglue -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lpsputility -plugin-opt=-pass-through=-lpsprtc -plugin-opt=-pass-through=-lpspnet_inet -plugin-opt=-pass-through=-lpspnet_resolver -plugin-opt=-pass-through=-lpspsdk -plugin-opt=-pass-through=-lpspmodinfo -plugin-opt=-pass-through=-lpspuser -plugin-opt=-pass-through=-lpspkernel -plugin-opt=-pass-through=-lgcc -EL -G 0 -o cmTC_427ef /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0 -L/home/alastair/sample/pspdev/bin/../lib/gcc -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib -zmax-page-size=128 CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj -lgcc -lm --start-group -lpthreadglue -lpthread -lcglue -lc --end-group -lpsputility -lpsprtc -lpspnet_inet -lpspnet_resolver -lpspsdk -lpspmodinfo -lpspuser -lpspkernel -lgcc /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o
+/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -fresolution=/tmp/ccUcO2tc.res -flinker-output=exec /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5e432 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x60406 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x625fa /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x64012 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1aae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x4f92 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6f56 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0xb39e /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x19aa6 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1b8da /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x262de /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x52c36 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x57016 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5a94a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5c382 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x66266 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6771a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x69bae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x35c2 
+/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -fresolution=/tmp/ccUcO2tc.res -flinker-output=exec /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5e432 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x60406 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x625fa /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x64012 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1aae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x4f92 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6f56 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0xb39e /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x19aa6 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1b8da /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x262de /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x52c36 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x57016 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5a94a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5c382 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x66266 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6771a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x69bae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x35c2 
+/home/alastair/sample/pspdev/bin/psp-gcc @/tmp/ccek0D2u
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans-output-list=/tmp/ccUhto5q.ltrans.out' '-fwpa' '-fresolution=/tmp/ccUcO2tc.res' '-flinker-output=exec'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/lto1 -G 0 -G 0 -quiet -dumpbase ./cmTC_427ef.wpa -mhard-float -msingle-float -mhard-float -msingle-float -O3 -O2 -version -fno-openmp -fno-openacc -fno-pie -fcf-protection=none -fltrans-output-list=/tmp/ccUhto5q.ltrans.out -fwpa -fresolution=/tmp/ccUcO2tc.res -flinker-output=exec @/tmp/ccpJqbgv
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans-output-list=/tmp/ccUhto5q.ltrans.out' '-fwpa' '-fresolution=/tmp/ccUcO2tc.res' '-flinker-output=exec' '-dumpdir' './cmTC_427ef.wpa.'
+/home/alastair/sample/pspdev/bin/psp-gcc @/tmp/ccDrqPmt
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccUhto5q.ltrans0.ltrans.o'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/lto1 -G 0 -G 0 -quiet -dumpbase ./cmTC_427ef.ltrans0.ltrans -mhard-float -msingle-float -mhard-float -msingle-float -O3 -O2 -version -fno-openmp -fno-openacc -fno-pie -fcf-protection=none -fltrans @/tmp/cc827QnF -o /tmp/ccb2tg7F.s
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccUhto5q.ltrans0.ltrans.o'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -G 0 -EL -O2 -mabi=eabi -mhard-float -mhard-float -msingle-float -msingle-float -o /tmp/ccUhto5q.ltrans0.ltrans.o /tmp/ccb2tg7F.s
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccUhto5q.ltrans0.ltrans.o' '-dumpdir' './cmTC_427ef.ltrans0.ltrans.'
+COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_427ef' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_427ef.'
+make[1]: Leaving directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/home/alastair/sample/pspdev/psp/sdk/include]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include]
+  end of search list found
+  collapse include dir [/home/alastair/sample/pspdev/psp/sdk/include] ==> [/home/alastair/sample/pspdev/psp/sdk/include]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include-fixed]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include] ==> [/home/alastair/sample/pspdev/psp/include]
+  implicit include dirs: [/home/alastair/sample/pspdev/psp/sdk/include;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include-fixed;/home/alastair/sample/pspdev/psp/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(psp-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/make cmTC_427ef/fast && /usr/bin/make -f CMakeFiles/cmTC_427ef.dir/build.make CMakeFiles/cmTC_427ef.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj]
+  ignore line: [/home/alastair/sample/pspdev/bin/psp-gcc -DPSP -D__PSP__  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -v -o CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj   -c /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc]
+  ignore line: [Target: psp]
+  ignore line: [Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/']
+  ignore line: [ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/cc1 -quiet -v -I /home/alastair/sample/pspdev/psp/include -I /home/alastair/sample/pspdev/psp/sdk/include -iprefix /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/ -DPSP=1 -D__PSP__=1 -D_PSP=1 -D__psp__=1 -D PSP -D __PSP__ -D PSP /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c -G 0 -quiet -dumpdir CMakeFiles/cmTC_427ef.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mhard-float -msingle-float -O2 -version -o /tmp/ccNr8CDO.s]
+  ignore line: [GNU C17 (GCC) version 11.2.0 (psp)]
+  ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/sys-include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/sys-include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/psp/include"]
+  ignore line: [  as it is a non-system directory that duplicates a system directory]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /home/alastair/sample/pspdev/psp/sdk/include]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (GCC) version 11.2.0 (psp)]
+  ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 154afed43caae206d6aca2cf9e425fb0]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/']
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -EL -O2 -mabi=eabi -mhard-float -msingle-float -o CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj /tmp/ccNr8CDO.s]
+  ignore line: [COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/]
+  ignore line: [LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.']
+  ignore line: [Linking C executable cmTC_427ef]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_427ef.dir/link.txt --verbose=1]
+  ignore line: [/home/alastair/sample/pspdev/bin/psp-gcc -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl -zmax-page-size=128 -v CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj  -o cmTC_427ef   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-gcc]
+  ignore line: [COLLECT_LTO_WRAPPER=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper]
+  ignore line: [Target: psp]
+  ignore line: [Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/]
+  ignore line: [LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_427ef' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_427ef.']
+  link line: [ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2 -plugin /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so -plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccUcO2tc.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lpthreadglue -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lcglue -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lpsputility -plugin-opt=-pass-through=-lpsprtc -plugin-opt=-pass-through=-lpspnet_inet -plugin-opt=-pass-through=-lpspnet_resolver -plugin-opt=-pass-through=-lpspsdk -plugin-opt=-pass-through=-lpspmodinfo -plugin-opt=-pass-through=-lpspuser -plugin-opt=-pass-through=-lpspkernel -plugin-opt=-pass-through=-lgcc -EL -G 0 -o cmTC_427ef /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0 -L/home/alastair/sample/pspdev/bin/../lib/gcc -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib -zmax-page-size=128 CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj -lgcc -lm --start-group -lpthreadglue -lpthread -lcglue -lc --end-group -lpsputility -lpsprtc -lpspnet_inet -lpspnet_resolver -lpspsdk -lpspmodinfo -lpspuser -lpspkernel -lgcc /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o]
+    arg [/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccUcO2tc.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lm] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpthreadglue] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+    arg [-plugin-opt=-pass-through=-lcglue] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpsputility] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpsprtc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspnet_inet] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspnet_resolver] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspsdk] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspmodinfo] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspuser] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspkernel] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-EL] ==> ignore
+    arg [-G] ==> ignore
+    arg [0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_427ef] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o] ==> ignore
+    arg [-L/home/alastair/sample/pspdev/lib] ==> dir [/home/alastair/sample/pspdev/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/lib] ==> dir [/home/alastair/sample/pspdev/psp/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/sdk/lib] ==> dir [/home/alastair/sample/pspdev/psp/sdk/lib]
+    arg [-L/home/alastair/sample/pspdev/lib] ==> dir [/home/alastair/sample/pspdev/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/lib] ==> dir [/home/alastair/sample/pspdev/psp/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/sdk/lib] ==> dir [/home/alastair/sample/pspdev/psp/sdk/lib]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib]
+    arg [-zmax-page-size=128] ==> ignore
+    arg [CMakeFiles/cmTC_427ef.dir/CMakeCCompilerABI.c.obj] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lm] ==> lib [m]
+    arg [--start-group] ==> ignore
+    arg [-lpthreadglue] ==> lib [pthreadglue]
+    arg [-lpthread] ==> lib [pthread]
+    arg [-lcglue] ==> lib [cglue]
+    arg [-lc] ==> lib [c]
+    arg [--end-group] ==> ignore
+    arg [-lpsputility] ==> lib [psputility]
+    arg [-lpsprtc] ==> lib [psprtc]
+    arg [-lpspnet_inet] ==> lib [pspnet_inet]
+    arg [-lpspnet_resolver] ==> lib [pspnet_resolver]
+    arg [-lpspsdk] ==> lib [pspsdk]
+    arg [-lpspmodinfo] ==> lib [pspmodinfo]
+    arg [-lpspuser] ==> lib [pspuser]
+    arg [-lpspkernel] ==> lib [pspkernel]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o] ==> ignore
+  collapse library dir [/home/alastair/sample/pspdev/lib] ==> [/home/alastair/sample/pspdev/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/sdk/lib] ==> [/home/alastair/sample/pspdev/psp/sdk/lib]
+  collapse library dir [/home/alastair/sample/pspdev/lib] ==> [/home/alastair/sample/pspdev/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/sdk/lib] ==> [/home/alastair/sample/pspdev/psp/sdk/lib]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc] ==> [/home/alastair/sample/pspdev/lib/gcc]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  implicit libs: [gcc;m;pthreadglue;pthread;cglue;c;psputility;psprtc;pspnet_inet;pspnet_resolver;pspsdk;pspmodinfo;pspuser;pspkernel;gcc]
+  implicit dirs: [/home/alastair/sample/pspdev/lib;/home/alastair/sample/pspdev/psp/lib;/home/alastair/sample/pspdev/psp/sdk/lib;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0;/home/alastair/sample/pspdev/lib/gcc]
+  implicit fwks: []
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a9a23/fast && /usr/bin/make -f CMakeFiles/cmTC_a9a23.dir/build.make CMakeFiles/cmTC_a9a23.dir/build
+make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_a9a23.dir/testCXXCompiler.cxx.obj
+/home/alastair/sample/pspdev/bin/psp-g++  -DPSP -D__PSP__ -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -o CMakeFiles/cmTC_a9a23.dir/testCXXCompiler.cxx.obj -c /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_a9a23
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a9a23.dir/link.txt --verbose=1
+/home/alastair/sample/pspdev/bin/psp-g++  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl,-zmax-page-size=128  CMakeFiles/cmTC_a9a23.dir/testCXXCompiler.cxx.obj  -o cmTC_a9a23   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib 
+make[1]: Leaving directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_b2998/fast && /usr/bin/make -f CMakeFiles/cmTC_b2998.dir/build.make CMakeFiles/cmTC_b2998.dir/build
+make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj
+/home/alastair/sample/pspdev/bin/psp-g++  -DPSP -D__PSP__  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -v -o CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/'
+ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/cc1plus -quiet -v -I /home/alastair/sample/pspdev/psp/include -I /home/alastair/sample/pspdev/psp/sdk/include -iprefix /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/ -DPSP=1 -D__PSP__=1 -D_PSP=1 -D__psp__=1 -D PSP -D __PSP__ -D PSP /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp -G 0 -quiet -dumpdir CMakeFiles/cmTC_b2998.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mhard-float -msingle-float -O2 -version -o /tmp/ccf1FfhE.s
+GNU C++17 (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/sys-include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include-fixed"
+ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/sys-include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include"
+ignoring duplicate directory "/home/alastair/sample/pspdev/psp/include"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /home/alastair/sample/pspdev/psp/sdk/include
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include
+End of search list.
+GNU C++17 (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 61a566b22e0033b82854ec75cd749995
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -EL -O2 -mabi=eabi -mhard-float -msingle-float -o CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccf1FfhE.s
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.'
+Linking CXX executable cmTC_b2998
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2998.dir/link.txt --verbose=1
+/home/alastair/sample/pspdev/bin/psp-g++  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl,-zmax-page-size=128 -v CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj  -o cmTC_b2998   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib 
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++
+COLLECT_LTO_WRAPPER=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_b2998' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_b2998.'
+ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2 -plugin /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so -plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccZPhxU4.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lpthreadglue -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lcglue -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lpsputility -plugin-opt=-pass-through=-lpsprtc -plugin-opt=-pass-through=-lpspnet_inet -plugin-opt=-pass-through=-lpspnet_resolver -plugin-opt=-pass-through=-lpspsdk -plugin-opt=-pass-through=-lpspmodinfo -plugin-opt=-pass-through=-lpspuser -plugin-opt=-pass-through=-lpspkernel -plugin-opt=-pass-through=-lgcc -EL -G 0 -o cmTC_b2998 /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0 -L/home/alastair/sample/pspdev/bin/../lib/gcc -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib -zmax-page-size=128 CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lm --start-group -lpthreadglue -lpthread -lcglue -lc --end-group -lpsputility -lpsprtc -lpspnet_inet -lpspnet_resolver -lpspsdk -lpspmodinfo -lpspuser -lpspkernel -lgcc /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o
+/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -fresolution=/tmp/ccZPhxU4.res -flinker-output=exec /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5e432 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x60406 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x625fa /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x64012 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1aae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x4f92 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6f56 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0xb39e /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x19aa6 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1b8da /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x262de /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x52c36 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x57016 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5a94a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5c382 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x66266 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6771a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x69bae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x35c2 
+/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -fresolution=/tmp/ccZPhxU4.res -flinker-output=exec /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5e432 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x60406 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x625fa /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x64012 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1aae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x4f92 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6f56 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0xb39e /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x19aa6 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x1b8da /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x262de /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x52c36 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x57016 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5a94a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x5c382 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x66266 /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x6771a /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x69bae /home/alastair/sample/pspdev/psp/lib/libpthread.a@0x35c2 
+/home/alastair/sample/pspdev/bin/psp-g++ @/tmp/cc2ERtak
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans-output-list=/tmp/ccyEF3qj.ltrans.out' '-fwpa' '-fresolution=/tmp/ccZPhxU4.res' '-flinker-output=exec'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/lto1 -G 0 -G 0 -quiet -dumpbase ./cmTC_b2998.wpa -mhard-float -msingle-float -mhard-float -msingle-float -O3 -O2 -version -fno-openmp -fno-openacc -fno-pie -fcf-protection=none -fltrans-output-list=/tmp/ccyEF3qj.ltrans.out -fwpa -fresolution=/tmp/ccZPhxU4.res -flinker-output=exec @/tmp/ccIFpDRo
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans-output-list=/tmp/ccyEF3qj.ltrans.out' '-fwpa' '-fresolution=/tmp/ccZPhxU4.res' '-flinker-output=exec' '-dumpdir' './cmTC_b2998.wpa.'
+/home/alastair/sample/pspdev/bin/psp-g++ @/tmp/ccLUYXXm
+Using built-in specs.
+COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++
+Target: psp
+Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c,c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccyEF3qj.ltrans0.ltrans.o'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/lto1 -G 0 -G 0 -quiet -dumpbase ./cmTC_b2998.ltrans0.ltrans -mhard-float -msingle-float -mhard-float -msingle-float -O3 -O2 -version -fno-openmp -fno-openacc -fno-pie -fcf-protection=none -fltrans @/tmp/ccbhCMdx -o /tmp/cchFOi0z.s
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+GNU GIMPLE (GCC) version 11.2.0 (psp)
+	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccyEF3qj.ltrans0.ltrans.o'
+ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -G 0 -EL -O2 -mabi=eabi -mhard-float -mhard-float -msingle-float -msingle-float -o /tmp/ccyEF3qj.ltrans0.ltrans.o /tmp/cchFOi0z.s
+COMPILER_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/../../libexec/gcc/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/
+LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/
+COLLECT_GCC_OPTIONS='-c' '-fno-openmp' '-fno-openacc' '-fno-pie' '-fcf-protection=none' '-G' '0' '-mhard-float' '-msingle-float' '-O3' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float'   '-fltrans' '-o' '/tmp/ccyEF3qj.ltrans0.ltrans.o' '-dumpdir' './cmTC_b2998.ltrans0.ltrans.'
+COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_b2998' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_b2998.'
+make[1]: Leaving directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/home/alastair/sample/pspdev/psp/sdk/include]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed]
+    add: [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include]
+  end of search list found
+  collapse include dir [/home/alastair/sample/pspdev/psp/sdk/include] ==> [/home/alastair/sample/pspdev/psp/sdk/include]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0] ==> [/home/alastair/sample/pspdev/psp/include/c++/11.2.0]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp] ==> [/home/alastair/sample/pspdev/psp/include/c++/11.2.0/psp]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward] ==> [/home/alastair/sample/pspdev/psp/include/c++/11.2.0/backward]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include-fixed]
+  collapse include dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include] ==> [/home/alastair/sample/pspdev/psp/include]
+  implicit include dirs: [/home/alastair/sample/pspdev/psp/sdk/include;/home/alastair/sample/pspdev/psp/include/c++/11.2.0;/home/alastair/sample/pspdev/psp/include/c++/11.2.0/psp;/home/alastair/sample/pspdev/psp/include/c++/11.2.0/backward;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0/include-fixed;/home/alastair/sample/pspdev/psp/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(psp-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/alastair/sample/cube/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/make cmTC_b2998/fast && /usr/bin/make -f CMakeFiles/cmTC_b2998.dir/build.make CMakeFiles/cmTC_b2998.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alastair/sample/cube/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj]
+  ignore line: [/home/alastair/sample/pspdev/bin/psp-g++  -DPSP -D__PSP__  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0    -v -o CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++]
+  ignore line: [Target: psp]
+  ignore line: [Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/']
+  ignore line: [ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/cc1plus -quiet -v -I /home/alastair/sample/pspdev/psp/include -I /home/alastair/sample/pspdev/psp/sdk/include -iprefix /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/ -DPSP=1 -D__PSP__=1 -D_PSP=1 -D__psp__=1 -D PSP -D __PSP__ -D PSP /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp -G 0 -quiet -dumpdir CMakeFiles/cmTC_b2998.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mhard-float -msingle-float -O2 -version -o /tmp/ccf1FfhE.s]
+  ignore line: [GNU C++17 (GCC) version 11.2.0 (psp)]
+  ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/sys-include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/sys-include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/bin/../lib/gcc/../../lib/gcc/psp/11.2.0/../../../../psp/include"]
+  ignore line: [ignoring duplicate directory "/home/alastair/sample/pspdev/psp/include"]
+  ignore line: [  as it is a non-system directory that duplicates a system directory]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /home/alastair/sample/pspdev/psp/sdk/include]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/psp]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include/c++/11.2.0/backward]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/include-fixed]
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++17 (GCC) version 11.2.0 (psp)]
+  ignore line: [	compiled by GNU C version 9.4.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 61a566b22e0033b82854ec75cd749995]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/']
+  ignore line: [ /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/as -G 0 -EL -O2 -mabi=eabi -mhard-float -msingle-float -o CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccf1FfhE.s]
+  ignore line: [COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/]
+  ignore line: [LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-D' 'PSP' '-D' '__PSP__' '-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-v' '-o' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mhard-float' '-msingle-float' '-dumpdir' 'CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [Linking CXX executable cmTC_b2998]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2998.dir/link.txt --verbose=1]
+  ignore line: [/home/alastair/sample/pspdev/bin/psp-g++  -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0   -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl -zmax-page-size=128 -v CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj  -o cmTC_b2998   -L/home/alastair/sample/pspdev/lib  -L/home/alastair/sample/pspdev/psp/lib  -L/home/alastair/sample/pspdev/psp/sdk/lib ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/home/alastair/sample/pspdev/bin/psp-g++]
+  ignore line: [COLLECT_LTO_WRAPPER=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper]
+  ignore line: [Target: psp]
+  ignore line: [Configured with: ../configure --quiet --prefix=/home/runner/work/pspdev/pspdev/pspdev --target=psp --enable-languages=c c++ --with-float=hard --with-newlib --disable-libssp --disable-multilib --enable-cxx-flags=-G0 --enable-threads=posix --silent]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../libexec/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/bin/]
+  ignore line: [LIBRARY_PATH=/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/:/home/alastair/sample/pspdev/bin/../lib/gcc/:/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-I' '/home/alastair/sample/pspdev/psp/include' '-I' '/home/alastair/sample/pspdev/psp/sdk/include' '-D' 'PSP' '-O2' '-G' '0' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-v' '-o' 'cmTC_b2998' '-L/home/alastair/sample/pspdev/lib' '-L/home/alastair/sample/pspdev/psp/lib' '-L/home/alastair/sample/pspdev/psp/sdk/lib' '-mhard-float' '-msingle-float' '-dumpdir' 'cmTC_b2998.']
+  link line: [ /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2 -plugin /home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so -plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccZPhxU4.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lpthreadglue -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lcglue -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lpsputility -plugin-opt=-pass-through=-lpsprtc -plugin-opt=-pass-through=-lpspnet_inet -plugin-opt=-pass-through=-lpspnet_resolver -plugin-opt=-pass-through=-lpspsdk -plugin-opt=-pass-through=-lpspmodinfo -plugin-opt=-pass-through=-lpspuser -plugin-opt=-pass-through=-lpspkernel -plugin-opt=-pass-through=-lgcc -EL -G 0 -o cmTC_b2998 /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0 -L/home/alastair/sample/pspdev/bin/../lib/gcc -L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib -zmax-page-size=128 CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lm --start-group -lpthreadglue -lpthread -lcglue -lc --end-group -lpsputility -lpsprtc -lpspnet_inet -lpspnet_resolver -lpspsdk -lpspmodinfo -lpspuser -lpspkernel -lgcc /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o /home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o]
+    arg [/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/home/alastair/sample/pspdev/bin/../libexec/gcc/psp/11.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccZPhxU4.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lm] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpthreadglue] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+    arg [-plugin-opt=-pass-through=-lcglue] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpsputility] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpsprtc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspnet_inet] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspnet_resolver] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspsdk] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspmodinfo] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspuser] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpspkernel] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-EL] ==> ignore
+    arg [-G] ==> ignore
+    arg [0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_b2998] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib/crt0.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crti.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtbegin.o] ==> ignore
+    arg [-L/home/alastair/sample/pspdev/lib] ==> dir [/home/alastair/sample/pspdev/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/lib] ==> dir [/home/alastair/sample/pspdev/psp/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/sdk/lib] ==> dir [/home/alastair/sample/pspdev/psp/sdk/lib]
+    arg [-L/home/alastair/sample/pspdev/lib] ==> dir [/home/alastair/sample/pspdev/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/lib] ==> dir [/home/alastair/sample/pspdev/psp/lib]
+    arg [-L/home/alastair/sample/pspdev/psp/sdk/lib] ==> dir [/home/alastair/sample/pspdev/psp/sdk/lib]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc]
+    arg [-L/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib] ==> dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib]
+    arg [-zmax-page-size=128] ==> ignore
+    arg [CMakeFiles/cmTC_b2998.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lm] ==> lib [m]
+    arg [--start-group] ==> ignore
+    arg [-lpthreadglue] ==> lib [pthreadglue]
+    arg [-lpthread] ==> lib [pthread]
+    arg [-lcglue] ==> lib [cglue]
+    arg [-lc] ==> lib [c]
+    arg [--end-group] ==> ignore
+    arg [-lpsputility] ==> lib [psputility]
+    arg [-lpsprtc] ==> lib [psprtc]
+    arg [-lpspnet_inet] ==> lib [pspnet_inet]
+    arg [-lpspnet_resolver] ==> lib [pspnet_resolver]
+    arg [-lpspsdk] ==> lib [pspsdk]
+    arg [-lpspmodinfo] ==> lib [pspmodinfo]
+    arg [-lpspuser] ==> lib [pspuser]
+    arg [-lpspkernel] ==> lib [pspkernel]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtend.o] ==> ignore
+    arg [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/crtn.o] ==> ignore
+  collapse library dir [/home/alastair/sample/pspdev/lib] ==> [/home/alastair/sample/pspdev/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/sdk/lib] ==> [/home/alastair/sample/pspdev/psp/sdk/lib]
+  collapse library dir [/home/alastair/sample/pspdev/lib] ==> [/home/alastair/sample/pspdev/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  collapse library dir [/home/alastair/sample/pspdev/psp/sdk/lib] ==> [/home/alastair/sample/pspdev/psp/sdk/lib]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0] ==> [/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc] ==> [/home/alastair/sample/pspdev/lib/gcc]
+  collapse library dir [/home/alastair/sample/pspdev/bin/../lib/gcc/psp/11.2.0/../../../../psp/lib] ==> [/home/alastair/sample/pspdev/psp/lib]
+  implicit libs: [stdc++;m;gcc;m;pthreadglue;pthread;cglue;c;psputility;psprtc;pspnet_inet;pspnet_resolver;pspsdk;pspmodinfo;pspuser;pspkernel;gcc]
+  implicit dirs: [/home/alastair/sample/pspdev/lib;/home/alastair/sample/pspdev/psp/lib;/home/alastair/sample/pspdev/psp/sdk/lib;/home/alastair/sample/pspdev/lib/gcc/psp/11.2.0;/home/alastair/sample/pspdev/lib/gcc]
+  implicit fwks: []
+
+

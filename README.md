@@ -100,3 +100,8 @@ and graphics-compliant edge-case app and game packages for the PSP3000, MIPS32 a
 Also included are some python examples for Stackless Python 2.5 for PSP (with limited hardware support).
 
 ![sprites](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/sprites.png)
+
+With help from the pspdev maintainers, I have built some libgu samples in the hope \
+that they will be useful for adding shader program support for the WebGU/WebGL bindings.
+
+![gucube](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/gucube.png)

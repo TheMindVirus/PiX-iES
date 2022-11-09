@@ -1,0 +1,3 @@
+/home/alastair/sample/shape/build/CMakeFiles/rebuild_cache.dir
+/home/alastair/sample/shape/build/CMakeFiles/edit_cache.dir
+/home/alastair/sample/shape/build/CMakeFiles/shape.dir

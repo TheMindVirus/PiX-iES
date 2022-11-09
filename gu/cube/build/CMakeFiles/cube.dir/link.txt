@@ -1,0 +1,1 @@
+/home/alastair/sample/pspdev/bin/psp-gcc -I/home/alastair/sample/pspdev/psp/include -I/home/alastair/sample/pspdev/psp/sdk/include -DPSP -O2 -G0  -L/home/alastair/sample/pspdev/lib -L/home/alastair/sample/pspdev/psp/lib -L/home/alastair/sample/pspdev/psp/sdk/lib -Wl,-zmax-page-size=128 CMakeFiles/cube.dir/main.c.obj ../logo.o  -o cube  -lpspgu -lpspgum -lpspge -lpspdisplay 
