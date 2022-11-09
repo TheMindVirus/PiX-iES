@@ -15,12 +15,17 @@ that writes to the framebuffer but is invisible without any included working sys
 
 ![mips](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/mips.png)
 
+The missing syscalls can be viewed while looking at the disassembly of an emulated \
+stackless python program. There are some MIPS instructions prior to load the v and a registers.
+
+![syscall](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/syscall.png)
+
 Many Thanks goes to everyone that has made this a reality and hopefully soon to be streamlined!
 Next step, Windows on PSP with MIPS64...that...might take some doing...
 
 ![PSOD](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/PSOD.png)
 
-More screenshots available at: https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots
+More screenshots available at: https://github.com/TheMindVirus/PiX-iES/blob/pspdev-nw/screenshots \
 <i>and a lot more reduction work to do...</i>
 
 # Dev Log
