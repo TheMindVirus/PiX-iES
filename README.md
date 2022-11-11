@@ -105,3 +105,31 @@ With help from the pspdev maintainers, I have built some libgu samples in the ho
 that they will be useful for adding shader program support for the WebGU/WebGL bindings.
 
 ![gucube](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/gucube.png)
+
+...and there was light. In only 8 (or actually fewer) syscalls! \
+The compiler seems to be mangling syscalls and turning them into other things.
+
+![pspframebuf](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/pspframebuf.png)
+
+Traditionally, the MIPS system call requires you to load the $v0 register \
+to select which operation you want to do. In this case, it gets encoded in hex.
+
+![disasm](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/disasm.png)
+
+To complicate things further, the specification of these instructions in inline assembly \
+has been made so that you have to specify raw bytecode in chunks and in reverse.
+
+Please see the following updates to main.c:
+```c
+int PSP_DISPLAY_SET_MODE(int mode, int width, int height)
+{
+    asm("nop; nop; nop; .byte 0x0C, 0x00, 0x38, 0x00; nop; nop; nop;");
+    //asm(".byte 0x0C, 0x00, 0x38, 0x00"); //nop not actually required...
+}
+
+int PSP_DISPLAY_SET_FBUF(void* topaddr, int bufferwidth, int pixelformat, int sync)
+{
+    asm("nop; nop; nop; .byte 0x4C, 0x00, 0x38, 0x00; nop; nop; nop;");
+    asm(".byte 0x4C, 0x00, 0x38, 0x00;"); //...but makes it easier to read
+}
+```
