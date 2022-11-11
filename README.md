@@ -101,11 +101,6 @@ Also included are some python examples for Stackless Python 2.5 for PSP (with li
 
 ![sprites](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/sprites.png)
 
-With help from the pspdev maintainers, I have built some libgu samples in the hope \
-that they will be useful for adding shader program support for the WebGU/WebGL bindings.
-
-![gucube](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/gucube.png)
-
 ...and there was light. In only 8 (or actually fewer) syscalls! \
 The compiler seems to be mangling syscalls and turning them into other things.
 
@@ -133,3 +128,8 @@ int PSP_DISPLAY_SET_FBUF(void* topaddr, int bufferwidth, int pixelformat, int sy
     asm(".byte 0x4C, 0x00, 0x38, 0x00;"); //...but makes it easier to read
 }
 ```
+
+With help from the pspdev maintainers, I have built some libgu samples in the hope \
+that they will be useful for adding shader program support for the WebGU/WebGL bindings.
+
+![gucube](https://github.com/TheMindVirus/PiX-iES/blob/pspdev/screenshots/gucube.png)
