@@ -119,13 +119,13 @@ Please see the following updates to main.c:
 int PSP_DISPLAY_SET_MODE(int mode, int width, int height)
 {
     asm("nop; nop; nop; .byte 0x0C, 0x00, 0x38, 0x00; nop; nop; nop;");
-    //asm(".byte 0x0C, 0x00, 0x38, 0x00"); //nop not actually required...
+    //asm(".byte 0x0C, 0x00, 0x38, 0x00;"); //nop not actually required...
 }
 
 int PSP_DISPLAY_SET_FBUF(void* topaddr, int bufferwidth, int pixelformat, int sync)
 {
     asm("nop; nop; nop; .byte 0x4C, 0x00, 0x38, 0x00; nop; nop; nop;");
-    asm(".byte 0x4C, 0x00, 0x38, 0x00;"); //...but makes it easier to read
+    //asm(".byte 0x4C, 0x00, 0x38, 0x00;"); //...but makes it easier to read
 }
 ```
 
