@@ -1,6 +1,8 @@
-@ECHO ON
+@echo on
 
-REM No Comment.
-DEL kernel8.elf *.O *.img *.iES
+rem ...and this one...
+call ".\env.bat"
 
-PAUSE
+del ".\%BUILD%\*.o" ".\%BUILD%\*.elf" ".\%BUILD%\*.img" ".\%BUILD%\*.iES"
+
+pause

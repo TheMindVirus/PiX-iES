@@ -1,0 +1,16 @@
+[INFO]: Searching for b'l' in b'Hello World'...
+0100100001110111101011000110110001101111001000000101011101101111011100100110110001100100
+b'Hw\xaclo World'
+48 77 AC 6C 6F 20 57 6F 72 6C 64 
+0000000001100101011011000110110001101111001000000101011101101111011100100110110001100100
+b'\x00ello World'
+00 65 6C 6C 6F 20 57 6F 72 6C 64 
+0110100101100101011011000110110001101111001000000101011101101111011100100110110001100100
+b'iello World'
+69 65 6C 6C 6F 20 57 6F 72 6C 64 
+[INFO]: Searching for b'PiX' in ../build/PiX.iES...
+{'location': 31240, 'address': '0xf41', 'shift': 0, 'backwards': False, 'endian': 'big'}
+{'location': 416, 'address': '0x34', 'shift': 0, 'backwards': True, 'endian': 'big'}
+{'location': 416, 'address': '0x34', 'shift': 0, 'backwards': False, 'endian': 'little'}
+{'location': 31240, 'address': '0xf41', 'shift': 0, 'backwards': True, 'endian': 'little'}
+[INFO]: Done!

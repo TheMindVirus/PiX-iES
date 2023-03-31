@@ -1,14 +1,13 @@
-@ECHO ON
+@echo on
 
-REM No Comment.
-SET PATH=%PATH%;%CD%\XCOMPILER-WIN32\bin
-SET FLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+rem No Comment. Except Maybe This One.
+call ".\env.bat"
 
-aarch64-none-elf-gcc %FLAGS% -c BOOT.S -o BOOT.O
-aarch64-none-elf-gcc %FLAGS% -c PiX.C -o PiX.O
-aarch64-none-elf-gcc %FLAGS% -c iES.C -o iES.O
-aarch64-none-elf-ld -nostdlib -nostartfiles BOOT.O iES.O PiX.O -T LINK.LD -o kernel8.elf
-aarch64-none-elf-objcopy -O binary kernel8.elf PiX.img
-copy PiX.img PiX.iES
+%PREFIX%-gcc %FLAGS% -c ".\boot.S" -o ".\%BUILD%\BOOT.o"
+%PREFIX%-gcc %FLAGS% -c ".\PiX.c" -o ".\%BUILD%\PiX.o"
+%PREFIX%-gcc %FLAGS% -c ".\iES.c" -o ".\%BUILD%\iES.o"
+%PREFIX%-ld -nostdlib -nostartfiles ".\%BUILD%\boot.o" ".\%BUILD%\iES.o" ".\%BUILD%\PiX.o" -T ".\link.ld" -o ".\%BUILD%\PiX.elf"
+%PREFIX%-objcopy -O binary ".\%BUILD%\PiX.elf" ".\%BUILD%\PiX.img"
+copy ".\%BUILD%\PiX.img" ".\%BUILD%\PiX.iES"
 
-PAUSE
+pause

@@ -1,0 +1,29 @@
+alloc, load, noload, readonly, debug, code, data, rom, exclude, share, contents, merge, strings
+ALLOC, LOAD, NOLOAD, READONLY, DEBUG, CODE, DATA, ROM, EXCLUDE, SHARE, CONTENTS, MERGE, STRINGS
+
+60000060 - Code [CODE] (CONTENTS, ALLOC, LOAD, READONLY, CODE, DATA) {Execute Read}
+C0000040 - Initialized Data [DATA] (CONTENTS, ALLOC, LOAD, DATA) {Read Write}
+40000040 - Initialized Data [DATA] (CONTENTS, ALLOC, LOAD, READONLY, DATA) {Read Only}
+C0000080 - Uninitialized Data [ALLOC] (ALLOC) {Read Write}
+C0000000 - Contents [CONTENTS] (CONTENTS) {Read Write}
+42000040 - Initialised Discardable [DATA] (CONTENTS, ALLOC, LOAD, READONLY, DATA) {Read Only}
+42000040 - Debugging [DEBUG] (CONTENTS, READONLY, DEBUGGING) {Read Only}
+C2000000 - Discardable [EXCLUDE] (CONTENTS)
+
+[ALLOC]: CONTENTS, ALLOC (C0000080)
+[LOAD]: CONTENTS (C0000000)
+[NOLOAD]: CONTENTS (C2000000)
+[READONLY]: CONTENTS, READONLY (40000000)
+[DEBUG]: CONTENTS, ALLOC, LOAD, DATA (C2000040)
+[CODE]: CONTENTS, ALLOC, LOAD, CODE (E0000020) {Execute Read Write}
+[DATA]: CONTENTS, ALLOC, LOAD, DATA (C0000040)
+[ROM]: CONTENTS (C0000000)
+[EXCLUDE]: CONTENTS (C2000000)
+[SHARE]: CONTENTS, SHARED (D0000000) {Shared}
+[CONTENTS]: CONTENTS (C0000000)
+[MERGE]: CONTENTS (C0000000)
+[STRINGS]: CONTENTS (C0000000)
+
+objcopy --set-section-flags .ussr=exclude test.exe
+objdump -h test.exe
+.\dumpbin\dumpbin /headers test.exe

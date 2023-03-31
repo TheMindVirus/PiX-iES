@@ -1,0 +1,50 @@
+The following options are not documented:
+  --completion=               		
+  --preprocess                		-E
+  -E                          		[disabled]
+  -Wc++0x-compat              		-Wc++11-compat
+  -Wc++1z-compat              		-Wc++17-compat
+  -Wc++2a-compat              		-Wc++20-compat
+  -Wimport                    		[ignored]
+  -Wlarger-than-              		
+  -Wpsabi                     		[enabled]
+  -Wshadow-compatible-local   		-Wshadow=compatible-local
+  -Wshadow-local              		-Wshadow=local
+  -cpp=                       		
+  -fallow-leading-underscore  		[available in Fortran]
+  -fbuilding-libgcc           		[disabled]
+  -fbuilding-libphobos-tests  		[available in D]
+  -fbuiltin-printf            		[disabled]
+  -fcilkplus                  		[ignored]
+  -fgnat-encodings=[all|gdb|minimal] 	gdb
+  -fkeep-gc-roots-live        		[disabled]
+  -fmodule-header=            		
+  -fno-modules                		[available in C++, ObjC++]
+  -fpre-include=              		[available in Fortran]
+  -fself-test=                		
+  -ftemplate-depth-           		
+  -funroll-completely-grow-size 	[disabled]
+  -fuse-linker-plugin         		[disabled]
+  -gant                       		
+  -gno-                       		
+  -lang-asm                   		
+  -mcet-switch                		[disabled]
+  -mcpu=                      		
+  -mfused-madd                		-ffp-contract=fast
+  -mintel-syntax              		-masm=intel
+  -mno-align-stringops        		[disabled]
+  -mno-fancy-math-387         		[disabled]
+  -mno-push-args              		[disabled]
+  -mno-red-zone               		[disabled]
+  -msse5                      		-mavx
+  -std=c++0x                  		-std=c++11
+  -std=c++1y                  		-std=c++14
+  -std=c++1z                  		-std=c++17
+  -std=c++23                  		[disabled]
+  -std=c++2a                  		-std=c++20
+  -std=gnu++0x                		-std=gnu++11
+  -std=gnu++1y                		-std=gnu++14
+  -std=gnu++1z                		-std=gnu++17
+  -std=gnu++23                		[disabled]
+  -std=gnu++2a                		-std=gnu++20
+

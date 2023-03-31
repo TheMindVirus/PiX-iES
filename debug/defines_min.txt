@@ -1,0 +1,27 @@
+#define mmio_write(address,value) (REFER(POINTER)address = value)
+#define mbox_peek() (mmio_read(Platform.MBOX_STATUS))
+#define MAX_SIZE 1500
+#define PIX_H 
+#define __STDC_HOSTED__ 1
+#define __STDC_UTF_16__ 1
+#define mbox_write(addrech) (mmio_write(Platform.MBOX_WRITE, addrech))
+#define gpio_clear(pin) (gpio_setup(pin, 1, Platform.GPCLR0, 1))
+#define uart_peek() ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x01) > 0)
+#define uart_idle() ((mmio_read(Platform.AUX_MU_LSR_REG) & 0x40) > 0)
+#define REFER *
+#define gpio_pull(pin,pull) (gpio_setup(pin, pull, Platform.GPPUPPDN0, 2))
+#define __STDC_VERSION__ 201710L
+#define PACK(ALIGNMENT) __attribute__((aligned(ALIGNMENT)))
+#define sleep() { for (ADDRESS i = 0; i < 0xFFFFFFF; ++i) { int a = 0; a = a; } }
+#define drawPixel_ARM64(x,y,colour) mmio_write((Platform.MONITOR_FRAMEBUFFER + (y * Platform.MONITOR_PITCH_SPACE) + (x * 4)), colour);
+#define gpio_set(pin) (gpio_setup(pin, 1, Platform.GPSET0, 1))
+#define mbox_read() (mmio_read(Platform.MBOX_READ))
+#define drawPixel2_ARM64(x,y,colour) mmio_write((Platform.MONITOR_FRAMEBUFFER2 + (y * Platform.MONITOR_PITCH_SPACE2) + (x * 4)), colour);
+#define uart_write(message) (uart_write_buffer((BUFFER)message))
+#define __STDC_UTF_32__ 1
+#define gpio_alt(pin,alt) (gpio_setup(pin, alt, Platform.GPFSEL0, 3))
+#define IES_H 
+#define __STDC__ 1
+#define uart_read_byte() (mmio_read(Platform.AUX_MU_IO_REG) & 0xFF)
+#define STATIC static
+#define mmio_read(address) (REFER(POINTER)address)
