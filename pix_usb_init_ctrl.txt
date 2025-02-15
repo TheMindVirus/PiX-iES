@@ -1,0 +1,153 @@
+//https://github.com/librerpi/rpi-open-firmware/blob/master/firmware/drivers/BCM2708UsbPhy.cc
+
+/*
+ADDRESS PERI_BASE = -1x????????y????????z; //???
+ADDRESS USB_BASE = PERI_BASE + 0x980000; //???
+ADDRESS USB_MDIO_CSR = USB_BASE + 0x80; //???
+ADDRESS USB_MDIO_GEN = USB_BASE + 0x84; //???
+ADDRESS USB_VBUS_DRV = USB_BASE + 0x88; //???
+
+ADDRESS USB_BASE_WR = 0x50020000; //???
+ADDRESS USB_BASE_RD = 0x60020000; //???
+ADDRESS USB_MASK_RD = 0x000FFFFF; //???
+
+ADDRESS USB_FLAG_CFG = 0x7E98000C; //???
+ADDRESS USB_FLAG_CSR = 0x7E980080; //???
+ADDRESS USB_FLAG_GEN = 0x7E980084; //???
+ADDRESS USB_FLAG_DRV = 0x7E980088; //???
+
+ADDRESS USB_XOSC_CTRL = 0x7E102190; //???
+ADDRESS USB_XCLK_CTRL = 0x7E101144; //???
+
+ADDRESS USB_HCFG_CFG = 0x7E980400; //???
+ADDRESS USB_HCFG_OFF = USB_HCFG_CFG + 0x0C0C; //???
+ADDRESS USB_HCFG_FIR = USB_HCFG_CFG + 0x04; //???
+
+VALUE USB_VBUS_DRV_SESSEND = (1 << 0);
+VALUE USB_VBUS_DRV_VBUSVALID = (1 << 1);
+VALUE USB_VBUS_DRV_BVALID = (1 << 2);
+VALUE USB_VBUS_DRV_AVALID = (1 << 3);
+VALUE USB_VBUS_DRV_DRVVBUS = (1 << 4);
+VALUE USB_VBUS_DRV_CHRGVBUS = (1 << 5);
+VALUE USB_VBUS_DRV_DISCHRGVBUS = (1 << 6);
+
+VALUE USB_MASK_REG = 0x1F;
+VALUE USB_MASK_GEN = 0xFFFFFFFF;
+VALUE USB_MASK_CSR = 0xFFFFF;
+VALUE USB_MASK_FIR = 0xBB80;
+VALUE USB_MASK_DRV = 0xFFF0FFFF;
+VALUE USB_MASK_BUS = 0xD0000;
+VALUE USB_MASK_DEV = 0x40402700;
+VALUE USB_MASK_CFG = 0x20402700;
+
+VALUE USB_FLAG_BUSY = (1 << 31);
+VALUE USB_FLAG_MDIO = (1 << 18);
+
+VALUE USB_XOSC_PWD = 0x5A000000;
+VALUE USB_XOSC_SET = 0x04;
+VALUE USB_XOSC_RDY = 0x4000;
+VALUE USB_XCLK_PWD = 0x5A000000;
+VALUE USB_XCLK_SET = 0x0800;
+VALUE USB_XCLK_RDY = 0x1F; //31; //PIN_LAN_RUN;
+
+STRING USB_XSTR_RESET = "USB_LAN_RESET";
+STRING USB_XSTR_START = "USB_LAN_START";
+
+void usb_wait(ADDRESS address = USB_FLAG_CSR, VALUE flag = USB_FLAG_BUSY, VALUE invert = 0, VALUE flip = 0)
+{
+    if (!flip)
+    {
+        while ((invert) ? (mmio_read(address) & flag) : (!(mmio_read(address) & flag)));
+    }
+    else
+    {
+        while ((invert) ? (usb_read(address) & flag) : (!(usb_read(address) & flag)));
+    }
+}
+
+void usb_init(VALUE mode = 0)
+{
+    VALUE ctrl = 0;
+
+    ctrl = mmio_read(USB_XOSC_CTRL);
+    ctrl |= USB_XOSC_PWD;
+    ctrl |= USB_XOSC_SET;
+    mmio_write(USB_XOSC_CTRL, ctrl);
+
+    usb_wait(USB_XOSC_CTRL, USB_XOSC_RDY, 1);
+
+    ctrl = mmio_read(USB_XCLK_CTRL);
+    ctrl |= USB_XCLK_PWD;
+    ctrl |= USB_XCLK_SET;
+    mmio_write(USB_XCLK_CTRL, ctrl);
+
+    //gpio_mode(USB_XCLK_RDY, OUTPUT);
+
+    //core_sleep_us(300);
+    gpio_write(USB_XCLK_RDY, GPIO_OFF);
+    //core_sleep_us(300);
+    gpio_write(USB_XCLK_RDY, GPIO_ON);
+    //core_sleep_us(300);
+
+    //uart_write(USB_XSTR_RESET);
+    mmio_write(USB_FLAG_CSR, USB_FLAG_MDIO);
+
+    usb_write(0x15, (mode) ? 0x1111 : 0x110);
+    usb_write(0x19, 0x04);
+    usb_write(0x18, (mode) ? 0x342 : 0x10);
+    usb_write(0x1D, 0x04);
+    usb_write(0x17, 0x1632);
+
+    usb_wait(0x1B, (1 << 7), 0, 1);
+
+    ctrl = mmio_read(USB_FLAG_DRV);
+    ctrl &= ~(1 << 7);
+    mmio_write(USB_FLAG_DRV, ctrl);
+
+    usb_write(0x1E, 0x8000);
+    usb_write(0x1D, 0x5000);
+    usb_write(0x19, 0xC004);
+    usb_write(0x20, 0x1C2F);
+    usb_write(0x22, 0x0100);
+    usb_write(0x24, 0x0010);
+    usb_write(0x19, 0x0004);
+
+    ctrl = mmio_read(USB_FLAG_DRV);
+    ctrl &= USB_MASK_DRV;
+    ctrl |= USB_MASK_BUS;
+    //core_sleep_us(300);
+
+    if (mode)
+    {
+        mmio_write(USB_FLAG_CFG, USB_MASK_DEV);
+    }
+    else
+    {
+        mmio_write(USB_HCFG_OFF, USB_MASK_CFG);
+        //core_sleep_us(300);
+        mmio_write(USB_HCFG_CFG, 1);
+        //core_sleep_us(300);
+        mmio_write(USB_HCFG_FIR, USB_MASK_FIR);
+        //core_sleep_us(300);
+    }
+
+    //uart_write(USB_XSTR_START);
+}
+
+void usb_write(ADDRESS address, ADDRESS value, ADDRESS type = USB_BASE_WR)
+{
+    address &= USB_MASK_REG;
+    mmio_write(USB_FLAG_GEN, USB_MASK_GEN);
+    usb_wait();
+    mmio_write(USB_FLAG_GEN, type | (address << 18) | value);
+    usb_wait();
+    mmio_write(USB_FLAG_GEN, 0);
+    usb_wait();
+}
+
+ADDRESS usb_read(ADDRESS address)
+{
+    usb_write(address, 0, USB_BASE_RD);
+    return mmio_read(USB_MDIO_CSR) & USB_MASK_CSR;
+}
+*/
